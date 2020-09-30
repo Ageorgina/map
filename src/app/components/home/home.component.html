@@ -1,42 +1,38 @@
-<div class="row">
-    <app-navbar class="nav"></app-navbar>
-    <div class="grafica">
-        <div class="grafic"><img src="./assets/images/Coahuila-12.png" width="80%"></div>
-        <div class="lista">
-            <p *ngFor="let emocion of emociones"> {{emocion.nombre}} <br> {{emocion.dato | percent}}</p>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ex">
+    <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <app-sidebar class="side nav col-xs-12 col-sm-12 col-md-2 col-lg-2"></app-sidebar>
+        <div class="grafica col-xs-12 col-sm-12 col-md-2 col-lg-2">
+            <div id="containerEmotionsChart"></div>
         </div>
-    </div>
-    <div class="mapa">
-        <!-- <div>
-            <div class="mapMX" id="mexico" style="height: 600px; min-width: 310px; max-width: 1000px; margin: 0 auto"></div>
-            <div class="grafica" id="container2" style="height: 100px; min-width: 310px; max-width: 1000px; margin: 0 auto">
+        <div class="mapa col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div>
+                Mapa
             </div>
-        </div> -->
-        <div class="mapas">
-            <div class="card">
-                <p class="down">Padrón 1,827,129 Nominal 1,821,124 </p>
-                <hr>
-                <p class="down"><b>Preocupaciones:</b>
-                    <br> Violencia
-                    <br> Sequía
-                    <br> Corrupción
-                    <br> Ley Protección Animal
-                    <br> Todos por Saltillo
-                    <br> Echado pa´delante
-                </p>
+            <div class="mapas">
+                <div class="card">
+                    <p class="down">Padrón 1,827,129 Nominal 1,821,124 </p>
+                    <hr>
+                    <p class="down"><b>Preocupaciones:</b>
+                        <br> Violencia
+                        <br> Sequía
+                        <br> Corrupción
+                        <br> Ley Protección Animal
+                        <br> Todos por Saltillo
+                        <br> Echado pa´delante
+                    </p>
+                </div>
             </div>
         </div>
+        <div class="informacion">
+            <p>Base: <br> {{ejemplo?.base}}</p>
+            <p class="distritos" *ngFor="let distrito of distritos"> {{distrito?.nombre}}</p>
+            <p>Indecisos <br> {{ejemplo?.indecisos}}</p>
+            <p>Arrepentidos <br> {{ejemplo?.arrependidos}} </p>
+            <p>Pro Oposición <br> {{ejemplo?.pro_Oposicion}}</p>
+            <p>Audiencia Digital <br>{{ejemplo?.audiencia_Digital}}</p>
+            <p class="coahuila">Competencia: <br> {{ejemplo?.competencia}}</p>
+            <p class="coahuila">Afiliados: <br> {{ejemplo?.afiliados}}</p>
+            <p class="coahuila">ActivosDigitales: <br> {{ejemplo?.activos_Digitales}}</p>
+            <p class="coahuila">Tracking: <br> {{ejemplo?.tracking}}</p>
+        </div>
     </div>
-    <div class="informacion">
-        <p>Base: <br> {{ejemplo?.base}}</p>
-        <p class="distritos" *ngFor="let distrito of distritos"> {{distrito?.nombre}}</p>
-        <p>Indecisos <br> {{ejemplo?.indecisos}}</p>
-        <p>Arrepentidos <br> {{ejemplo?.arrependidos}} </p>
-        <p>Pro Oposición <br> {{ejemplo?.pro_Oposicion}}</p>
-        <p>Audiencia Digital <br>{{ejemplo?.audiencia_Digital}}</p>
-        <p class="coahuila">Competencia: <br> {{ejemplo?.competencia}}</p>
-        <p class="coahuila">Afiliados: <br> {{ejemplo?.afiliados}}</p>
-        <p class="coahuila">ActivosDigitales: <br> {{ejemplo?.activos_Digitales}}</p>
-        <p class="coahuila">Tracking: <br> {{ejemplo?.tracking}}</p>
-    </div>
-</div>

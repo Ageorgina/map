@@ -29,14 +29,35 @@ export class DistritosComponent implements OnInit {
 
     this.menuSrv.getEmociones().toPromise().then( emociones =>  {
       this.emociones = emociones;
+      this.options.series[0].data[0] = {
+        name: this.emociones[0]['nombre'],
+        y: this.emociones[0]['dato_c']
+      }
+      this.options.series[0].data[1] = {
+        name: this.emociones[1]['nombre'],
+        y: this.emociones[1]['dato_c']
+      }
+      this.options.series[0].data[2] = {
+        name: this.emociones[2]['nombre'],
+        y: this.emociones[2]['dato_c']
+      }
+      this.options.series[0].data[3] = {
+        name: this.emociones[3]['nombre'],
+        y: this.emociones[3]['dato_c']
+      }
+      this.options.series[0].data[4] = {
+        name: this.emociones[4]['nombre'],
+        y: this.emociones[4]['dato_c']
+      }
+
     }).finally(() => this.inicializarChart());
   }
 
 
  options: any = {
-    chart: { type: 'pie' },
-    title: { text: 'Emociones' },
-    subtitle: { text: this.people + ' Coahuilenses' },
+    chart: { type: 'pie', backgroundColor: '#3F3F3F' },
+    title: { text: 'Emociones', style: {color: '#FFFFFF'} },
+    subtitle: { text: this.people + ' Coahuilenses', style: {color: '#FFFFFF'} },
     tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>' },
     accessibility: {
       point: {valueSuffix: '%'}
@@ -56,28 +77,7 @@ export class DistritosComponent implements OnInit {
   series: [{
       name: 'Porcentaje',
       colorByPoint: true,
-      data: [{
-        //name: this.emociones[0]['nombre'],
-        //y:  this.emociones[0].dato 
-      } , 
-        {
-              // name: this.emociones[1].nombre,
-              // y: this.emociones[1].dato
-          }, {
-              // name: this.emociones[2].nombre,
-              // y: this.emociones[2].dato
-          }, {
-              // name: this.emociones[3].nombre,
-              // y: this.emociones[3].dato
-          }, {
-              // name: this.emociones[4].nombre,
-              // y: this.emociones[4].dato
-          }, {
-              // name: this.emociones[5].nombre,
-              // y: this.emociones[5].dato
-          }
-
-      ],
+      data: [{} , {}, {}, {}, {}],
       dataLabels: {
           enabled: false,
           inside: true,
@@ -88,21 +88,25 @@ export class DistritosComponent implements OnInit {
       layout: 'vertical',
       floating: false,
       align: 'center',
+      
       verticalAlign: 'bottom',
       labelFormatter: function() {
           return this.name + '<br>' + this.y + '%';
-      }
+      },
+      itemStyle:  {color: '#FFFFFF'},
   }
   }
 
   ngOnInit() {
+
   }
+  
+  inicializarChart() {
 
-
- inicializarChart() {
     Highcharts.setOptions({
-      colors: ['#fabc07', '#f88304', '#ed6706', '#d01f08', '#871a0a', '#4d0b08']
-  });
+      colors: ['#fabc07', '#f88304', '#ed6706', '#d01f08', '#871a0a', '#4d0b08'],
+    });
     Highcharts.chart('containerEmotionsChart', this.options);
   }
+
 }
