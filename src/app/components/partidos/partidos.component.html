@@ -1,0 +1,88 @@
+<div class="row">
+    <app-navbar class="nav"></app-navbar>
+
+    <div class="partidos">
+        <div class="up">
+            <div class="partido">
+                <div class="right">
+                    <p>Alcance Social <br> {{partido1?.alcance_Social | percent}}</p>
+                    <p>Impacto <br>{{partido1?.impacto | percent}}</p>
+                    <p>Influencia Social <br> {{partido1?.influencia}}</p>
+                </div>
+                <div class="logo">
+                    <div class="img">
+                        <img src="./assets/logos/Coahuila-05.png" width="50%">
+                    </div>
+                    <div>
+                        {{partido1?.nombre}}
+                    </div>
+                </div>
+            </div>
+            <div class="partido">
+                <div class="logo">
+                    <div class="img">
+                        <img src="./assets/logos/Coahuila-06.png" width="50%">
+                    </div>
+                    <div>
+                        {{partido2?.nombre}}
+                    </div>
+                </div>
+                <div>
+                    <p>Alcance Social <br> {{partido2?.alcance_Social | percent}}</p>
+                    <p>Impacto <br>{{partido2?.impacto | percent}}</p>
+                    <p>Influencia Social <br> {{partido2?.influencia}}</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="up">
+            <div class="partido">
+                <div class="right">
+                    <p>Alcance Social <br> {{partido3?.alcance_Social | percent}}</p>
+                    <p>Impacto <br>{{partido3?.impacto | percent}}</p>
+                    <p>Influencia Social <br> {{partido3?.influencia}}</p>
+                </div>
+                <div class="logo">
+                    <div class="img">
+                        <img src="./assets/logos/Coahuila-06.png" width="50%">
+                    </div>
+                    <div>
+                        {{partido3?.nombre}}
+                    </div>
+                </div>
+            </div>
+            <div class="partido">
+                <div class="logo">
+                    <div class="img">
+                        <img src="./assets/logos/Coahuila-04.png" width="50%">
+                    </div>
+                    <div>
+                        {{partido4?.nombre}}
+                    </div>
+                </div>
+                <div>
+                    <p>Alcance Social <br> {{partido4?.alcance_Social | percent}}</p>
+                    <p>Impacto <br>{{partido4?.impacto | percent}}</p>
+                    <p>Influencia Social <br> {{partido4?.influencia}}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="informacion">
+        <p>Base D XIV <br>{{ejemplo?.baseD}}</p>
+        <p>Indecisos <br> {{ejemplo?.indecisosD}}</p>
+        <p>Arrepentidos <br> {{ejemplo?.arrependidosD}} </p>
+        <p>Pro Oposición <br> {{ejemplo?.pro_OposicionD}}</p>
+        <p>Audiencia Digital <br> {{ejemplo?.audiencia_DigitalD}}</p>
+        <p> Mejor Horario
+            <br> {{ejemplo?.hombresD}}
+            <br> {{ejemplo?.mujeresD}} </p>
+        <p class="competencias">Competencia: <br> {{ejemplo?.competencia_c}}</p>
+        <p class="competencias">Afiliados: <br> {{ejemplo?.afiliados_c}}</p>
+        <p class="competencias">ActivosDigitales: <br> {{ejemplo?.activos_Digitales_c}}</p>
+        <p class="competencias">Tracking: <br> {{ejemplo?.tracking_c}}</p>
+        <p class="alianza">Alcance coalición: <br> {{ejemplo?.alcanceCoalicion}}</p>
+        <p class="alianza">Influencia: <br> {{ejemplo?.influencia}}</p>
+    </div>
+</div>

@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    background-color: #3F3F3F;
+    height: 100% !important;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 100% !important;
+}
+
+.card {
+    background-color: #FFFFFF;
+    width: 100%;
+    color: #606060;
+    -webkit-box-shadow: 0px 0px 7px 7px #000000;
+    -moz-box-shadow: 0px 0px 7px 7px#000000;
+    box-shadow: 0px 0px 7px 7px #000000;
+    font-weight: normal !important;
+}

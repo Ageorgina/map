@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta content="">
+		<title>Distritos Electorales Coahuila</title>
+
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	     
+    <style type="text/css">
+      #container {
+          height: 500px; 
+          min-width: 310px; 
+          max-width: 800px; 
+          margin: 0 auto; 
+      }
+      .loading {
+          margin-top: 10em;
+          text-align: center;
+          color: gray;
+      }
+    </style>
+	</head>
+	<body>
+		<div id="container"></div>
+
+		<script>
+      // Prepare random data
+var data = [
+["1",1],
+["2",2],
+["3",3],
+["4",4],
+["5",5],
+["6",6],
+["7",7],
+["8",8],
+["9",9],
+["10",10],
+["11",11],
+["12",12],
+["13",13],
+["14",14],
+["15",15],
+["16",16]
+
+];
+
+Highcharts.getJSON('https://s3.amazonaws.com/nullpointerexception.com/COA_DIS.json', function (geojson) {
+
+    // Initiate the chart
+    Highcharts.mapChart('container', {
+        chart: {
+            map: geojson
+        },
+
+        title: {
+            text: 'Distritos Electorales Coahuila'
+        },
+
+        mapNavigation: {
+            enabled: true,
+            buttonOptions: {
+                verticalAlign: 'bottom'
+            }
+        },
+
+        colorAxis: {
+            tickPixelInterval: 100
+        },
+
+        series: [{
+            data: data,
+            keys: ['DISTRITO_L', 'value'],
+            joinBy: 'DISTRITO_L',
+            name: 'Distrito:',
+            states: {
+                hover: {
+                    color: '#1F527B'
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                format: '{point.properties.DISTRITO_L}'
+            }
+        }]
+    });
+});
+		</script>
+	</body>
+</html>

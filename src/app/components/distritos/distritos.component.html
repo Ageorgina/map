@@ -1,0 +1,41 @@
+<div class="row">
+    <app-navbar class="nav"></app-navbar>
+    <div class="grafica">
+        <div class="grafic"><img src="./assets/images/Coahuila-12.png" width="80%"></div>
+        <div class="lista">
+            <p *ngFor="let emocion of emociones"> {{emocion.nombre}} <br> {{emocion.dato_c | percent}}</p>
+        </div>
+    </div>
+    <div class="mapa">
+        <div>
+            <div class="grafic"><img src="./assets/images/Coahuila-02.png" width="40%"></div>
+        </div>
+        <div class="mapas">
+            <div class="card">
+                <p class="nombre">Saltillo D XVI</p>
+                <br><b>Preocupaciones <br></b>
+                <br> Recuperación
+                <br> Económica
+                <br> Corrupción
+                <br> Brutalidad Policiaca
+                <br> Feminicidios
+                <br> Salud
+            </div>
+        </div>
+    </div>
+    <div class="informacion">
+        <p>Base: <br> {{ejemplo?.base_c}}</p>
+        <p class="distritos"> Saltillo</p>
+        <p>Indecisos <br> {{ejemplo?.indecisos_c}}</p>
+        <p>Arrepentidos <br> {{ejemplo?.arrependidos_c}} </p>
+        <p>Pro Oposición <br> {{ejemplo?.pro_Oposicion_c}}</p>
+        <p>Audiencia Digital <br>{{ejemplo?.audiencia_Digital_c}}</p>
+        <p> Mejor Horario:
+            <br> {{ejemplo?.hombres}}
+            <br> {{ejemplo?.mujeres}} </p>
+        <p class="competencias">Competencia: <br>{{ejemplo?.competencia_c}}</p>
+        <p class="competencias">Afiliados: <br>{{ejemplo?.afiliados_c}}</p>
+        <p class="competencias">ActivosDigitales: <br>{{ejemplo?.activos_Digitales_c}}</p>
+        <p class="competencias">Tracking: <br>{{ejemplo?.tracking_c}}</p>
+    </div>
+</div>
