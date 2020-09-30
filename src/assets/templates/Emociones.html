@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="">
+
+    <body style="background-color:#3a3939;">
+
+        <script>
+            var people = '452,812';
+
+            Highcharts.setOptions({
+                colors: ['#fabc07', '#f88304', '#ed6706', '#d01f08', '#871a0a', '#4d0b08']
+            });
+
+            Highcharts.chart('containerEmotionsChart', {
+                chart: {
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Emociones'
+                },
+                subtitle: {
+                    text: this.people + ' Coahuilenses'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: 100,
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+
+                    }
+
+                },
+                series: [{
+                    name: 'Porcentaje',
+                    colorByPoint: true,
+                    data: [{
+                            name: 'Miedo/ Salud',
+                            y: 36
+                        }, {
+                            name: 'Introspección',
+                            y: 24
+                        }, {
+                            name: 'Orgullo',
+                            y: 15
+                        }, {
+                            name: 'Asertividad',
+                            y: 10
+                        }, {
+                            name: 'Incertidumbre',
+                            y: 8
+                        }, {
+                            name: 'Decepción',
+                            y: 7
+                        }
+
+                    ],
+                    dataLabels: {
+                        enabled: false,
+                        inside: true,
+                        format: '{y} %'
+                    }
+                }],
+                legend: {
+                    layout: 'vertical',
+                    floating: false,
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    labelFormatter: function() {
+                        return this.name + '<br>' + this.y + '%';
+                    }
+                }
+            });
+        </script>
+    </body>
+
+</html>

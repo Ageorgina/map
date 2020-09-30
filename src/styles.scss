@@ -2,27 +2,70 @@
 
 body {
     background-color: #3F3F3F;
-    height: 100% !important;
     color: #FFFFFF;
     margin: 0;
     padding: 0;
-    width: 100% !important;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+app-sidebar {
+    display: flex;
+    flex-flow: column wrap;
+    // background-color: salmon;
+}
+
+app-navbar {
+    display: flex;
+    flex-flow: row wrap;
+    // background-color: seagreen;
 }
 
 .row {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
-    width: 100% !important;
+    justify-content: space-between !important;
+    // width: 100% !important;
 }
 
 .card {
     background-color: #FFFFFF;
-    width: 100%;
+    // width: 100%;
     color: #606060;
     -webkit-box-shadow: 0px 0px 7px 7px #000000;
     -moz-box-shadow: 0px 0px 7px 7px#000000;
     box-shadow: 0px 0px 7px 7px #000000;
     font-weight: normal !important;
 }
+
+@media only screen and (max-height: 570px) {
+    body {
+        // background-color: rosybrown;
+    }
+    app-sidebar,
+    .side {
+        width: 0;
+        height: 0;
+    }
+    app-navbar,
+    .nav {
+        width: 0;
+        height: 0;
+    }
+}
+
+@media only screen and (min-height: 590px) {
+    app-navbar,
+    .nav {
+        width: 0;
+        height: 0;
+    }
+}
+
+// grafica{
+// color : #E4B830;
+// color : #D38E33;
+// color : #C15633;
+// color : #BA3032;
+// color : #9A292C;
+// color : #75221D;
+// }

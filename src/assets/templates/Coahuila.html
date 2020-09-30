@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coahuila</title>
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/mapdata/countries/mx/mx-all.js"></script>
+
+    <div class="mapMX" id="container" style="height: 600px; min-width: 310px; max-width: 1000px; margin: 0 auto"></div>
+    </div>
+
+
+</head>
+
+<body>
+    <script>
+
+        var datosSecciones = []
+        var headers = []
+                            // Prepare random data
+                            var datas = [
+                                /**    ["1", 1],
+                                    ["2", 2],
+                                    ["3", 3],
+                                    ["4", 4],
+                                    ["5", 5],
+                                    ["6", 6],
+                                    ["7", 7],
+                                    ["8", 8],
+                                    ["9", 9],
+                                    ["10", 10],
+                                    ["11", 11],
+                                    ["12", 12],
+                                    ["13", 13],
+                                    ["14", 14],
+                                    ["15", 15],
+                                    ["16", 16]**/
+                                ["16", 16]
+                            ];
+
+
+                            Highcharts.getJSON('https://s3.amazonaws.com/nullpointerexception.com/COA_DIS.json', function (geojson) {
+                                // Coahuila
+                                Highcharts.mapChart('container', {
+                                    chart: {
+                                        map: geojson
+                                    },
+                                    title: {
+                                        text: 'Distritos Electorales Coahuila'
+                                    },
+                                    mapNavigation: {
+                                        enabled: true,
+                                        buttonOptions: {
+                                            verticalAlign: 'bottom'
+                                        }
+                                    },
+
+                                    colorAxis: {
+                                        tickPixelInterval: 300,
+                                        min: 0,
+                                        minColor: '#E6E7E8',
+                                        maxColor: '#db6904'
+                                    },
+                                    plotOptions: {
+                                        map: {
+                                            states: {
+                                                hover: {
+                                                    color: '#dba604'
+
+                                                }
+                                            }
+                                        },
+                                        series: {
+                                            events: {
+                                                click: function (e) {
+                                                    // Prepare random data
+                                                    var data = [
+                                                        ["732", 732],
+                                                        ["735", 735],
+                                                        ["739", 739],
+                                                        ["742", 742],
+                                                        ["764", 764],
+                                                        ["741", 741],
+                                                        ["749", 749],
+                                                        ["733", 733],
+                                                        ["740", 740],
+                                                        ["760", 760],
+                                                        ["761", 761],
+                                                        ["775", 775],
+                                                        ["779", 779],
+                                                        ["774", 774],
+                                                        ["773", 773],
+                                                        ["750", 750],
+                                                        ["763", 763],
+                                                        ["778", 778],
+                                                        ["805", 805],
+                                                        ["804", 804],
+                                                        ["803", 803],
+                                                        ["802", 802],
+                                                        ["776", 776],
+                                                        ["757", 757],
+                                                        ["758", 758],
+                                                        ["829", 829],
+                                                        ["831", 831],
+                                                        ["868", 868],
+                                                        ["869", 869],
+                                                        ["756", 756],
+                                                        ["753", 753],
+                                                        ["755", 755],
+                                                        ["751", 751],
+                                                        ["780", 780],
+                                                        ["734", 734],
+                                                        ["762", 762],
+                                                        ["752", 752],
+                                                        ["759", 759],
+                                                        ["754", 754],
+                                                        ["777", 777],
+                                                        ["772", 772],
+                                                        ["1614", 1614],
+                                                        ["1613", 1613],
+                                                        ["1612", 1612],
+                                                        ["1611", 1611],
+                                                        ["1616", 1616],
+                                                        ["1615", 1615],
+                                                        ["1617", 1617],
+                                                        ["1620", 1620],
+                                                        ["1619", 1619],
+                                                        ["1621", 1621],
+                                                        ["1631", 1631],
+                                                        ["1629", 1629],
+                                                        ["1623", 1623],
+                                                        ["1627", 1627],
+                                                        ["1630", 1630],
+                                                        ["1635", 1635],
+                                                        ["1634", 1634],
+                                                        ["1633", 1633],
+                                                        ["1636", 1636],
+                                                        ["1638", 1638],
+                                                        ["1637", 1637],
+                                                        ["1639", 1639],
+                                                        ["1641", 1641],
+                                                        ["1625", 1625],
+                                                        ["1640", 1640],
+                                                        ["1622", 1622],
+                                                        ["1624", 1624],
+                                                        ["1628", 1628],
+                                                        ["1626", 1626],
+                                                        ["1632", 1632],
+                                                        ["1618", 1618],
+                                                        ["730", 730],
+                                                        ["801", 801],
+                                                        ["800", 800],
+                                                        ["731", 731]
+                                                    ];
+
+                                                    Highcharts.getJSON('https://s3.amazonaws.com/nullpointerexception.com/COA_DIS14_SEC.json', function (geojson) {
+                                                        // Initiate the chart
+                                                        Highcharts.mapChart('container', {
+                                                            chart: {
+                                                                map: geojson
+                                                            },
+                                                            title: {
+                                                                text: 'Secciones Electorales Coahuila'
+                                                            },
+                                                            mapNavigation: {
+                                                                enabled: true,
+                                                                buttonOptions: {
+                                                                    verticalAlign: 'bottom'
+                                                                }
+                                                            },
+                                                            colorAxis: {
+                                                                tickPixelInterval: 100,
+                                                                min: 0,
+                                                                minColor: '#E6E7E8',
+                                                                maxColor: '#db6904'
+                                                            },
+                                                            plotOptions: {
+                                                                map: {
+                                                                    states: {
+                                                                        hover: {
+                                                                            color: '#dba604'
+
+                                                                        }
+                                                                    }
+                                                                },
+                                                                series: {
+                                                                    name: 'Seccion',
+                                                                   // keys: ['SECCION', 'value'],
+                                                                    events: {
+                                                                        click: function (e) {
+                                                                            console.log(datosSecciones)
+
+                                                                            obtenerSecciones()
+
+                                                                            console.log(datosSecciones)
+
+                                                                            debugger
+                                                                            var text = obtenerHTMLSeccion(obtenerDatosSeccion(e.point.value))
+
+
+                                                                            if (!this.chart.clickLabel) {
+                                                                        
+                                                                                this.chart.clickLabel = this.chart.renderer.label(text, 700, 100)
+                                                                                    .css({
+                                                                                        'width': '300px',
+                                                                                        'fontSize': '15px',
+                                                                                        'font': 'normal 15px arial, helvetica, sans-serif;',
+                                                                                        'text-align': 'right',
+                                                                                        'margin-right': '190px',
+                                                                                        'white-space': 'pre-line',
+
+                                                                                    })
+                                                                                    .attr({
+                                                                                        'padding': 1,
+                                                                                        'spacingRight': 10
+                                                                                    })
+                                                                                    .add();
+
+
+                                                                            } else {
+                                                                                this.chart.clickLabel.attr({
+                                                                                    text: text
+                                                                                });
+
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            series: [{
+                                                                data: data,
+                                                                keys: ['SECCION', 'value'],
+                                                                joinBy: 'SECCION',
+                                                                dataLabels: {
+                                                                    enabled: true,
+                                                                    format: '{point.properties.SECCION}'
+                                                                }
+                                                            }]
+                                                        });
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    },
+
+                                    series: [{
+                                        data: datas,
+                                        name: 'Distrito',
+                                        keys: ['DISTRITO_L', 'value'],
+                                        //joinBy: 'DISTRITO_L',
+                                        joinBy: ["DISTRITO_L"],
+                                        id: "DISTRITO_L",
+                                        drilldown: "DISTRITO_L",
+                                        //mapData: datas,
+                                        //joinBy: ["DISTRITO_L", "id"],
+                                        /** dataLabels: {
+                                             enabled: true,
+                                             format: '{point.properties.DISTRITO_L}'
+                                         }**/
+                                        dataLabels: {
+                                            enabled: true,
+                                            color: '#FFFFFF',
+                                            format: '{point.properties.DISTRITO_L}',
+                                            formatter: function () {
+                                                if (this.point.value) {
+                                                    return this.point.name;
+                                                }
+                                            }
+                                        },
+
+                                    }]
+                                });
+                            });
+
+
+
+                        
+
+
+
+
+        //descarga el csv y lo convierte a string[] 
+        function obtenerSecciones() {
+            console.log("Obteniendo datos cvs")
+            var CVS_URL = 'https://s3.amazonaws.com/nullpointerexception.com/saltillo-saltillo.csv'
+
+            $.ajax({
+                url: CVS_URL,
+                async: false,
+                crossOrigin: true,
+                dataType: "text",
+                success: function (data) {
+                    console.log(data)
+                    var c = data.match(/\n+[0-9]{1,4}/g)
+                    for (var i = 0; i < c.length; i++) {
+                        data = data.replace(c[i], "|" + c[i].substring(1, c[i].length))
+                    }
+                    debugger
+                    datosSecciones = data.split("|")
+                    console.log(datosSecciones);
+                    headers = datosSecciones[0].split(",")
+
+                }
+            }
+            );
+        }
+
+        //regresa en string la informacion de la seccion
+        function obtenerDatosSeccion(seccion) {
+            for (var i = 0; i < datosSecciones.length; i++) {
+                var ids = datosSecciones[i].split(",")
+                if (ids[0] == seccion) {
+                    console.log(datosSecciones[i])
+                    return datosSecciones[i]
+                }
+            }
+        }
+
+
+        //funcion para retornar el HTML
+        function obtenerHTMLSeccion(datosSeccion) {
+
+            var datos = datosSeccion.split(",")
+            return  '<br><b>' +headers[0] + ': </b>' + '0' + datos[0] +
+                    '<br><b>' + headers[2] + ': </b><br>'+ datos[2] + 
+                    '<br><b>' + headers[3] +': </b><br>' + datos[3] + 
+                    '<br><b>' + headers[4] +': </b><br>' + datos[4] + 
+                    '<br><b>' + headers[5] +': </b><br>' + datos[5] + 
+                    '<br><b>' + headers[6] +': </b><br>' + datos[6] + 
+                    '<br><b>' + headers[7] +': </b><br>' + datos[7] 
+            }
+
+
+
+    </script>
+</body>
+
+</html>

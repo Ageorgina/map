@@ -1,85 +1,33 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
     <meta charset="utf-8">
-    <title>Cartografia</title>
-    <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- CSS only -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mexico</title>
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.highcharts.com/maps/modules/data.js"></script>
     <script src="https://code.highcharts.com/mapdata/countries/mx/mx-all.js"></script>
+    <div class="mapMX" id="container" style="height: 600px; min-width: 310px; max-width: 1000px; margin: 0 auto"></div>
+    <div class="grafica" id="container2" style="height: 100px; min-width: 310px; max-width: 1000px; margin: 0 auto">
+    </div>
 
-    <style type="text/css">
-        #containerEmotionsChart {
-            height: 500px;
-            min-width: 310px;
-            max-width: 120px;
-            margin: 0 auto;
-        }
-        
-        .highcharts-figure,
-        .highcharts-data-table table {
-            min-width: 310px;
-            max-width: 120;
-            margin: 1em auto;
-        }
-        
-        .highcharts-data-table table {
-            font-family: Verdana, sans-serif;
-            border-collapse: collapse;
-            border: 1px solid #EBEBEB;
-            margin: 10px auto;
-            text-align: center;
-            width: 100%;
-            max-width: 500px;
-        }
-        
-        .highcharts-data-table caption {
-            padding: 1em 0;
-            font-size: 1.2em;
-            color: #555;
-        }
-        
-        .highcharts-data-table th {
-            font-weight: 600;
-            padding: 0.5em;
-        }
-        
-        .highcharts-data-table td,
-        .highcharts-data-table th,
-        .highcharts-data-table caption {
-            padding: 0.5em;
-        }
-        
-        .highcharts-data-table thead tr,
-        .highcharts-data-table tr:nth-child(even) {
-            background: #f8f8f8;
-        }
-        
-        .highcharts-data-table tr:hover {
-            background: #f1f7ff;
-        }
-    </style>
 
+</head>
+
+<body>
     <script>
         var data = Highcharts.geojson(Highcharts.maps['countries/mx/mx-all']),
-            small = $('#mexico').width() < 400;
+            small = $('#container').width() < 400;
+
+
+
 
         // Mexico
-        Highcharts.mapChart('mexico', {
+        Highcharts.mapChart('container', {
             chart: {
                 events: {
                     drilldown: function(e) {
@@ -201,10 +149,6 @@
             }
         });
     </script>
-</head>
-
-<body>
-    <app-root></app-root>
 </body>
 
 </html>
