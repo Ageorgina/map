@@ -15,16 +15,17 @@
     <div class="container">
         <div class="sidebar">
             <div class="logo">
-                <img src="../logos/LOGO.png" width="80px"></div>
+                <img src="./LOGO.png" width="80px"></div>
             <div class="menu">
-                <a type="button" class="btn btn-lg btn-block">Coahuila</a>
-                <a type="button" class="btn btn-lg btn-block">Distritos</a>
-                <a type="button" class="btn btn-lg btn-block">Partidos</a>
-                <a type="button" class="btn btn-lg btn-block">Secciones</a>
+                <a type="button" href="./Distritos.html" class="btn btn-lg btn-block">Distritos</a>
+                <a type="button" href="./Secciones.html" class="btn btn-lg btn-block">Secciones</a>
+                <a type="button" href="./Partidos.html" class="btn btn-lg btn-block">Partidos</a>
+                <a type="button" href="./Inicio.html" class="btn btn-lg btn-block"> Inicio</a>
             </div>
         </div>
         <div class="chart" id="containerEmotionsChart"></div>
         <div class="mapMX" id="container" style=" margin: 0 auto"></div>
+
         <div class="informacion">
             <p>Base: <br> 452,812 Coahuilenses</p>
             <p class="distritos"> Saltillo
@@ -39,12 +40,11 @@
             <p>Arrepentidos <br> 52,356 </p>
             <p>Pro Oposición <br> 38,236</p>
             <p>Audiencia Digital <br>689,213</p>
-            <p class="coahuila">Competencia: <br> 6,300}</p>
+            <p class="coahuila">Competencia: <br> 6,300</p>
             <p class="coahuila">Afiliados: <br> 5,694</p>
             <p class="coahuila">ActivosDigitales: <br>14,678</p>
-            <p class="coahuila">Tracking: <br> 9578</p>
+            <p class="coahuila">Tracking: <br> 9,578</p>
         </div>
-
     </div>
     <style type="text/css">
         .logo {
@@ -67,8 +67,7 @@
         
         #containerEmotionsChart {
             height: 500px;
-            min-width: 310px;
-            max-width: 120px;
+            width: 25%;
             margin: 0 auto;
         }
         
@@ -92,7 +91,7 @@
         .highcharts-data-table caption {
             padding: 1em 0;
             font-size: 1.2em;
-            color: #555;
+            color: #f1f7ff;
         }
         
         .highcharts-data-table th {
@@ -115,6 +114,12 @@
             background: #f1f7ff;
         }
         
+        tspan:hover,
+        text:hover {
+            color: #f1f7ff !important;
+            fill: #f1f7ff !important;
+        }
+        
         body {
             background-color: #3F3F3F;
             color: #FFFFFF;
@@ -134,15 +139,15 @@
         }
         
         .informacion {
-            width: 20%;
+            width: 10%;
             margin-left: 2%;
-            font-size: large;
+            font-size: normal;
         }
         
         .distritos {
             color: #4C93C6;
             font-weight: normal;
-            font-size: small;
+            font-size: normal;
         }
         
         .down {
@@ -201,26 +206,54 @@
             flex-flow: column wrap;
         }
         
-        @media only screen and (max-height: 590px) and (max-width: 590px) {
+        @media only screen and (max-width: 600px) {
+            .container {
+                display: flex !important;
+                flex-flow: column wrap !important;
+                justify-content: space-between;
+                height: 100%;
+                margin: 0.5%;
+            }
             .sidebar {
                 display: flex;
-                flex-flow: row nowrap !important;
-                width: 100vw;
+                flex-flow: row wrap !important;
+                width: 100%;
                 height: min-content;
+                font-size: small;
+            }
+            a {
+                margin-right: 5px;
             }
             .menu {
-                margin-left: 0;
+                font-size: small;
+                margin-left: 15px;
                 font-size: normal !important;
                 text-align: left;
+                justify-content: space-between !important;
                 display: flex;
-                flex-flow: row wrap !;
+                flex-flow: row wrap !important;
+                width: 80%;
             }
-            .logo {
-                width: 20%;
+            .logo,
+            img {
+                width: 0;
                 text-align: center;
+            }
+            .informacion {
+                width: 100%;
+                margin-left: 5% !important;
+                font-size: large;
+            }
+            .chart {
+                width: 100% !important;
+            }
+            .mapMX {
+                width: 100% !important;
             }
         }
     </style>
+
+
 
 </head>
 
@@ -230,110 +263,86 @@
             var data = Highcharts.geojson(Highcharts.maps['countries/mx/mx-all']),
                 small = $('#container').width() < 400;
 
-            // Mexico
             Highcharts.mapChart('container', {
                 chart: {
-                    backgroundColor: '#3F3F3F',
-                    events: {
-                        drilldown: function(e) {
-                            if (!e.seriesOptions) {
-                                var chart = this,
-                                    mapKey = 'countries/mx/' + e.point.drilldown + '-all',
-                                    // Handle error, the timeout is cleared on success
-                                    fail = setTimeout(function() {
-                                        if (!Highcharts.maps[mapKey]) {
-                                            chart.showLoading('<i class="icon-frown"></i> Failed loading ' + e.point.name);
-                                            fail = setTimeout(function() {
-                                                chart.hideLoading();
-                                            }, 1000);
-                                        }
-                                    }, 3000);
-                            }
-                        },
-                    }
+                    backgroundColor: '#3F3F3F'
                 },
-
-
                 title: {
                     text: ''
                 },
-
-                subtitle: {
-                    text: '',
-                    floating: true,
-                    align: 'right',
-                    y: 50,
-                    style: {
-                        fontSize: '20px'
-                    }
-                },
-
-                legend: small ? {} : {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
-
-
                 mapNavigation: {
                     enabled: true,
                     buttonOptions: {
                         verticalAlign: 'bottom'
                     }
                 },
-
                 plotOptions: {
-
                     map: {
                         states: {
                             hover: {
                                 color: '#dba604'
-
                             }
                         }
                     }
                 },
-
-
+                tooltip: {
+                    headerFormat: '<br><b>Padrón</b><br> ',
+                    pointFormat: '1,827,129<br>' +
+                        '<b>Nominal<b><br>' +
+                        '1,821,124<br>' +
+                        '<br>' +
+                        '<b>__________________________________<b><br>' +
+                        '<b>Preocupaciones:<b><br>' +
+                        'Violencia<br>' +
+                        'Sequía<br>' +
+                        'Corrupción<br>' +
+                        'Ley Protección Animal<br>',
+                    footerFormat: 'Todos por Saltillo<br>' + 'Echado pa´delante<br>'
+                },
                 series: [{
+                    name: 'Coahuila',
                     color: '#ed6706',
                     data: [{
                         id: "mx-co",
-                        value: '<br><b>Padrón</b><br> ' +
-                            '1,827,129<br>' +
-                            '<b>Nominal<b><br>' +
-                            '1,821,124<br>' +
-                            '<br>' +
-                            '<b>__________________________________<b><br>' +
-                            '<b>Preocupaciones:<b><br>' +
-                            'Violencia<br>' +
-                            'Sequía<br>' +
-                            'Corrupción<br>' +
-                            'Ley Protección Animal<br>' +
-                            'Todos por Saltillo<br>' +
-                            'Echado pa´delante<br>'
+                        value: '5'
                     }],
                     mapData: data,
-                    // allowPointSelect: false,
+                    showInLegend: false,
                     joinBy: ["hc-key", "id"],
-                    name: 'MX',
-
                     dataLabels: {
                         enabled: true,
                         format: '{point.properties.name}'
                     }
-                }, {
-                    //  type: 'mapline',
-                    //  color: 'silver',
-                    //  enableMouseTracking: false,
-                    /**  animation: {
-                          duration: 500
-                      }**/
                 }],
+                responsive: {
+                    rules: [{
+                        condition: {
 
+                            maxHeight: '600px'
 
-
-
+                        },
+                        // Make the labels less space demanding on mobile
+                        chartOptions: {
+                            xAxis: {
+                                labels: {
+                                    formatter: function() {
+                                        return this.value.charAt(0);
+                                    }
+                                }
+                            },
+                            yAxis: {
+                                labels: {
+                                    align: 'left',
+                                    x: 0,
+                                    y: -2
+                                },
+                                title: {
+                                    text: ''
+                                }
+                            }
+                        }
+                    }]
+                }
             });
         </script>
         <script>
@@ -379,8 +388,14 @@
                             enabled: false
                         },
                         showInLegend: true
-
-                    }
+                    },
+                    series: [{
+                        events: {
+                            legendItemClick: function() {
+                                return false;
+                            }
+                        }
+                    }]
 
                 },
                 series: [{
@@ -409,7 +424,7 @@
                     ],
                     dataLabels: {
                         enabled: false,
-                        inside: true,
+                        inside: false,
                         format: '{y} %'
                     }
                 }],
