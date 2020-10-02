@@ -7,8 +7,8 @@ import { PartidosComponent } from './components/partidos/partidos.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'coahuila', pathMatch: 'full' },
-  { path: 'coahuila', component: HomeComponent},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent},
   { path: 'distritos', component: DistritosComponent},
   { path: 'secciones', component: SeccionesComponent},
   { path: 'partidos', component: PartidosComponent}
