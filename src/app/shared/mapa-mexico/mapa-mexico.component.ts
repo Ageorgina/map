@@ -5,6 +5,9 @@ let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
 let More = require('highcharts/highcharts-more');
 
+declare var require: any;
+const usaMap = require("@highcharts/map-collection/countries/mx/mx-all.geo.json");
+
 
 
 Boost(Highcharts);
@@ -25,8 +28,9 @@ export class MapaMexicoComponent implements OnInit {
   mapCount = 0;
   searchText: any;
   mapOptions = '';
-  data = Highcharts.geojson(Highcharts.maps['countries/mx/mx-all']);
-  small = $('#mexico').width() < 400;
+  
+  //data = Highcharts.geojson(Highcharts.maps['countries/mx/mx-all']);
+ // small = $('#mexico').width() < 400;
 
   constructor() {
 
@@ -105,7 +109,7 @@ export class MapaMexicoComponent implements OnInit {
             id: "mx-co",
             value: 100
         }],
-        mapData:  this.data,
+        mapData:  usaMap,
         allowPointSelect: false,
         joinBy: ["hc-key", "id"],
         name: 'MX',
