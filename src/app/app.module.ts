@@ -12,6 +12,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { PartidosComponent } from './components/partidos/partidos.component';
+import { ChartModule } from 'angular-highcharts';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PartidosComponent } from './components/partidos/partidos.component';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coahuila</title>
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/mapdata/countries/mx/mx-all.js"></script>
+
+
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="./LOGO.png" width="80px"></div>
+            <div class="menu">
+                <a type="button" href="./Distritos.html" class="btn btn-lg btn-block">Distritos</a>
+                <a type="button" href="./Secciones.html" class="btn btn-lg btn-block">Secciones</a>
+                <a type="button" href="./Partidos.html" class="btn btn-lg btn-block">Partidos</a>
+                <a type="button" href="./Inicio.html" class="btn btn-lg btn-block"> Inicio</a>
+            </div>
+        </div>
+        <div class="chart" id="containerEmotionsChart"></div>
+        <div class="mapMX" id="container" style=" margin: 0 auto"></div>
+        <div class="informacion">
+            <p>Base: <br> 146,321 Coahuilenses</p>
+            <p class="distritos"> Saltillo</p>
+            <p>Indecisos <br> 16,156</p>
+            <p>Arrepentidos <br> 4,528 </p>
+            <p>Pro Oposición <br> 11,845</p>
+            <p>Audiencia Digital <br>356,258</p>
+            <p>Mejor Horario:
+                <br> 4 - 10 PM Mujeres
+                <br> 2 - 7 PM Hombres</p>
+            <p class="competencias">Competencia: <br>1,325</p>
+            <p class="competencias">Afiliados: <br> 752</p>
+            <p class="competencias">ActivosDigitales: <br>289</p>
+            <p class="competencias">Tracking: <br> 956</p>
+        </div>
+        <!-- <div class="mapMX" id="container" style="height: 600px; min-width: 310px; max-width: 1000px; margin: 0 auto"></div> -->
+    </div>
+    </div>
+    <style type="text/css">
+        .logo {
+            width: 80%;
+            text-align: center;
+        }
+        
+        .sidebar {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 15%;
+            display: flex;
+            flex-flow: column wrap;
+        }
+        
+        .highcharts-credits {
+            display: none;
+        }
+        
+        #containerEmotionsChart {
+            height: 500px;
+            width: 25%;
+            margin: 0 auto;
+        }
+        
+        .highcharts-figure,
+        .highcharts-data-table table {
+            min-width: 310px;
+            max-width: 120;
+            margin: 1em auto;
+        }
+        
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #EBEBEB;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #f1f7ff;
+        }
+        
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
+        
+        .highcharts-data-table td,
+        .highcharts-data-table th,
+        .highcharts-data-table caption {
+            padding: 0.5em;
+        }
+        
+        .highcharts-data-table thead tr,
+        .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+        
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+        }
+        
+        tspan:hover,
+        text:hover {
+            color: #f1f7ff !important;
+            fill: #f1f7ff !important;
+        }
+        
+        body {
+            background-color: #3F3F3F;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .container {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            height: 99vh;
+            margin: 0.5%;
+        }
+        
+        .informacion {
+            width: 20%;
+            margin-left: 2%;
+            font-size: large;
+        }
+        
+        .distritos {
+            color: #4C93C6;
+            font-weight: normal;
+            font-size: small;
+        }
+        
+        .down {
+            font-weight: normal;
+        }
+        
+        p {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 0;
+            font-weight: bold;
+        }
+        
+        hr {
+            background-color: #070707;
+            border: 1pt solid #070707;
+            margin-left: 3%;
+            margin-right: 3%;
+        }
+        
+        .mapa {
+            width: 55%;
+            display: flex;
+            justify-content: space-around;
+            flex-flow: row wrap;
+        }
+        
+        .grafica {
+            width: 20%;
+            margin-top: 0;
+            margin-bottom: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-flow: column wrap;
+        }
+        
+        .grafic {
+            text-align: center;
+        }
+        
+        .lista {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        
+        .coahuila {
+            color: #C9733D;
+        }
+        
+        .competencias {
+            color: #DC4564;
+        }
+        
+        .menu {
+            margin-left: 20%;
+            font-size: 18pt !important;
+            text-align: left;
+            display: flex;
+            flex-flow: column wrap;
+        }
+        /*@media only screen and (max-height: 590px) and (max-width: 590px) {*/
+        
+        @media only screen and (max-width: 600px) {
+            .container {
+                display: flex !important;
+                flex-flow: column wrap !important;
+                justify-content: space-between;
+                height: min-content;
+                margin: 0.5%;
+            }
+            .sidebar {
+                display: flex;
+                flex-flow: row wrap !important;
+                width: 100%;
+                height: min-content !important;
+                font-size: small;
+            }
+            a {
+                margin-right: 5px;
+            }
+            .menu {
+                font-size: small;
+                margin-left: 15px;
+                font-size: normal !important;
+                text-align: left;
+                justify-content: space-between !important;
+                display: flex;
+                flex-flow: row wrap !important;
+                width: 80%;
+            }
+            .logo,
+            img {
+                width: 0;
+                text-align: center;
+            }
+            .chart {
+                width: 100% !important;
+            }
+            .mapMX {
+                width: 100% !important;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <script>
+        var datosSecciones = []
+        var headers = []
+            // Prepare random data
+        var datas = [
+            ["16", 16]
+        ];
+
+
+        //Highcharts.getJSON('https://s3.amazonaws.com/nullpointerexception.com/COA_DIS.json', function(geojson) {
+        Highcharts.getJSON('https://www.entropia-ecosystem.com/data/COA_DIS.json', function(geojson) {
+            // Coahuila
+            Highcharts.mapChart('container', {
+                chart: {
+                    map: geojson,
+                    backgroundColor: '#3F3F3F'
+                },
+                title: {
+                    text: ''
+
+                },
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+
+                colorAxis: {
+                    tickPixelInterval: 300,
+                    min: 0,
+                    minColor: '#E6E7E8',
+                    maxColor: '#db6904'
+                },
+                plotOptions: {
+                    map: {
+                        states: {
+                            // hover: {
+                            //     color: '#dba604'
+
+                            // }
+                        }
+                    },
+                    series: {
+                        events: {
+                            click: function(e) {
+                                // Prepare random data
+                                irSeries()
+
+
+                            }
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<br><b>Saltillo D XVI</b><br>',
+                    pointFormat: '<br>' +
+                        '<b><b><br>' +
+                        '<b>Preocupaciones:<b><br>' +
+                        'Recuperación Económica<br>' +
+                        'Corrupción<br>' +
+                        'Brutalidad Policiaca<br>' +
+                        'Feminicidios<br>' +
+                        'Salud<br>'
+                },
+
+                series: [{
+                    data: datas,
+                    keys: ['DISTRITO_L', 'value'],
+                    joinBy: ["DISTRITO_L"],
+                    dataLabels: {
+                        enabled: true,
+                        color: '#FFFFFF',
+                        fill: '#f1f7ff',
+                        format: '{point.properties.DISTRITO_L}',
+                        formatter: function() {
+                            if (this.point.value) {
+                                return this.point.name;
+                            }
+                        }
+                    },
+
+                }]
+            });
+        });
+
+
+        function irSeries() {
+            window.location = './Secciones.html';
+
+        }
+    </script>
+    <script>
+        var datosSecciones = []
+        var headers = []
+            // Prepare random data
+        var datas = [
+            ["16", 16]
+        ];
+
+        //Highcharts.getJSON('https://s3.amazonaws.com/nullpointerexception.com/COA_DIS.json', function(geojson) {
+        Highcharts.getJSON('https://www.entropia-ecosystem.com/data/COA_DIS.json', function(geojson) {
+            // Coahuila
+            Highcharts.mapChart('container', {
+                chart: {
+                    map: geojson,
+                    backgroundColor: '#3F3F3F'
+                },
+                title: {
+                    text: ''
+                },
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+
+                colorAxis: {
+                    tickPixelInterval: 300,
+                    min: 0,
+                    minColor: '#E6E7E8',
+                    maxColor: '#db6904'
+                },
+                plotOptions: {
+                    map: {
+                        states: {
+                            hover: {
+                                color: '#dba604'
+
+                            }
+                        }
+                    },
+                    series: {
+                        events: {
+                            click: function(e) {
+                                irSeries();
+                            }
+                        }
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<br><b>Saltillo D XVI</b><br>',
+                    pointFormat: '<br>' +
+                        '<b><b><br>' +
+                        '<b>Preocupaciones:<b><br>' +
+                        'Recuperación Económica<br>' +
+                        'Corrupción<br>' +
+                        'Brutalidad Policiaca<br>' +
+                        'Feminicidios<br>' +
+                        'Salud<br>'
+                },
+
+                series: [{
+                    data: datas,
+                    keys: ['DISTRITO_L', 'value'],
+                    joinBy: ["DISTRITO_L"],
+                    dataLabels: {
+                        enabled: true,
+                        color: '#FFFFFF',
+                        format: '{point.properties.DISTRITO_L}',
+                        formatter: function() {
+                            if (this.point.value) {
+                                return this.point.name;
+                            }
+                        }
+                    },
+
+                }],
+                responsive: {
+                    rules: [{
+                        condition: {
+
+                            maxHeight: '600px'
+
+                        },
+                        // Make the labels less space demanding on mobile
+                        chartOptions: {
+                            xAxis: {
+                                labels: {
+                                    formatter: function() {
+                                        return this.value.charAt(0);
+                                    }
+                                }
+                            },
+                            yAxis: {
+                                labels: {
+                                    align: 'left',
+                                    x: 0,
+                                    y: -2
+                                },
+                                title: {
+                                    text: ''
+                                }
+                            }
+                        }
+                    }]
+                }
+            });
+        });
+    </script>
+    <script>
+        var people = '146,321';
+
+        Highcharts.setOptions({
+            colors: ['#fabc07', '#f88304', '#ed6706', '#871a0a', '#4d0b08']
+        });
+
+        Highcharts.chart('containerEmotionsChart', {
+            chart: {
+                type: 'pie',
+                backgroundColor: '#3F3F3F'
+            },
+            title: {
+                text: 'Emociones',
+                style: {
+                    color: '#FFFFFF',
+                    fontSize: '20px'
+                }
+            },
+            subtitle: {
+                text: '<b>' + this.people + ' Coahuilenses',
+                style: {
+                    color: '#FFFFFF',
+                    fontSize: '16px'
+                }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 120,
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+
+                }
+
+            },
+            series: [{
+                name: 'Porcentaje',
+                colorByPoint: true,
+                data: [{
+                        name: 'Introspección',
+                        y: 35
+                    }, {
+                        name: 'Miedo/ Salud',
+                        y: 24
+                    }, {
+                        name: 'Orgullo',
+                        y: 20
+                    }, {
+                        name: 'Asertividad',
+                        y: 15
+                    }, {
+                        name: 'Decepción',
+                        y: 6
+                    }
+
+                ],
+                dataLabels: {
+                    enabled: false,
+                    inside: true,
+                    format: '{y} %'
+                }
+            }],
+            legend: {
+                layout: 'vertical',
+                floating: false,
+                align: 'center',
+                verticalAlign: 'bottom',
+                labelFormatter: function() {
+                    return this.name + '<br>' + this.y + '%';
+                },
+                itemStyle: {
+                    color: '#FFFFFF',
+                    fontSize: '18px'
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>

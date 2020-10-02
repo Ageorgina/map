@@ -1,5 +1,5 @@
-<div>
+<div class="logo">
     <img src="../../../assets/logos/LOGO.png" width="50%"> </div>
-<div *ngFor="let option of menu">
+<div class="menu" *ngFor="let option of menu">
     <a type="button" class="btn btn-lg btn-block" routerLink="/{{option.redirectTo}}">{{option.nombre}} </a>
 </div>
