@@ -5,10 +5,13 @@ import { Component, OnInit } from '@angular/core';
 // let Boost = require('highcharts/modules/boost');
 // let noData = require('highcharts/modules/no-data-to-display');
 // let More = require('highcharts/highcharts-more');
+<<<<<<< HEAD
 
 declare var require: any;
 const usaMap = require("@highcharts/map-collection/countries/mx/mx-all.geo.json");
 
+=======
+>>>>>>> 8cc0434efaf8ff50cca5011c4f850946b5e9d261
 
 
 // Boost(Highcharts);
@@ -16,6 +19,14 @@ const usaMap = require("@highcharts/map-collection/countries/mx/mx-all.geo.json"
 // More(Highcharts);
 // var data = Highcharts.geojson(Highcharts.maps['countries/mx/mx-all']);
 
+<<<<<<< HEAD
+=======
+// Boost(Highcharts);
+// noData(Highcharts);
+// More(Highcharts);
+// var data = Highcharts.geojson(Highcharts.maps['countries/mx/mx-all']);
+
+>>>>>>> 8cc0434efaf8ff50cca5011c4f850946b5e9d261
 //  var $;
 
 @Component({
@@ -24,6 +35,7 @@ const usaMap = require("@highcharts/map-collection/countries/mx/mx-all.geo.json"
   styleUrls: ['./mapa-mexico.component.scss']
 })
 export class MapaMexicoComponent implements OnInit {
+<<<<<<< HEAD
 <<<<<<< HEAD
   Highcharts = Highcharts;
   baseMapPath = 'https://code.highcharts.com/mapdata/';
@@ -289,6 +301,8 @@ export class MapaMexicoComponent implements OnInit {
 
 =======
 >>>>>>> Cartografia versión 1
+=======
+>>>>>>> 8cc0434efaf8ff50cca5011c4f850946b5e9d261
 
 //   data: any;
 
