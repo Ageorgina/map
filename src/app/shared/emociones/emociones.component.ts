@@ -11,14 +11,12 @@ Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
-
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-emociones',
+  templateUrl: './emociones.component.html',
+  styleUrls: ['./emociones.component.scss']
 })
-export class HomeComponent implements OnInit {
-
+export class EmocionesComponent implements OnInit {
   emociones:Emocion[] = [];
   ejemplo: any;
   distritos: any;
@@ -62,7 +60,7 @@ export class HomeComponent implements OnInit {
  options: any = {
     chart: {
         type: 'pie',
-        backgroundColor: 'transparent'
+        backgroundColor: '#3F3F3F'
     },
     title: {
         text: 'Emociones',
@@ -125,7 +123,7 @@ export class HomeComponent implements OnInit {
         },
         itemStyle: {
             color: '#FFFFFF',
-            fontSize: '16px'
+            fontSize: '18px'
         },
     }
   }

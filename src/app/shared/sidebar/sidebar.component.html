@@ -1,5 +1,17 @@
-<div class="logo">
-    <img src="../../../assets/logos/LOGO.png" width="50%"> </div>
-<div class="menu" *ngFor="let option of menu">
-    <a type="button" class="btn btn-lg btn-block" routerLink="/{{option.redirectTo}}">{{option.nombre}} </a>
+<div id="navbar">
+    <a class="navbar-brand">
+        <span onclick="openNav()">&#9776;</span>
+        <div id="sidenav" class="sidenav">
+            <img class="logo" src="../../../assets/logos/LOGO.png" width="80px">
+            <div class="menu" *ngFor="let option of menu">
+                <a class="btn btn-lg btn-block" routerLink="/{{option.redirectTo}}">{{option.nombre}} </a>
+            </div>
+        </div>
+    </a>
+</div>
+<div id="side" class="side">
+    <img class="logo" src="../../../assets/logos/LOGO.png" width="80px">
+    <div id="menu-sidebar" class="menu" *ngFor="let option of menu">
+        <a id="a-sidebar" class="btn btn-lg btn-block" routerLink="/{{option.redirectTo}}">{{option.nombre}} </a>
+    </div>
 </div>

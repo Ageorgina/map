@@ -1,6 +1,6 @@
 [{
-    "nombre": "Coahuila",
-    "redirectTo": "coahuila"
+    "nombre": "Inicio",
+    "redirectTo": "home"
 }, {
     "nombre": "Distritos",
     "redirectTo": "distritos"

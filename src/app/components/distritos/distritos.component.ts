@@ -55,12 +55,31 @@ export class DistritosComponent implements OnInit {
 
 
  options: any = {
-    chart: { type: 'pie', backgroundColor: '#3F3F3F' },
-    title: { text: 'Emociones', style: {color: '#FFFFFF'} },
-    subtitle: { text: this.people + ' Coahuilenses', style: {color: '#FFFFFF'} },
-    tooltip: { pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>' },
-    accessibility: {
-      point: {valueSuffix: '%'}
+  chart: {
+      type: 'pie',
+      backgroundColor: 'transparent'
+  },
+  title: {
+      text: 'Emociones',
+      style: {
+          color: '#FFFFFF',
+          fontSize: '20px'
+      }
+  },
+  subtitle: {
+      text: this.people + ' Coahuilenses',
+      style: {
+          color: '#FFFFFF',
+          fontSize: '16px'
+      }
+  },
+  tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.0f}%</b>'
+  },
+  accessibility: {
+      point: {
+          valueSuffix: '%'
+      }
   },
   plotOptions: {
       pie: {
@@ -71,16 +90,23 @@ export class DistritosComponent implements OnInit {
               enabled: false
           },
           showInLegend: true
-      }
+      },
+      series: [{
+          events: {
+              legendItemClick: function() {
+                  return false;
+              }
+          }
+      }]
 
   },
   series: [{
       name: 'Porcentaje',
       colorByPoint: true,
-      data: [{} , {}, {}, {}, {}],
+      data: [{}],
       dataLabels: {
           enabled: false,
-          inside: true,
+          inside: false,
           format: '{y} %'
       }
   }],
@@ -88,12 +114,14 @@ export class DistritosComponent implements OnInit {
       layout: 'vertical',
       floating: false,
       align: 'center',
-      
       verticalAlign: 'bottom',
       labelFormatter: function() {
           return this.name + '<br>' + this.y + '%';
       },
-      itemStyle:  {color: '#FFFFFF'},
+      itemStyle: {
+          color: '#FFFFFF',
+          fontSize: '16px'
+      },
   }
   }
 
@@ -108,5 +136,7 @@ export class DistritosComponent implements OnInit {
     });
     Highcharts.chart('containerEmotionsChart', this.options);
   }
-
+entro(){
+  console.log('entro');
+}
 }
