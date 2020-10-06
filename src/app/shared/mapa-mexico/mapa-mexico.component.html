@@ -1,1 +1,15 @@
-<div class="mapMX" id="mexico"></div>
+<div class="container-row">
+    <div class="mapMX" id="mexico" (click)="selected($event)"></div>
+    <div class="informacion">
+        <p>Base: <br> {{ejemplo?.base}}</p>
+        <p class="distritos" *ngFor="let distrito of distritos"> {{distrito?.nombre}}</p>
+        <p>Indecisos <br> {{ejemplo?.indecisos}}</p>
+        <p>Arrepentidos <br> {{ejemplo?.arrependidos}} </p>
+        <p>Pro Oposición <br> {{ejemplo?.pro_Oposicion}}</p>
+        <p>Audiencia Digital <br>{{ejemplo?.audiencia_Digital}}</p>
+        <p class="mx">Competencia: <br> {{ejemplo?.competencia}}</p>
+        <p class="mx">Afiliados: <br> {{ejemplo?.afiliados}}</p>
+        <p class="mx">ActivosDigitales: <br> {{ejemplo?.activos_Digitales}}</p>
+        <p class="mx">Tracking: <br> {{ejemplo?.tracking}}</p>
+    </div>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../general/services/menu.service';
 import * as Highcharts from 'highcharts';
 import { Emocion } from '../../general/model/emocion';
+import { ActivatedRoute } from '@angular/router';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -17,12 +18,15 @@ noData(Highcharts);
   styleUrls: ['./distritos.component.scss']
 })
 export class DistritosComponent implements OnInit {
+  
   emociones:Emocion[] = [];
   ejemplo: any;
   distritos: any;
   people = '452,812';
-  constructor( private menuSrv: MenuService) {
-
+  idSeccion: number;
+  constructor( private menuSrv: MenuService, private route: ActivatedRoute) {
+    const id = this.route.snapshot.paramMap.get('id');
+    //console.log('id', id);
 
     this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
     this.menuSrv.getDistritos().subscribe( distritos => this.distritos = distritos);
@@ -136,7 +140,7 @@ export class DistritosComponent implements OnInit {
     });
     Highcharts.chart('containerEmotionsChart', this.options);
   }
-entro(){
-  console.log('entro');
-}
+
+
+
 }

@@ -1,5 +1,8 @@
+import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts/highmaps';
+import { MenuService } from '../../general/services/menu.service';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -20,21 +23,26 @@ noData(Highcharts);
   styleUrls: ['./mapa-mexico.component.scss']
 })
 export class MapaMexicoComponent implements OnInit {
+    estadoID: any;
+    ejemplo: any;
+    distritos: any;
 
-  constructor() {
-
+  constructor(private menuSrv: MenuService, private route: ActivatedRoute, private router: Router) {
+    this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
+    this.menuSrv.getDistritos().subscribe( distritos => this.distritos = distritos);
    }
 
    options: any = {
     chart: {
         backgroundColor: '#3F3F3F',
         events: {
-            drilldown: function(e) {
+            drilldown(e) {
                 if (!e.seriesOptions) {
                     var chart = this,
                         mapKey = 'countries/mx/' + e.point.drilldown + '-all',
                         fail = setTimeout(function() {
                             if (!Highcharts.maps[mapKey]) {
+                                this.estadoID = e.point.name;
                                 chart.showLoading('<i class="icon-frown"></i> Failed loading ' + e.point.name);
                                 fail = setTimeout(function() {
                                     chart.hideLoading();
@@ -101,7 +109,7 @@ export class MapaMexicoComponent implements OnInit {
             chartOptions: {
                 xAxis: {
                     labels: {
-                        formatter: function() {
+                        formatter() {
                             return this.value.charAt(0);
                         }
                     }
@@ -119,11 +127,15 @@ export class MapaMexicoComponent implements OnInit {
             }
         }]
     }
-  }
+  };
 
 
   ngOnInit() {
     Highcharts.mapChart('mexico', this.options);
+  }
+
+  selected(estado) {
+      console.log('estado', estado.point.options.value);
   }
 
 }

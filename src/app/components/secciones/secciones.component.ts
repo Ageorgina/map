@@ -24,4 +24,5 @@ export class SeccionesComponent implements OnInit {
   ngOnInit() {
   }
 
+
 }

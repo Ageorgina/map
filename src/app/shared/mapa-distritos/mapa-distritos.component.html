@@ -1,2 +1,18 @@
-<iframe frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen src="./assets/templates/Distritos.html">
-  </iframe>
+<div class="container-row">
+    <div class="mapMX" id="estado" (click)="distrito($event?.point?.DISTRITO_L)"></div>
+    <div class="informacion infodistritos">
+        <p>Base: <br> {{ejemplo?.base_c}}</p>
+        <p class="distritos"> Saltillo</p>
+        <p>Indecisos <br> {{ejemplo?.indecisos_c}}</p>
+        <p>Arrepentidos <br> {{ejemplo?.arrependidos_c}} </p>
+        <p>Pro Oposición <br> {{ejemplo?.pro_Oposicion_c}}</p>
+        <p>Audiencia Digital <br>{{ejemplo?.audiencia_Digital_c}}</p>
+        <p> Mejor Horario:
+            <br> {{ejemplo?.hombres}}
+            <br> {{ejemplo?.mujeres}} </p>
+        <p class="competenciasdistritos">Competencia: <br>{{ejemplo?.competencia_c}}</p>
+        <p class="competenciasdistritos">Afiliados: <br>{{ejemplo?.afiliados_c}}</p>
+        <p class="competenciasdistritos">ActivosDigitales: <br>{{ejemplo?.activos_Digitales_c}}</p>
+        <p class="competenciasdistritos">Tracking: <br>{{ejemplo?.tracking_c}}</p>
+    </div>
+</div>

@@ -1,17 +1,18 @@
-<div id="navbar">
-    <a class="navbar-brand">
-        <span onclick="openNav()">&#9776;</span>
-        <div id="sidenav" class="sidenav">
-            <img class="logo" src="../../../assets/logos/LOGO.png" width="80px">
-            <div class="menu" *ngFor="let option of menu">
-                <a class="btn btn-lg btn-block" routerLink="/{{option.redirectTo}}">{{option.nombre}} </a>
-            </div>
+<div>
+    <nav class="navbar">
+        <a class="navbar-brand">
+            <div id="sidenav" class="sidenav">
+                <img class="logo navimg" src="../../../assets/logos/LOGO.png">
+                <div class="menunav" *ngFor="let option of menu">
+                    <p id="a-nav" class="btn btn-sm anav" routerLink="/{{option.redirectTo}}">{{option.nombre}} </p>
+                </div>
+            </div><span onclick="openNav()">&#9776;</span>
+        </a>
+    </nav>
+    <div id="side" class="side">
+        <img class="logo sideimg" src="../../../assets/logos/LOGO.png" width="80px">
+        <div id="menu-sidebar" class="menuside" *ngFor="let option of menu">
+            <p id="a-sidebar" class="btn btn-block aside" routerLink="/{{option.redirectTo}}">{{option.nombre}} </p>
         </div>
-    </a>
-</div>
-<div id="side" class="side">
-    <img class="logo" src="../../../assets/logos/LOGO.png" width="80px">
-    <div id="menu-sidebar" class="menu" *ngFor="let option of menu">
-        <a id="a-sidebar" class="btn btn-lg btn-block" routerLink="/{{option.redirectTo}}">{{option.nombre}} </a>
     </div>
 </div>

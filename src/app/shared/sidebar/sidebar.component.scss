@@ -1,32 +1,27 @@
-    div#side {
-        width: 100%;
-    }
-    
-    div#navbar {
-        width: 0 !important;
-        height: 0 !important;
-        color: transparent !important;
-    }
-    
-    a {
-        text-align: left !important;
-        color: honeydew;
-    }
-    
-    span {
+    nav,
+    a,
+    span,
+    .navimg,
+    .menunav,
+    .anav {
+        width: 0;
+        height: 0;
         color: transparent;
+        font-size: 0 !important;
+        background-color: 0;
     }
     
-    .menu {
-        font-size: medium !important;
-        text-align: left;
-        display: flex;
-        flex-flow: column wrap;
-        padding: 0 !important;
+    p {
         margin: 0 !important;
+        padding: 0 !important;
+        justify-content: left !important;
+        flex-flow: column nowrap;
+        text-align: left !important;
+        color: #FFFFFF;
     }
     
     .sidenav {
+        align-items: center !important;
         width: 0;
         position: fixed;
         z-index: 1;
@@ -34,46 +29,67 @@
         background-color: #3F3F3F;
         overflow-x: hidden;
         transition: 0.5s;
-    }
-    
-    .sidenav a {
-        padding: 8px 8px 8px 32px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #777676;
-        display: block;
-        transition: 0.3s;
-    }
-    
-    .text {
-        font-size: 12px;
+        display: flex;
+        justify-content: space-around !important;
+        color: #FFFFFF;
+        flex-flow: column wrap !important;
+        height: 180px;
     }
     
     @media only screen and (max-width: 600px) {
-        div#side {
-            width: 0 !important;
-            height: 0 !important;
-        }
-        div#navbar {
-            margin: 0;
-            width: 100% !important;
-            height: min-content;
-        }
-        .menu {
-            font-size: small !important;
-            text-align: center;
+        .justsidebar {
+            height: min-content !important;
             display: flex;
-            flex-flow: column wrap;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        span {
-            color: #FFFFFF;
-        }
-        .navbar-brand {
-            color: #f1f1f1c0;
-            text-align: left !important;
+            flex-flow: row wrap;
             width: 100%;
-            padding: 15px;
+            color: #FFFFFF !important;
+        }
+        div#side,
+        .side {
+            width: min-content;
+        }
+        .navside,
+        .menuside,
+        .aside,
+        .sideimg {
+            width: 0;
+            color: transparent !important;
+            font-size: 0 !important;
+        }
+        .menunav,
+        .anav {
+            width: 100%;
+            font-size: medium !important;
+            color: #FFFFFF !important;
+            text-align: left !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        nav,
+        span {
+            width: 100%;
+            height: 40px;
+            color: #FFFFFF !important;
+            font-size: large !important;
+        }
+        a {
+            width: 100% !important;
+            height: 100%;
+        }
+        img.navimg {
+            width: auto;
+            height: 20%;
+        }
+        .anav {
+            height: 80%;
+        }
+        p {
+            margin: 0 !important;
+            padding: 0 !important;
+            justify-content: left !important;
+            flex-flow: column wrap;
+            text-align: left !important;
+            color: #FFFFFF;
+            height: min-content;
         }
     }
