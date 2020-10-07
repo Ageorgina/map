@@ -5,7 +5,7 @@ body {
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     height: 100%;
-    width: 100%;
+    width: 99% !important;
 }
 
 div.container {
@@ -133,9 +133,6 @@ text:hover {
 }
 
 p {
-    // margin-top: 0;
-    // margin-bottom: 0;
-    // padding: 0;
     font-weight: bold;
 }
 

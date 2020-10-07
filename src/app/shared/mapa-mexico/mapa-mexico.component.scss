@@ -1,11 +1,17 @@
 .mapMX {
-    height: 400px !important;
+    width: min-content;
+    height: 300px !important;
 }
 
 .distritos {
     color: #4C93C6;
     font-weight: normal;
     font-size: small !important;
+}
+
+.mexico {
+    width: 99%;
+    font-size: small;
 }
 
 p {

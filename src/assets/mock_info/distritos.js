@@ -1,28 +1,37 @@
 [{
-        "nombre": "Saltillo "
+        "id": "16",
+        "nombre": "Saltillo  XVI"
     },
     {
-        "nombre": "Torreón "
+        "id": "15",
+        "nombre": "Torreón XV"
     },
     {
-        "nombre": "Piedras Negras"
+        "id": "14",
+        "nombre": "Piedras Negras XIV"
     },
     {
-        "nombre": "San Juan "
+        "id": "13",
+        "nombre": "San Juan XIII "
     },
     {
-        "nombre": "Sabinas"
+        "id": "12",
+        "nombre": "Sabinas XII"
     },
     {
-        "nombre": "Acuña"
+        "id": "11",
+        "nombre": "Acuña XI"
     },
     {
-        "nombre": " Matamoros"
+        "id": "10",
+        "nombre": " Matamoros X"
     },
     {
-        "nombre": "Monclova"
+        "id": "9",
+        "nombre": "Monclova IX"
     },
     {
-        "nombre": "San Pedro"
+        "id": "8",
+        "nombre": "San Pedro VIII"
     }
 ]

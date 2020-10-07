@@ -8,12 +8,12 @@ import { PartidosComponent } from './components/partidos/partidos.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent},
-  { path: 'distritos', component: DistritosComponent},
-  { path: 'distritos:/id', component: DistritosComponent},
-  { path: 'secciones', component: SeccionesComponent},
-  { path: 'secciones:/id', component: SeccionesComponent},
-  { path: 'partidos', component: PartidosComponent}
+  { path: 'home', component: HomeComponent },
+  { path: 'distritos', component: DistritosComponent },
+  { path: 'distritos/:id', component: DistritosComponent },
+  { path: 'secciones', component: SeccionesComponent },
+  { path: 'secciones/:id', component: SeccionesComponent },
+  { path: 'partidos', component: PartidosComponent }
 ];
 
 @NgModule({

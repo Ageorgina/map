@@ -18,15 +18,13 @@ noData(Highcharts);
   styleUrls: ['./distritos.component.scss']
 })
 export class DistritosComponent implements OnInit {
-  
+
   emociones:Emocion[] = [];
   ejemplo: any;
   distritos: any;
   people = '452,812';
   idSeccion: number;
   constructor( private menuSrv: MenuService, private route: ActivatedRoute) {
-    const id = this.route.snapshot.paramMap.get('id');
-    //console.log('id', id);
 
     this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
     this.menuSrv.getDistritos().subscribe( distritos => this.distritos = distritos);

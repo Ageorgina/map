@@ -5,18 +5,24 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EstadosService {
-  filecvs = 'https://s3.amazonaws.com/nullpointerexception.com/saltillo3.csv';
+  ruta = 'https://s3.amazonaws.com/nullpointerexception.com/COA_DIS'
 
   constructor(private http: HttpClient) {
 
    }
    getDistritos() {
-      return this.http.get<any[]>('https://s3.amazonaws.com/nullpointerexception.com/COA_DIS.json');
+      return this.http.get<any[]>(this.ruta + '.json');
    }
-   getSecciones() {
-    return this.http.get<any[]>('https://s3.amazonaws.com/nullpointerexception.com/COA_DIS14_SEC.json');
+   getMapaDistritos() {
+    return this.http.get<any[]>('/assets/mock_info/distritosmapa.json');
+ }
+   getSecciones(id) {
+    return this.http.get<any[]>(this.ruta + `${id}` + '_SEC.json');
    }
-   getCSV() {
-     return this.http.get( this.filecvs, {responseType: 'text'});
+   getSeccionesMapas() {
+    return this.http.get<any[]>('/assets/mock_info/secciones16.json');
+   }
+   getCSV(id) {
+     return this.http.get( this.ruta + `${id}` + '.csv', {responseType: 'text'});
    }
 }

@@ -134,8 +134,10 @@ export class MapaMexicoComponent implements OnInit {
     Highcharts.mapChart('mexico', this.options);
   }
 
-  selected(estado) {
-      console.log('estado', estado.point.options.value);
+  selected(id) {
+      
+      //console.log('estado', id);
+      this.router.navigate(['distritos', id]);
   }
 
 }

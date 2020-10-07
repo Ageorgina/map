@@ -1,5 +1,5 @@
-<div class="container-row">
-    <div class="mapMX" id="mexico" (click)="selected($event)"></div>
+<div class="container-row  mexico">
+    <div class="mapMX" id="mexico" (click)="selected($event?.point?.options?.value)"></div>
     <div class="informacion">
         <p>Base: <br> {{ejemplo?.base}}</p>
         <p class="distritos" *ngFor="let distrito of distritos"> {{distrito?.nombre}}</p>

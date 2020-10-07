@@ -1,5 +1,7 @@
 .mapMX {
     height: 400px !important;
+    margin: 0 !important;
+    width: min-content;
 }
 
 .distritos {
@@ -13,6 +15,8 @@ p {
     margin-bottom: 0;
     padding: 0;
     font-weight: bold;
+    font-size: small;
+    width: min-content;
 }
 
 @media only screen and (max-width: 600px) {
