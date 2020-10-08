@@ -138,14 +138,14 @@ export class MapaSeccionesComponent implements OnInit {
       case 'Rojo': return '#af0d0d';
       case 'Amarillo': return '#fade07';
       case 'Marino' : return	'#365283';
-case 'Azul' : return	'#4c6a9b';
-case 'Cielo' : return	'#8894b8';
-case 'Morado' : return	'#7b4b83';
-case 'Magenta' : return	'#bb3373';
-case 'Rosa' : return	'#c4638b';
-case 'Enebro' : return	'#3c6e3c';
-case 'Olivo' : return	'#2c9354';
-case 'Verde' : return	'#5b9a52';
+      case 'Azul' : return	'#4c6a9b';
+      case 'Cielo' : return	'#8894b8';
+      case 'Morado' : return	'#7b4b83';
+      case 'Magenta' : return	'#bb3373';
+      case 'Rosa' : return	'#c4638b';
+      case 'Enebro' : return	'#3c6e3c';
+      case 'Olivo' : return	'#2c9354';
+      case 'Verde' : return	'#5b9a52';
       default: return '#ffffff';
      }
   }
