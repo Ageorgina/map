@@ -66,6 +66,10 @@ export class MapaSeccionesComponent implements OnInit {
         showInLegend: false,
         dataClasses: this.infoSecciones()
       },
+      tooltip: {
+        headerFormat: 'Sección  ',
+        pointFormat: ' {point.properties.seccion}'
+      },
       series: [{
         borderColor: '#2e2c2c',
         states: {
