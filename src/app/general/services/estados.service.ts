@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 export class EstadosService {
   cookies: any;
   estado = 'COA';
-  carpetajson = '/assets/data/json/';
+  carpetajson = 'json/';
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
    }
@@ -21,7 +21,7 @@ export class EstadosService {
 
    //PINTAR EL DISTRITO
    getMapaDistritos(estado) {
-    return this.http.get<any[]>( this.carpetajson + estado + '/distritos/' + estado + '_DIS_DATA.json');
+    return this.http.get<any[]>(`${environment.localUrl}/`+ this.carpetajson + estado + '/distritos/' + estado + '_DIS_DATA.json');
  }
  // DIBUJAR EL MAPA DE SECCIONES
    getSecciones(id) {
@@ -29,7 +29,7 @@ export class EstadosService {
    }
    // PINTAMOS PINTA LAS SECCIONES EN ESPECIFICO
    getSeccionesMapas(estado) {
-    return this.http.get<any[]>( this.carpetajson + this.estado + '/secciones/' + this.estado + '_DIS' + `${estado}` + '_DATA.json');
+    return this.http.get<any[]>( `${environment.localUrl}/` + this.carpetajson + this.estado + '/secciones/' + this.estado + '_DIS' + `${estado}` + '_DATA.json');
    }
 
    // OBTIENE INFORMACION DE CADA SECCION
