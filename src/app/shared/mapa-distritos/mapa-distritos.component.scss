@@ -1,7 +1,11 @@
 .mapMX {
-    height: 400px !important;
+    height: 550px !important;
     margin: 0 !important;
-    width: min-content;
+    width: 90%;
+}
+
+.width {
+    width: 98%;
 }
 
 .distritos {
@@ -15,7 +19,7 @@ p {
     margin-bottom: 0;
     padding: 0;
     font-weight: bold;
-    font-size: small;
+    font-size: medium !important;
     width: min-content;
 }
 
