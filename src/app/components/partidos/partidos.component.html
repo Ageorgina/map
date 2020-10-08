@@ -1,65 +1,46 @@
 <div class="container col-md-12">
-
-    <app-sidebar class="sidebar"></app-sidebar>
+    <app-sidebar class="sidebar r"></app-sidebar>
     <div class="partidos">
-        <div class="up">
+        <div class="column">
             <div class="partido">
                 <div class="right">
                     <p>Alcance Social <br> {{partido1?.alcance_Social | percent}}</p>
                     <p>Impacto <br>{{partido1?.impacto | percent}}</p>
                     <p>Influencia Social <br> {{partido1?.influencia}}</p>
                 </div>
-                <div class="logop">
-                    <div class="img">
-                        <img src="./assets/logos/MC.png" width="50%">
-                    </div>
+                <img class="img" src="/assets/logos/MC.png" width="55%">
 
-                </div>
             </div>
             <div class="partido">
-                <div class="logop">
-                    <div class="img">
-                        <img src="./assets/logos/PRI.png" width="50%">
-                    </div>
-
-                </div>
-                <div>
+                <div class="right">
                     <p>Alcance Social <br> {{partido2?.alcance_Social | percent}}</p>
                     <p>Impacto <br>{{partido2?.impacto | percent}}</p>
                     <p>Influencia Social <br> {{partido2?.influencia}}</p>
                 </div>
+                <img class="img" src="/assets/logos/PRI.png" width="55%">
 
             </div>
         </div>
-        <div class="up">
+        <div class="column">
             <div class="partido">
-                <div class="right">
+                <img class="img" src="/assets/logos/PAN.png" width="56%">
+                <div class="panleft">
                     <p>Alcance Social <br> {{partido3?.alcance_Social | percent}}</p>
                     <p>Impacto <br>{{partido3?.impacto | percent}}</p>
                     <p>Influencia Social <br> {{partido3?.influencia}}</p>
                 </div>
-                <div class="logop">
-                    <div class="img">
-                        <img src="./assets/logos/PAN.png" width="50%">
-                    </div>
-                </div>
             </div>
             <div class="partido">
-                <div class="logop">
-                    <div class="img">
-                        <img src="./assets/logos/MOR.png" width="50%">
-                    </div>
-                </div>
-                <div>
+                <img class="img" src="/assets/logos/MOR.png" width="54%">
+                <div class="left">
                     <p>Alcance Social <br> {{partido4?.alcance_Social | percent}}</p>
                     <p>Impacto <br>{{partido4?.impacto | percent}}</p>
                     <p>Influencia Social <br> {{partido4?.influencia}}</p>
                 </div>
-
             </div>
         </div>
     </div>
-    <div class="informacion">
+    <div class="informacion r">
         <p>Base D XIV <br>{{ejemplo?.baseD}}</p>
         <p>Indecisos <br> {{ejemplo?.indecisosD}}</p>
         <p>Arrepentidos <br> {{ejemplo?.arrependidosD}} </p>

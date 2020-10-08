@@ -1,28 +1,50 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstadosService {
-  ruta = 'https://s3.amazonaws.com/nullpointerexception.com/COA_DIS'
+ // ruta = 'https://s3.amazonaws.com/nullpointerexception.com/COA_DIS';
+  cookies: any;
+  estado = 'COA';
+  carpeta = '/assets/data/json/';
 
-  constructor(private http: HttpClient) {
-
+  constructor(private http: HttpClient, private cookieService: CookieService) {
    }
+
+   //DIBUJAR MAPA DISTRIOS
    getDistritos() {
-      return this.http.get<any[]>(this.ruta + '.json');
+     console.log('MAPA D',(`${environment.cartografiaUrl}/` + this.estado + '_DIS' + '.json'));
+      return this.http.get<any[]>(`${environment.cartografiaUrl}/` + this.estado + '_DIS' + '.json');
    }
-   getMapaDistritos() {
-    return this.http.get<any[]>('/assets/mock_info/distritosmapa.json');
+
+   //PINTAR EL DISTRITO
+   getMapaDistritos(estado) {
+    console.log('assets/D',this.carpeta + estado + '/distritos/' + estado + '_DIS_DATA.json');
+    return this.http.get<any[]>( this.carpeta + estado + '/distritos/' + estado + '_DIS_DATA.json');
  }
+ // DIBUJAR EL MAPA DE SECCIONES
    getSecciones(id) {
-    return this.http.get<any[]>(this.ruta + `${id}` + '_SEC.json');
+    console.log('MAPA SEC',`${environment.cartografiaUrl}/` + this.estado + '_DIS' + `${id}` + '_SEC.json');
+    return this.http.get<any[]>(`${environment.cartografiaUrl}/` + this.estado + '_DIS' + `${id}` + '_SEC.json');
    }
+   // PINTAMOS PINTA LAS SECCIONES EN ESPECIFICO
    getSeccionesMapas() {
-    return this.http.get<any[]>('/assets/mock_info/secciones16.json');
+   // console.log('assets/D',this.carpeta + estado + '/distritos/' + estado + '_DIS_DATA.json');
+    return this.http.get<any[]>('/assets/mock_info/COA_DIS016_DATA.json');
    }
+
+   // OBTIENE INFORMACION DE CADA SECCION
    getCSV(id) {
-     return this.http.get( this.ruta + `${id}` + '.csv', {responseType: 'text'});
+     console.log(`${environment.cartografiaUrl}/` + this.estado + '_DIS' + `${id}` + '.csv')
+     return this.http.get( `${environment.cartografiaUrl}/` + this.estado + '_DIS' + `${id}` + '.csv', {responseType: 'text'});
+   }
+
+   getCOOKIE(cookies) {
+    console.log('OBTENER COA009PAN', cookies);
+     return this.http.get('http://localhost:4200/secciones/9', cookies);
    }
 }

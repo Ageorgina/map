@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { PartidosComponent } from './components/partidos/partidos.component';
 import { ChartModule } from 'angular-highcharts';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ChartModule } from 'angular-highcharts';
     RouterModule,
     ChartModule
   ],
-  providers: [],
+  providers: [CookieService ],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

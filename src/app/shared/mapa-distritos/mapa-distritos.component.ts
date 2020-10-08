@@ -3,7 +3,7 @@ import * as Highcharts from 'highcharts/highmaps';
 import { EstadosService } from '../../general/services/estados.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuService } from '../../general/services/menu.service';
-const datas = [['16', 16],['8', 8],['9',9],['10',10],['15',15]];
+//const datas = [['16', 16],['8', 8],['9',9],['10',10],['15',15]];
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
 const noData = require('highcharts/modules/no-data-to-display');
@@ -25,18 +25,20 @@ export class MapaDistritosComponent implements OnInit {
   ejemplo: any;
   distritos: any;
   distritosMapas: any;
+  estado = 'COA';
 
-  constructor( private estados: EstadosService, private menuSrv: MenuService,
-               private route: ActivatedRoute, private router: Router) {
-                this.distritoID = this.route.snapshot.paramMap.get('id');
-               // console.log('id', this.distritoID)
+  constructor( private estados: EstadosService, private menuSrv: MenuService, private router: Router) {
                 this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
                 this.menuSrv.getDistritos().subscribe( distritos => {
                   this.distritos = distritos;
-                 // console.log('distrito', distritos)
                 });
-                this.estados.getMapaDistritos().subscribe(data => {
-                  this.distritosMapas = data;
+                this.estados.getMapaDistritos(this.estado).subscribe(data => {
+                  data.filter( x => {
+                    if (x[0] === "16") {
+                      data = [x];
+                      this.distritosMapas = data;
+                    }
+                  });
                 });
    }
 
@@ -69,7 +71,7 @@ export class MapaDistritosComponent implements OnInit {
              'Salud<br>'
      },
        series: [{
-         data: datas,
+
             keys: ['DISTRITO_L', 'value'],
             joinBy: ['DISTRITO_L'],
            dataLabels: {
@@ -92,16 +94,12 @@ export class MapaDistritosComponent implements OnInit {
 
     construirMapa(entidadesJSON) {
       this.mapa.chart.map = entidadesJSON;
-      //console.log(this.distritosMapas);
-     // this.mapa.series.data = this.distritosMapas;
-      console.log(this.mapa)
+      this.mapa.series[0].data = this.distritosMapas;
       Highcharts.mapChart('estado', this.mapa);
     }
     selected(id) {
-      if(id === null){
-        return ;
-      }
-     this.router.navigate(['secciones', id]);
+      if (id === null) { return ; }
+      this.router.navigate(['secciones', id]);
   }
 
 }

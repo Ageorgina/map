@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts/highmaps';
 import { MenuService } from '../../general/services/menu.service';
+import { EstadosService } from '../../general/services/estados.service';
+import { CookieService } from 'ngx-cookie-service';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -26,8 +28,10 @@ export class MapaMexicoComponent implements OnInit {
     estadoID: any;
     ejemplo: any;
     distritos: any;
-
-  constructor(private menuSrv: MenuService, private route: ActivatedRoute, private router: Router) {
+    cookies: any;
+  constructor(  private menuSrv: MenuService,  private router: Router,
+                private estado: EstadosService, private route: ActivatedRoute,
+                private cookieService: CookieService) {
     this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
     this.menuSrv.getDistritos().subscribe( distritos => this.distritos = distritos);
    }
@@ -138,6 +142,18 @@ export class MapaMexicoComponent implements OnInit {
       
       //console.log('estado', id);
       this.router.navigate(['distritos', id]);
+              //document.execCommand('copy');
+              this.cookies = {
+                user: 'COA008PAN',
+            }
+            //this.cookieService.set( 'prueba', this.cookies );
+      
+              this.estado.getCOOKIE(this.cookies).subscribe(x => {
+              this.cookieService.check('prueba');
+              this.cookieService.get('prueba');
+                //console.log(this.cookieService.check('prueba'));
+                //console.log('response', x)
+              });
   }
 
 }
