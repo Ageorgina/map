@@ -34,7 +34,7 @@ export class MapaDistritosComponent implements OnInit {
                 });
                 this.estados.getMapaDistritos(this.estado).subscribe(data => {
                   data.filter( x => {
-                    if (x[0] === "16") {
+                    if (x[0] === "9") {
                       data = [x];
                       this.distritosMapas = data;
                     }

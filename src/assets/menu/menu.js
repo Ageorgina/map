@@ -7,7 +7,4 @@
 }, {
     "nombre": "Partidos",
     "redirectTo": "partidos"
-}, {
-    "nombre": "Secciones",
-    "redirectTo": "secciones"
 }]

@@ -148,12 +148,12 @@ export class MapaMexicoComponent implements OnInit {
             }
             //this.cookieService.set( 'prueba', this.cookies );
       
-              this.estado.getCOOKIE(this.cookies).subscribe(x => {
+             /* this.estado.getCOOKIE(this.cookies).subscribe(x => {
               this.cookieService.check('prueba');
               this.cookieService.get('prueba');
                 //console.log(this.cookieService.check('prueba'));
                 //console.log('response', x)
-              });
+              });*/
   }
 
 }

@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  cartografiaUrl: 'https://s3.amazonaws.com/nullpointerexception.com'
 };
