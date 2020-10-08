@@ -13,9 +13,12 @@ services:
     expose:
       - 80
     ports:
-      - 80:80
+      - ${PORT}:80
+    #  - 80:80
     restart: unless-stopped
     volumes:
-      - "/opt/web/authelia/compose/lite/nginx/.htpasswd:/etc/nginx/.htpasswd:ro"
-      - "/opt/web/site:/var/www/html"
-      - "/opt/web/authelia/compose/lite/nginx:/etc/nginx"
+    # /opt/web/authelia/compose/lite/nginx/
+    # /opt/web/site
+      - "${CONFIG_PATH}/.htpasswd:/etc/nginx/.htpasswd:ro"
+      - "${SITE_PATH}:/var/www/html"
+      - "${CONFIG_PATH}:/etc/nginx"
