@@ -1,6 +1,6 @@
 <div class="container col-md-12">
     <app-sidebar class="sidebar r"></app-sidebar>
-    <div class="partidos">
+    <div id="bloquear" class="partidos">
         <div class="column">
             <div class="partido">
                 <div class="right">
@@ -8,7 +8,7 @@
                     <p>Impacto <br>{{partido1?.impacto | percent}}</p>
                     <p>Influencia Social <br> {{partido1?.influencia}}</p>
                 </div>
-                <img class="img" src="/assets/logos/MC.png" width="55%">
+                <img class="img" src="../../../assets/logos/MC.png" width="55%">
 
             </div>
             <div class="partido">
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="informacion r">
+    <div id="bloquear" aria-disabled="true" class="informacion r">
         <p>Base D XIV <br>{{ejemplo?.baseD}}</p>
         <p>Indecisos <br> {{ejemplo?.indecisosD}}</p>
         <p>Arrepentidos <br> {{ejemplo?.arrependidosD}} </p>

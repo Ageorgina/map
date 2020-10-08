@@ -33,9 +33,9 @@ export class MapaDistritosComponent implements OnInit {
 
   constructor( private estados: EstadosService, private menuSrv: MenuService, private router: Router) {
     this.distValue = this.estados.getCOOKIE().match(regex).toString();
+    this.menuSrv.getInfoDistritos(this.distValue).subscribe( info => this.ejemplo = info[0]);
     this.distValue = this.distValue.replace(/\b0+/g, "");
 
-                this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
                 this.menuSrv.getDistritos().subscribe( distritos => {
                   this.distritos = distritos;
                 });

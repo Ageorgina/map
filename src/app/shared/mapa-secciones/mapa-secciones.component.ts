@@ -53,11 +53,10 @@ export class MapaSeccionesComponent implements OnInit {
         this.id = '0' + this.id.toString();
       }
       }
-      this.traerData(this.id).finally(()=>{
+    this.traerData(this.id).finally(() => {
         this.estado.getSecciones(this.id).subscribe( cvsInfo => {
-       
           this.construirMapa(cvsInfo);
-        })
+        });
       });
    }
 
@@ -102,7 +101,7 @@ export class MapaSeccionesComponent implements OnInit {
     this.mapa.series[0].data = this.seccionInf;
     this.mapa.chart.map = seccionesJSON;
       
-      Highcharts.mapChart('secciones', this.mapa);
+    Highcharts.mapChart('secciones', this.mapa);
   }
 
   infoSecciones() {

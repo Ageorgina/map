@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Menu } from '../model/menu';
 import { Emocion } from '../model/emocion';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,5 +23,8 @@ export class MenuService {
   }
   getPartidos() {
     return this.http.get<any[]>('/assets/mock_info/partidos.js');
+  }
+  getInfoDistritos(id) {
+    return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_DIS' + `${id}` + '.js' );
   }
 }
