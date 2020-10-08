@@ -1,7 +1,7 @@
 version: '3.3'
 
 networks:
-  net:
+  entropia:
     driver: bridge
 
 services:
@@ -9,7 +9,7 @@ services:
     image: nginx:latest
     container_name: nginx
     networks:
-      - net
+      - entropia
     expose:
       - 80
     ports:
