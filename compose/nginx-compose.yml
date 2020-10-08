@@ -1,0 +1,21 @@
+version: '3.3'
+
+networks:
+  net:
+    driver: bridge
+
+services:
+  secure:
+    image: nginx:latest
+    container_name: nginx
+    networks:
+      - net
+    expose:
+      - 80
+    ports:
+      - 80:80
+    restart: unless-stopped
+    volumes:
+      - "/opt/web/authelia/compose/lite/nginx/.htpasswd:/etc/nginx/.htpasswd:ro"
+      - "/opt/web/site:/var/www/html"
+      - "/opt/web/authelia/compose/lite/nginx:/etc/nginx"
