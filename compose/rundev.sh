@@ -3,8 +3,8 @@
 #CONFIG_PATH=/home/chololo/disco2/workspaces/projects/cartografia_entropia/compose/nginx \
 #SITE_PATH=/home/chololo/disco2/workspaces/projects/cartografia_entropia/dist/cartografia \
 PORT=8888
-CONFIG_PATH=/respaldos/workspaces/projects/asg/cartografia_entropia/compose/nginx
-SITE_PATH=/respaldos/workspaces/projects/asg/cartografia_entropia/dist/cartografia
+CONFIG_PATH=/home/anaog/Escritorio/cartografia_entropia/compose/nginx
+SITE_PATH=/home/anaog/Escritorio/cartografia_entropia/dist/cartografia
 if [ ! -d $CONFIG_PATH ]
 then
     echo "CONFIG PATH no existe"

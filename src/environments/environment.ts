@@ -4,9 +4,7 @@
 
 export const environment = {
   production: false,
-  cartografiaUrl: 'https://s3.amazonaws.com/nullpointerexception.com',
-  //localUrl: '/assets/data/'
-  
+  cartografiaUrl: 'https://s3.amazonaws.com/nullpointerexception.com'
 };
 
 /*

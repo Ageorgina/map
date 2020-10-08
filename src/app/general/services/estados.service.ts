@@ -11,6 +11,7 @@ export class EstadosService {
   estado = 'COA';
   carpetajson = 'json/';
   carpetacsv = 'csv/';
+  cookieValue: string;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
    }
@@ -22,7 +23,6 @@ export class EstadosService {
 
    //PINTAR EL DISTRITO
    getMapaDistritos(estado) {
-     console.log(`${environment.cartografiaUrl}/` + this.carpetajson + estado + '/distritos/' + estado + '_DIS_DATA.json')
     return this.http.get<any[]>(`${environment.cartografiaUrl}/`+'data/' + this.carpetajson + estado + '/distritos/' + estado + '_DIS_DATA.json');
  }
  // DIBUJAR EL MAPA DE SECCIONES
@@ -39,8 +39,8 @@ export class EstadosService {
      return this.http.get( `${environment.cartografiaUrl}/` +'data/' + this.carpetacsv + this.estado + '_DIS' + `${id}` + '.csv', {responseType: 'text'});
    }
 
-   getCOOKIE(cookies) {
-    //console.log('OBTENER COA009PAN', cookies);
-     //return this.http.get('http://localhost:4200/secciones/9', cookies);
+   getCOOKIE() {
+    this.cookieValue = this.cookieService.get('user');
+    return this.cookieValue;
    }
 }

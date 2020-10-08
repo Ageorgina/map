@@ -194,11 +194,8 @@
                                                 // keys: ['SECCION', 'value'],
                                                 events: {
                                                     click: function(e) {
-                                                        console.log(datosSecciones)
 
                                                         obtenerSecciones()
-
-                                                        console.log(datosSecciones)
 
                                                         debugger
                                                         var text = obtenerHTMLSeccion(obtenerDatosSeccion(e.point.value))
@@ -287,7 +284,6 @@
 
         //descarga el csv y lo convierte a string[] 
         function obtenerSecciones() {
-            console.log("Obteniendo datos cvs")
             var CVS_URL = '../mock_info/saltillo-saltillo.csv'
 
             $.ajax({
@@ -296,14 +292,12 @@
                 crossOrigin: true,
                 dataType: "text",
                 success: function(data) {
-                    console.log(data)
                     var c = data.match(/\n+[0-9]{1,4}/g)
                     for (var i = 0; i < c.length; i++) {
                         data = data.replace(c[i], "|" + c[i].substring(1, c[i].length))
                     }
                     debugger
                     datosSecciones = data.split("|")
-                    console.log(datosSecciones);
                     headers = datosSecciones[0].split(",")
 
                 }
@@ -315,7 +309,6 @@
             for (var i = 0; i < datosSecciones.length; i++) {
                 var ids = datosSecciones[i].split(",")
                 if (ids[0] == seccion) {
-                    console.log(datosSecciones[i])
                     return datosSecciones[i]
                 }
             }

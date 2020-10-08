@@ -14,6 +14,7 @@ noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
 let $;
+var regex = /(\d+)/g;
 
 @Component({
   selector: 'app-mapa-distritos',
@@ -26,15 +27,21 @@ export class MapaDistritosComponent implements OnInit {
   distritos: any;
   distritosMapas: any;
   estado = 'COA';
+  estadoValue: string;
+  distValue: string;
+  partidoValue: string;
 
   constructor( private estados: EstadosService, private menuSrv: MenuService, private router: Router) {
+    this.distValue = this.estados.getCOOKIE().match(regex).toString();
+    this.distValue = this.distValue.replace(/\b0+/g, "");
+
                 this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
                 this.menuSrv.getDistritos().subscribe( distritos => {
                   this.distritos = distritos;
                 });
                 this.estados.getMapaDistritos(this.estado).subscribe(data => {
                   data.filter( x => {
-                    if (x[0] === "9") {
+                    if (x[0] === this.distValue) {
                       data = [x];
                       this.distritosMapas = data;
                     }

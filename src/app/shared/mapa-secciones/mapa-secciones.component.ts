@@ -11,6 +11,7 @@ Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
+var regex = /(\d+)/g;
 
 @Component({
   selector: 'app-mapa-secciones',
@@ -36,8 +37,15 @@ export class MapaSeccionesComponent implements OnInit {
   cookies: any
   seccionInf= [];
   cvsInfo: any
+  estadoValue: string;
+  distValue: string;
+  partidoValue: string;
+  logo: string;
+
 
   constructor(private estado: EstadosService, private route: ActivatedRoute, private cookieService: CookieService) {
+    this.logoPartido(this.estado.getCOOKIE().slice(6));
+
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id.length < 3) {
       let completar  =  3 - this.id.length;
@@ -46,7 +54,6 @@ export class MapaSeccionesComponent implements OnInit {
       }
       }
       this.traerData(this.id).finally(()=>{
-        console.log('termino 1')
         this.estado.getSecciones(this.id).subscribe( cvsInfo => {
        
           this.construirMapa(cvsInfo);
@@ -92,7 +99,6 @@ export class MapaSeccionesComponent implements OnInit {
     }
 
   async construirMapa(seccionesJSON) {
-    console.log('2 seccionesJSON', seccionesJSON)
     this.mapa.series[0].data = this.seccionInf;
     this.mapa.chart.map = seccionesJSON;
       
@@ -100,7 +106,6 @@ export class MapaSeccionesComponent implements OnInit {
   }
 
   infoSecciones() {
-    console.log('3 inicia pintar el mapa')
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id.length < 3) {
       let completar  =  3 - this.id.length;
@@ -109,7 +114,6 @@ export class MapaSeccionesComponent implements OnInit {
       }
       }
     this.estado.getCSV(this.id).subscribe(info => {
-      console.log('4 entro a recuperar el cvs info', info)
       const match = info.match(/\n+[0-9]{1,4}/g);
       for ( let i = 0; i < match.length; i++) {
         info = info.replace(match[i], '|' + match[i].substring(1, match[i].length));
@@ -117,14 +121,12 @@ export class MapaSeccionesComponent implements OnInit {
       this.datosSecciones = info.split('|');
       this.headers = this.datosSecciones[0].split(',');
       this.generarColores(info.split('|')).finally(() => {
-        console.log('5 convirtio los colores a hxd y los asigna a el mapa this.coloresHxd', this.coloresHxd)
         this.mapa.colorAxis.dataClasses = this.coloresHxd;
       });
     });
   }
 
    async generarColores(datosSecciones) {
-     console.log(datosSecciones)
      for (let i = 1; i < datosSecciones.length; i++) {
       const datos = datosSecciones[i].split(',');
       const selectColor = {
@@ -175,9 +177,20 @@ export class MapaSeccionesComponent implements OnInit {
 
  async traerData(id) {
     this.estado.getSeccionesMapas(id).subscribe(secciones => {
-      
       this.seccionInf = secciones;
-      console.log('1 this.seccionInf', this.seccionInf)
     });
+  }
+
+  logoPartido(partido) {
+    if ( partido === 'PAN') {
+      this.logo = 'assets/logos/PANL.png';
+    } else if(partido === 'MOR') {
+      this.logo = 'assets/logos/MORL.png';
+    } else if ( partido === 'PRI') {
+      this.logo = 'assets/logos/PRI.png';
+    }  else if ( partido === 'MC') {
+      this.logo = 'assets/logos/MCL.png';
+    }
+
   }
 }
