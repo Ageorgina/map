@@ -7,7 +7,7 @@
     </div>
     <div class="mapMX" id="mexico" (click)="selected($event?.point?.options?.value)"></div>
     <div id="bloquear" class="informacion">
-        <p>Base: <br> {{dato?.base}} {{dato.gentilicio}}</p>
+        <p>Base: <br> {{dato?.base}} {{dato?.gentilicio}}</p>
         <p class="distritos" *ngFor="let distrito of distritos"> {{distrito?.nombre}}</p>
         <p>Indecisos <br> {{dato?.indecisos}}</p>
         <p>Arrepentidos <br> {{dato?.arrepentidos}} </p>

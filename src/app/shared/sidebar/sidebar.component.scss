@@ -37,16 +37,13 @@
     }
     
     @media only screen and (max-width: 600px) {
-        .justsidebar {
-            height: min-content !important;
-            display: flex;
-            flex-flow: row wrap;
-            width: 100%;
-            color: #FFFFFF !important;
-        }
         div#side,
         .side {
             width: min-content;
+            // height: 350px;
+            display: flex;
+            justify-content: start;
+            flex-flow: column wrap;
         }
         .navside,
         .menuside,
@@ -55,6 +52,7 @@
             width: 0;
             color: transparent !important;
             font-size: 0 !important;
+            height: auto;
         }
         .menunav,
         .anav {
@@ -82,6 +80,9 @@
         }
         .anav {
             height: 80%;
+        }
+        .menuside {
+            // min-height: 300px;
         }
         p {
             margin: 0 !important;

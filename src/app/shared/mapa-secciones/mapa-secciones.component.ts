@@ -167,7 +167,7 @@ export class MapaSeccionesComponent implements OnInit {
         this.selectedSeccion = datos;
         this.seccionID = this.seccionID;
         this.temas = datos[2].replace(/[/]/g, lineBreak);
-        this.emociones = datos[3].replace(/'<br>', '[/]'/g, lineBreak);
+        this.emociones = datos[3].replace(/[/]/g, lineBreak);
         this.mujeres = datos[4].replace(/[<br/>, <br>, /]/g, lineBreak);
         this.hombres = datos[5].replace(/[<br/>, <br>, /]/g, lineBreak);
         this.impactos = datos[6].replace(/[/]/g, lineBreak) + lineBreak + datos[7];
