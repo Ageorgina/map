@@ -20,9 +20,9 @@
 
 </head>
 
-<body>
+<!-- <body> -->
 
-    <!-- <body oncontextmenu="return false" onkeydown="return false"> -->
+<body oncontextmenu="return false" onkeydown="return false">
     <script>
         $(document).mouseup(function(cierre) {
             if ($(cierre)[0].target.localName != 'label') {
@@ -41,10 +41,10 @@
     <!-- /sidebar -->
     <script>
         window.onload = function() {
-            // var texto = document.getElementById('bloquear');
-            // texto.oncopy = function(e) {
-            //     e.preventDefault();
-            // }
+            var texto = document.getElementById('bloquear');
+            texto.oncopy = function(e) {
+                e.preventDefault();
+            }
         }
     </script>
 
