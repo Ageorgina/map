@@ -1,44 +1,44 @@
 <div class="container col-md-12">
-    <div class="loading" *ngIf="loading">
-        <div class="lds-ripple" *ngIf="loading">
+    <div class="loading " *ngIf="loading ">
+        <div class="lds-ripple " *ngIf="loading ">
             <div></div>
             <div></div>
         </div>
     </div>
-    <app-sidebar class="sidebar r"></app-sidebar>
-    <div id="bloquear" class="partidos">
-        <div class="column">
-            <div class="partido">
-                <div class="right">
+    <app-sidebar class="sidebar r "></app-sidebar>
+    <div id="bloquear " class="partidos ">
+        <div class="column ">
+            <div class="partido ">
+                <div class="right ">
                     <p>Alcance Social <br> {{partido1?.alcance_Social | percent}}</p>
                     <p>Impacto <br>{{partido1?.impacto | percent}}</p>
                     <p>Influencia Social <br> {{partido1?.influencia}}</p>
                 </div>
-                <img class="img" src="../../../assets/logos/MC.png" width="55%">
+                <img class="img " src="../../../assets/logos/MC.png " width="55% ">
 
             </div>
-            <div class="partido">
-                <div class="right">
+            <div class="partido ">
+                <div class="right ">
                     <p>Alcance Social <br> {{partido2?.alcance_Social | percent}}</p>
                     <p>Impacto <br>{{partido2?.impacto | percent}}</p>
                     <p>Influencia Social <br> {{partido2?.influencia}}</p>
                 </div>
-                <img class="img" src="/assets/logos/PRI.png" width="55%">
+                <img class="img " src="/assets/logos/PRI.png " width="55% ">
 
             </div>
         </div>
-        <div class="column">
-            <div class="partido">
-                <img class="img" src="/assets/logos/PAN.png" width="56%">
-                <div class="panleft">
+        <div class="column ">
+            <div class="partido ">
+                <img class="img " src="/assets/logos/PAN.png " width="56% ">
+                <div class="panleft ">
                     <p>Alcance Social <br> {{partido3?.alcance_Social | percent}}</p>
                     <p>Impacto <br>{{partido3?.impacto | percent}}</p>
                     <p>Influencia Social <br> {{partido3?.influencia}}</p>
                 </div>
             </div>
-            <div class="partido">
-                <img class="img" src="/assets/logos/MOR.png" width="54%">
-                <div class="left">
+            <div class="partido ">
+                <img class="img " src="/assets/logos/MOR.png " width="54% ">
+                <div class="left ">
                     <p>Alcance Social <br> {{partido4?.alcance_Social | percent}}</p>
                     <p>Impacto <br>{{partido4?.impacto | percent}}</p>
                     <p>Influencia Social <br> {{partido4?.influencia}}</p>
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    <div id="bloquear" aria-disabled="true" class="informacion r">
+    <div id="bloquear " aria-disabled="true " class="informacion r ">
         <p>Base D XIV <br>{{ejemplo?.baseD}}</p>
         <p>Indecisos <br> {{ejemplo?.indecisosD}}</p>
         <p>Arrepentidos <br> {{ejemplo?.arrependidosD}} </p>
@@ -55,11 +55,11 @@
         <p> Mejor Horario
             <br> {{ejemplo?.hombresD}}
             <br> {{ejemplo?.mujeresD}} </p>
-        <p class="competencias">Competencia: <br> {{ejemplo?.competencia_c}}</p>
-        <p class="competencias">Afiliados: <br> {{ejemplo?.afiliados_c}}</p>
-        <p class="competencias">ActivosDigitales: <br> {{ejemplo?.activos_Digitales_c}}</p>
-        <p class="competencias">Tracking: <br> {{ejemplo?.tracking_c}}</p>
-        <p class="alianza">Alcance coalición: <br> {{ejemplo?.alcanceCoalicion}}</p>
-        <p class="alianza">Influencia: <br> {{ejemplo?.influencia}}</p>
+        <p class="competencias ">Competencia: <br> {{ejemplo?.competencia_c}}</p>
+        <p class="competencias ">Afiliados: <br> {{ejemplo?.afiliados_c}}</p>
+        <p class="competencias ">ActivosDigitales: <br> {{ejemplo?.activos_Digitales_c}}</p>
+        <p class="competencias ">Tracking: <br> {{ejemplo?.tracking_c}}</p>
+        <p class="alianza ">Alcance coalición: <br> {{ejemplo?.alcanceCoalicion}}</p>
+        <p class="alianza ">Influencia: <br> {{ejemplo?.influencia}}</p>
     </div>
 </div>

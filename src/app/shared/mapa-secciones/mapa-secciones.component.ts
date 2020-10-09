@@ -163,7 +163,7 @@ export class MapaSeccionesComponent implements OnInit {
     if (this.seccionID === null) { return; }
     for (let i = 1; i < this.datosSecciones.length; i++) {
       const datos = this.datosSecciones[i].split(',');
-      if (datos[0].includes(this.seccionID.toString())){
+      if (datos[0].includes(this.seccionID.toString())) {
         this.selectedSeccion = datos;
         this.seccionID = this.seccionID;
         this.temas = datos[2].replace(/[/]/g, lineBreak);
