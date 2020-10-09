@@ -11,6 +11,7 @@ Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
+
 var regex = /(\d+)/g;
 
 @Component({
@@ -19,6 +20,7 @@ var regex = /(\d+)/g;
   styleUrls: ['./mapa-secciones.component.scss']
 })
 export class MapaSeccionesComponent implements OnInit {
+  loading = true;
   datosSecciones = [];
   headers = [];
   secciones = [];
@@ -55,7 +57,7 @@ export class MapaSeccionesComponent implements OnInit {
       }
     this.traerData(this.id).finally(() => {
         this.estado.getSecciones(this.id).subscribe( cvsInfo => {
-          this.construirMapa(cvsInfo);
+          this.construirMapa(cvsInfo).finally(() => this.loading = false);
         });
       });
    }

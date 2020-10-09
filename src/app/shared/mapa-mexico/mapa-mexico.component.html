@@ -1,4 +1,10 @@
 <div class="container-row  mexico">
+    <div class="loading" *ngIf="loading">
+        <div class="lds-ripple" *ngIf="loading">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <div class="mapMX" id="mexico" (click)="selected($event?.point?.options?.value)"></div>
     <div id="bloquear" class="informacion">
         <p>Base: <br> {{ejemplo?.base}}</p>

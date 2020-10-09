@@ -30,6 +30,7 @@ export class MapaDistritosComponent implements OnInit {
   estadoValue: string;
   distValue: string;
   partidoValue: string;
+  loading = true;
 
   constructor( private estados: EstadosService, private menuSrv: MenuService, private router: Router) {
     this.distValue = this.estados.getCOOKIE().match(regex).toString();
@@ -96,10 +97,12 @@ export class MapaDistritosComponent implements OnInit {
    };
 
   ngOnInit() {
-      this.estados.getDistritos().subscribe( entidades => this.construirMapa(entidades) );
+      this.estados.getDistritos().subscribe( entidades => {
+        this.construirMapa(entidades).finally(() => {this.loading = false; } );
+      } );
     }
 
-    construirMapa(entidadesJSON) {
+    async construirMapa(entidadesJSON) {
       this.mapa.chart.map = entidadesJSON;
       this.mapa.series[0].data = this.distritosMapas;
       Highcharts.mapChart('estado', this.mapa);

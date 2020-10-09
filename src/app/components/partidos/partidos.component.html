@@ -1,4 +1,10 @@
 <div class="container col-md-12">
+    <div class="loading" *ngIf="loading">
+        <div class="lds-ripple" *ngIf="loading">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <app-sidebar class="sidebar r"></app-sidebar>
     <div id="bloquear" class="partidos">
         <div class="column">

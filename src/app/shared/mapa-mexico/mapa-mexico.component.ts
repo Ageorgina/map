@@ -25,7 +25,6 @@ var regex = /(\d+)/g;
   styleUrls: ['./mapa-mexico.component.scss']
 })
 export class MapaMexicoComponent implements OnInit {
-    //cookieValue: string;
     estadoValue: string;
     distValue: string;
     partidoValue: string;
@@ -33,6 +32,8 @@ export class MapaMexicoComponent implements OnInit {
     ejemplo: any;
     distritos: any;
     cookies: any;
+    loading = true;
+
   constructor(  private menuSrv: MenuService,  private router: Router,
                 private estado: EstadosService, private route: ActivatedRoute,
                 private cookieService: CookieService) {
@@ -139,13 +140,21 @@ export class MapaMexicoComponent implements OnInit {
 
 
   ngOnInit() {
+      this.chart().finally(()=> {
+        this.estadoValue = this.estado.getCOOKIE().substring(0, 3);
+        // this.distValue = this.estado.getCOOKIE().match(regex).toString();
+        // this.distValue= this.distValue.replace(/[0+]/g, "");
+        //this.partidoValue = this.estado.getCOOKIE().slice(6);
+
+        this.loading = false;
+      });
+
+
+
+  }
+
+  async chart() {
     Highcharts.mapChart('mexico', this.options);
-    this.estadoValue = this.estado.getCOOKIE().substring(0, 3);
-    this.distValue = this.estado.getCOOKIE().match(regex).toString();
-
-    this.distValue= this.distValue.replace(/[0+]/g, "");
-    this.partidoValue = this.estado.getCOOKIE().slice(6);
-
   }
 
   selected(id) {
