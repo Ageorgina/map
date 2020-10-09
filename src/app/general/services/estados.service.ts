@@ -27,7 +27,7 @@ export class EstadosService {
  }
  // DIBUJAR EL MAPA DE SECCIONES
    getSecciones(id) {
-    return this.http.get<any[]>(`${environment.cartografiaUrl}/` + this.estado + '_DIS' + `${id}` + '_SEC.json');
+    return this.http.get<any[]>(`${environment.cartografiaUrl}/` +'data/' + this.carpetajson + this.estado + '/secciones/' + this.estado + '_DIS' + `${id}` + '_SEC.json');
    }
    // PINTAMOS PINTA LAS SECCIONES EN ESPECIFICO
    getSeccionesMapas(estado) {
