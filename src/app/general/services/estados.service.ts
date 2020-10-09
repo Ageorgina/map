@@ -18,8 +18,7 @@ export class EstadosService {
 
    //DIBUJAR MAPA DISTRIOS
    getDistritos() {
-   //  console.log(`${environment.cartografiaUrl}/` + 'data/' + this.carpetajson + 'distritos/'  + this.estado + '_DIS' + '.json')
-      return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/' + this.carpetajson + this.estado  + 'distritos/' + this.estado + '_DIS' + '.json');
+      return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/' + this.carpetajson + this.estado  + '/distritos/' + this.estado + '_DIS.json');
    }
 
    //PINTAR EL DISTRITO
