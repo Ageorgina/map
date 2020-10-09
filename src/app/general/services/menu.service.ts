@@ -27,4 +27,8 @@ export class MenuService {
   getInfoDistritos(id) {
     return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_DIS' + `${id}` + '.js' );
   }
+
+  getEstados() {
+    return this.http.get<any[]>('/data/js/DATA_MX.js');
+  }
 }

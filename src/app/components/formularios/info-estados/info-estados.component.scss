@@ -1,0 +1,55 @@
+.input {
+    margin-bottom: 5px !important;
+    min-width: 25% !important;
+}
+
+input,
+select {
+    border-color: gray;
+    background-color: transparent;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.card {
+    min-width: 62.5%;
+    margin-bottom: 5px !important;
+    background-color: #4f4646;
+}
+
+.between-row {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.botones {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap !important;
+    justify-content: space-around !important;
+}
+
+.botones {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around !important;
+    // background-color: turquoise;
+}
+
+button#button {
+    width: 40%;
+    background-color: transparent !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .input {
+        margin-bottom: 5px !important;
+        min-width: 100% !important;
+    }
+}

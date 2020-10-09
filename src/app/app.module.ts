@@ -14,6 +14,11 @@ import { RouterModule } from '@angular/router';
 import { PartidosComponent } from './components/partidos/partidos.component';
 import { ChartModule } from 'angular-highcharts';
 import { CookieService } from 'ngx-cookie-service';
+import { InfoEstadosComponent } from './components/formularios/info-estados/info-estados.component';
+import { InfoDistritosComponent } from './components/formularios/info-distritos/info-distritos.component';
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -22,6 +27,8 @@ import { CookieService } from 'ngx-cookie-service';
     DistritosComponent,
     SeccionesComponent,
     PartidosComponent,
+    InfoEstadosComponent,
+    InfoDistritosComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +36,11 @@ import { CookieService } from 'ngx-cookie-service';
     HttpClientModule,
     SharedModule,
     RouterModule,
-    ChartModule
+    ChartModule,
+    TagInputModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [CookieService ],
   bootstrap: [AppComponent],

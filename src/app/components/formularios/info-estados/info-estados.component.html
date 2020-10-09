@@ -1,0 +1,85 @@
+<div class="container col-md-12">
+    <app-sidebar class="sidebar"></app-sidebar>
+    <div class="formulario">
+        <h1>{{titulo}} información</h1>
+        <br>
+        <form [formGroup]="estadoForm" (ngSubmit)="onSubmit()" class="go-bottom">
+            <div class="between-row">
+                <div class="input">
+                    <input id="base" formControlName="base" type="text" class="form-control">
+                    <label for="base">Base</label>
+                </div>
+            </div>
+            <div class="input">
+                <div class="input">
+                    <input id="gentilicio" formControlName="gentilicio" type="text" class="form-control">
+                    <label for="gentilicio">Gentilicio</label>
+                </div>
+            </div>
+            <div class="input">
+                <!-- <select formControlName="distritos" type="text" class="form-control">
+                    <option selected>Distritos</option>
+                    <option *ngFor="let distrito of distritos" value="distrito">{{distrito}}</option>
+                </select>
+                <label for="fecha">Distritos</label> -->
+            </div>
+            <div class="between-row">
+                <div class="card">
+                    <div>
+                        <div class="offset-4 col-sm-8 mt-5">
+                            <input type="checkbox" name="values" value="Sepak Bola"> Sepak Bola <br>
+
+                        </div>
+                    </div>
+                    <tag-input formControlName="distritos">
+                        <tag-input-dropdown [autocompleteItems]="distritos">
+                        </tag-input-dropdown>
+                    </tag-input>
+                    <label for="base">Distritos</label>
+                </div>
+            </div>
+            <div class="between-row">
+                <div class="input">
+                    <input id="indecisos" formControlName="indecisos" type="text" class="form-control">
+                    <label for="indecisos">Indecisos</label>
+                </div>
+                <div class="input">
+                    <input id="arrepentidos" formControlName="arrepentidos" type="text" class="form-control">
+                    <label for="arrepentidos">Arrepentidos</label>
+                </div>
+                <div class="input">
+                    <input id="proOposicion" formControlName="proOposicion" type="text" class="form-control">
+                    <label for="proOposicion">Pro Oposición</label>
+                </div>
+            </div>
+
+            <div class="input">
+                <input id="audienciaDigital" formControlName="audienciaDigital" type="text" class="form-control">
+                <label for="audienciaDigital">Audiencia Digital</label>
+            </div>
+            <div class="input">
+                <input id="competencia" type="text" formControlName="competencia" class="form-control">
+                <label for="competencia">Competencia</label>
+            </div>
+            <div class="input">
+                <input id="afiliados" type="text" formControlName="afiliados" class="form-control">
+                <label for="afiliados">Afiliados</label>
+            </div>
+            <div class="input">
+                <input id="activosDigitales" formControlName="activosDigitales" type="text" class="form-control">
+                <label for="activosDigitales">Activos Digitales</label>
+            </div>
+            <div class="input">
+                <input id="tracking" type="text" class="form-control">
+                <label for="tracking">Tracking</label>
+            </div>
+            <div class="botones">
+                <button id="button" type="reset" class="btn btn-danger">CANCELAR</button>
+                <button id="button" type="submit" class="btn btn-success">GUARDAR</button>
+            </div>
+            <br>
+        </form>
+
+    </div>
+
+</div>

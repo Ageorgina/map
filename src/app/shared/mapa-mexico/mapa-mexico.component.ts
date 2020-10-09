@@ -29,7 +29,7 @@ export class MapaMexicoComponent implements OnInit {
     distValue: string;
     partidoValue: string;
     estadoID: any;
-    ejemplo: any;
+    dato: any;
     distritos: any;
     cookies: any;
     loading = true;
@@ -37,7 +37,7 @@ export class MapaMexicoComponent implements OnInit {
   constructor(  private menuSrv: MenuService,  private router: Router,
                 private estado: EstadosService, private route: ActivatedRoute,
                 private cookieService: CookieService) {
-    this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
+    this.menuSrv.getInfo().subscribe( info => this.dato = info[0]);
     this.menuSrv.getDistritos().subscribe( distritos => this.distritos = distritos);
    }
 
