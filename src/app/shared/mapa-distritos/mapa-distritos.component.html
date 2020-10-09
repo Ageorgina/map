@@ -5,7 +5,7 @@
             <div></div>
         </div>
     </div>
-    <div class="mapMX" id="estado" (click)="selected($event?.point?.DISTRITO_L)"></div>
+    <div class="mapMX" id="estado" (click)="selected($event?.point?.DISTRITO_L, $event)" (touchend)="selected($event?.point?.DISTRITO_L,$event)" ></div>
     <div id="bloquear" class="informacion infodistritos">
         <p>Base: <br> {{ejemplo?.base}}</p>
         <p class="distritos">{{ejemplo?.distrito}} </p>
