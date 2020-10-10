@@ -188,8 +188,8 @@ export class MapaSeccionesComponent implements OnInit {
     } else if(partido === 'MOR') {
       this.logo = 'assets/logos/MORL.png';
     } else if ( partido === 'PRI') {
-      this.logo = 'assets/logos/PRI.png';
-    }  else if ( partido === 'MC') {
+      this.logo = 'assets/logos/PRIL.png';
+    }  else if ( partido === 'MOC') {
       this.logo = 'assets/logos/MCL.png';
     }
 
