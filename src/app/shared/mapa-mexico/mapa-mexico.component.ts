@@ -1,5 +1,5 @@
 import { Route } from '@angular/compiler/src/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts/highmaps';
 import { MenuService } from '../../general/services/menu.service';
@@ -24,7 +24,7 @@ var regex = /(\d+)/g;
   templateUrl: './mapa-mexico.component.html',
   styleUrls: ['./mapa-mexico.component.scss']
 })
-export class MapaMexicoComponent implements OnInit {
+export class MapaMexicoComponent implements OnInit, OnDestroy {
     estadoValue: string;
     distValue: string;
     partidoValue: string;
@@ -36,9 +36,12 @@ export class MapaMexicoComponent implements OnInit {
 
   constructor(  private menuSrv: MenuService,  private router: Router,
                 private estado: EstadosService, private route: ActivatedRoute,
-                private cookieService: CookieService) {
+                private cookieService: CookieService, private ngZone: NgZone) {
     this.menuSrv.getInfo().subscribe( info => this.dato = info[0]);
     this.menuSrv.getDistritos().subscribe( distritos => this.distritos = distritos);
+        /* tslint:disable:no-string-literal */
+        window['angularComponentRef'] = {component: this, zone: ngZone};
+        /* tslint:enable:no-string-literal */
    }
 
    options: any = {
@@ -158,8 +161,14 @@ export class MapaMexicoComponent implements OnInit {
   }
 
   selected(id) {
+      console.log(id)
       this.router.navigate(['distritos', id]);
 
+  }
+  ngOnDestroy() {
+    /* tslint:disable:no-string-literal */
+    window['angularComponentRef'] = null;
+    /* tslint:enable:no-string-literal */
   }
 
 }

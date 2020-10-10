@@ -132,6 +132,7 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   }
 
   selected(id, $event) {
+    
     console.log('id ', id, this.distValue == id, this.distValue);
     const cook = this.estados.getCOOKIE();
     if (id === null) {
