@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
-import { EstadosService } from '../../general/services/estados.service';
-import { ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import {EstadosService} from '../../general/services/estados.service';
+import {ActivatedRoute} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
+import {AuthenticationService} from '../../general/services/authentication.service';
+
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
 const noData = require('highcharts/modules/no-data-to-display');
@@ -36,87 +38,87 @@ export class MapaSeccionesComponent implements OnInit {
   impactos: any;
   id: any;
   idCVS: any;
-  cookies: any
-  seccionInf= [];
-  cvsInfo: any
+  cookies: any;
+  seccionInf = [];
+  cvsInfo: any;
   estadoValue: string;
   distValue: string;
   partidoValue: string;
   logo: string;
+  mapa: any = {
+    chart: {
+      backgroundColor: '#3F3F3F',
+    },
+    title: {text: ''},
+    mapNavigation: {
+      enabled: true
+    },
+    colorAxis: {
+      tickPixelInterval: 100,
+      showInLegend: false,
+      dataClasses: this.infoSecciones()
+    },
+    tooltip: {
+      headerFormat: 'Sección  ',
+      pointFormat: ' {point.properties.seccion}'
+    },
+    series: [{
+      borderColor: '#2e2c2c',
+      states: {
+        hover: {
+          brightness: -0.15,
+          borderColor: 'gray'
+        }
+      },
+      keys: ['seccion', 'value'],
+      joinBy: 'seccion',
+      dataLabels: {
+        enabled: true,
+        format: '{point.properties.seccion}'
+      }
+    }]
+  };
 
-
-  constructor(private estado: EstadosService, private route: ActivatedRoute, private cookieService: CookieService) {
-    this.logoPartido(this.estado.getCOOKIE().slice(6));
+  constructor(private estado: EstadosService, private route: ActivatedRoute, private cookieService: CookieService,
+              private authService: AuthenticationService) {
+    this.logoPartido(this.authService.getCOOKIE().slice(6));
 
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id.length < 3) {
-      let completar  =  3 - this.id.length;
-      for(let i = 0 ; i < completar; i ++ ) {
+      const completar = 3 - this.id.length;
+      for (let i = 0; i < completar; i++) {
         this.id = '0' + this.id.toString();
       }
-      }
-    this.traerData(this.id).finally(() => {
-        this.estado.getSecciones(this.id).subscribe( cvsInfo => {
-          this.construirMapa(cvsInfo).finally(() => this.loading = false);
-        });
-      });
-   }
-
-   mapa: any = {
-     chart: {
-       backgroundColor: '#3F3F3F',
-      },
-      title: { text: '' },
-      mapNavigation: { enabled: true
-      },
-      colorAxis: {
-        tickPixelInterval: 100,
-        showInLegend: false,
-        dataClasses: this.infoSecciones()
-      },
-      tooltip: {
-        headerFormat: 'Sección  ',
-        pointFormat: ' {point.properties.seccion}'
-      },
-      series: [{
-        borderColor: '#2e2c2c',
-        states: {
-          hover: {
-            brightness: -0.15,
-            borderColor: 'gray'
-          }
-      },
-        keys: ['seccion', 'value'],
-        joinBy: 'seccion',
-        dataLabels: {
-          enabled: true,
-          format: '{point.properties.seccion}'
-        }
-      }]
-    };
-
-   ngOnInit() {
-
     }
+    this.traerData(this.id).finally(() => {
+      this.estado.getSecciones(this.id).subscribe(cvsInfo => {
+        this.construirMapa(cvsInfo).finally(() => this.loading = false);
+      });
+    });
+  }
+
+  ngOnInit() {
+
+  }
 
   async construirMapa(seccionesJSON) {
     this.mapa.series[0].data = this.seccionInf;
     this.mapa.chart.map = seccionesJSON;
-      
+
     Highcharts.mapChart('secciones', this.mapa);
   }
 
   infoSecciones() {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id.length < 3) {
-      let completar  =  3 - this.id.length;
-      for(let i = 0 ; i < completar; i ++ ) {
+      const completar = 3 - this.id.length;
+      for (let i = 0; i < completar; i++) {
         this.id = '0' + this.id.toString();
       }
-      }
+    }
     this.estado.getCSV(this.id).subscribe(info => {
       const match = info.match(/\n+[0-9]{1,4}/g);
-      for ( let i = 0; i < match.length; i++) {
+      for (let i = 0; i < match.length; i++) {
         info = info.replace(match[i], '|' + match[i].substring(1, match[i].length));
       }
       this.datosSecciones = info.split('|');
@@ -127,40 +129,55 @@ export class MapaSeccionesComponent implements OnInit {
     });
   }
 
-   async generarColores(datosSecciones) {
-     for (let i = 1; i < datosSecciones.length; i++) {
+  async generarColores(datosSecciones) {
+    for (let i = 1; i < datosSecciones.length; i++) {
       const datos = datosSecciones[i].split(',');
       const selectColor = {
-            color: this.cambiarColor(datos[1]),
-            from: datos[0],
-            to: datos[0]
-        };
+        color: this.cambiarColor(datos[1]),
+        from: datos[0],
+        to: datos[0]
+      };
       this.coloresHxd.push(selectColor);
     }
   }
 
   cambiarColor(color) {
     switch (color) {
-      case 'Naranja': return '#fc7f25';
-      case 'Rojo': return '#af0d0d';
-      case 'Amarillo': return '#fade07';
-      case 'Marino' : return	'#365283';
-      case 'Azul' : return	'#4c6a9b';
-      case 'Cielo' : return	'#8894b8';
-      case 'Morado' : return	'#7b4b83';
-      case 'Magenta' : return	'#bb3373';
-      case 'Rosa' : return	'#c4638b';
-      case 'Enebro' : return	'#3c6e3c';
-      case 'Olivo' : return	'#2c9354';
-      case 'Verde' : return	'#5b9a52';
-      default: return '#ffffff';
-     }
+      case 'Naranja':
+        return '#fc7f25';
+      case 'Rojo':
+        return '#af0d0d';
+      case 'Amarillo':
+        return '#fade07';
+      case 'Marino' :
+        return '#365283';
+      case 'Azul' :
+        return '#4c6a9b';
+      case 'Cielo' :
+        return '#8894b8';
+      case 'Morado' :
+        return '#7b4b83';
+      case 'Magenta' :
+        return '#bb3373';
+      case 'Rosa' :
+        return '#c4638b';
+      case 'Enebro' :
+        return '#3c6e3c';
+      case 'Olivo' :
+        return '#2c9354';
+      case 'Verde' :
+        return '#5b9a52';
+      default:
+        return '#ffffff';
+    }
   }
 
   seccionClicked(click) {
     const lineBreak = '\n';
     this.seccionID = click;
-    if (this.seccionID === null) { return; }
+    if (this.seccionID === null) {
+      return;
+    }
     for (let i = 1; i < this.datosSecciones.length; i++) {
       const datos = this.datosSecciones[i].split(',');
       if (datos[0].includes(this.seccionID.toString())) {
@@ -176,20 +193,20 @@ export class MapaSeccionesComponent implements OnInit {
 
   }
 
- async traerData(id) {
+  async traerData(id) {
     this.estado.getSeccionesMapas(id).subscribe(secciones => {
       this.seccionInf = secciones;
     });
   }
 
   logoPartido(partido) {
-    if ( partido === 'PAN') {
+    if (partido === 'PAN') {
       this.logo = 'assets/logos/PANL.png';
-    } else if(partido === 'MOR') {
+    } else if (partido === 'MOR') {
       this.logo = 'assets/logos/MORL.png';
-    } else if ( partido === 'PRI') {
+    } else if (partido === 'PRI') {
       this.logo = 'assets/logos/PRIL.png';
-    }  else if ( partido === 'MOC') {
+    } else if (partido === 'MOC') {
       this.logo = 'assets/logos/MCL.png';
     }
 

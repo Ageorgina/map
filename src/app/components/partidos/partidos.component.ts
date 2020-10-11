@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../general/services/menu.service';
 import { CookieService } from 'ngx-cookie-service';
 import { EstadosService } from '../../general/services/estados.service';
+import {AuthenticationService} from '../../general/services/authentication.service';
 
 var regex = /(\d+)/g;
 @Component({
@@ -20,8 +21,8 @@ export class PartidosComponent implements OnInit {
   loading = true;
   distrito: any;
 
-  constructor( private menuSrv: MenuService, private CookieService: CookieService, private estado: EstadosService) {
-    this.distrito = this.estado.getCOOKIE().match(regex).toString();
+  constructor( private menuSrv: MenuService, private estado: EstadosService, private authService: AuthenticationService) {
+    this.distrito = this.authService.getCOOKIE().match(regex).toString();
     this.menuSrv.getEmociones().subscribe( emociones => this.emociones = emociones);
     this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
     this.menuSrv.getPartidos().subscribe( partidos => {

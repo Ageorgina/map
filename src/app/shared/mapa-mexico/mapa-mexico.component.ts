@@ -5,6 +5,7 @@ import * as Highcharts from 'highcharts/highmaps';
 import { MenuService } from '../../general/services/menu.service';
 import { EstadosService } from '../../general/services/estados.service';
 import { CookieService } from 'ngx-cookie-service';
+import {AuthenticationService} from '../../general/services/authentication.service';
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -36,7 +37,8 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
 
   constructor(  private menuSrv: MenuService,  private router: Router,
                 private estado: EstadosService, private route: ActivatedRoute,
-                private cookieService: CookieService, private ngZone: NgZone) {
+                private cookieService: CookieService, private ngZone: NgZone,
+                private authService: AuthenticationService) {
     this.menuSrv.getInfo().subscribe( info => this.dato = info[0]);
     this.menuSrv.getDistritos().subscribe( distritos => this.distritos = distritos);
         /* tslint:disable:no-string-literal */
@@ -144,7 +146,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
       this.chart().finally(()=> {
-        this.estadoValue = this.estado.getCOOKIE().substring(0, 3);
+        this.estadoValue = this.authService.getCOOKIE().substring(0, 3);
         // this.distValue = this.estado.getCOOKIE().match(regex).toString();
         // this.distValue= this.distValue.replace(/[0+]/g, "");
         //this.partidoValue = this.estado.getCOOKIE().slice(6);

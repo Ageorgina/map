@@ -31,18 +31,23 @@
         });
 
         function openNav() {
-            document.getElementById("sidenav").style.width = "100px";
-            document.getElementById("sidenav").style.height = "200px";
-            document.getElementById("sidenav").style.display = "flex";
-            document.getElementById("sidenav").style.justifyContent = "space-evenly";
-            document.getElementById("sidenav").style.flexFlow = "column nowrap";
-            document.getElementById("sidenav").style.paddingBottom = "40px";
-            document.getElementById("sidenav").style.paddingLeft = "5px";
+            if(document.getElementById("sidenav")){
+                document.getElementById("sidenav").style.width = "100px";
+                document.getElementById("sidenav").style.height = "200px";
+                document.getElementById("sidenav").style.display = "flex";
+                document.getElementById("sidenav").style.justifyContent = "space-evenly";
+                document.getElementById("sidenav").style.flexFlow = "column nowrap";
+                document.getElementById("sidenav").style.paddingBottom = "40px";
+                document.getElementById("sidenav").style.paddingLeft = "5px";
+            }
+
 
         }
 
         function closeNav() {
-            document.getElementById("sidenav").style.width = "0";
+            if(document.getElementById("sidenav")) {
+                document.getElementById("sidenav").style.width = "0";
+            }
         }
     </script>
     <!-- /sidebar -->

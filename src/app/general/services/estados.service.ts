@@ -39,8 +39,5 @@ export class EstadosService {
      return this.http.get( `${environment.cartografiaUrl}/` +'data/' + this.carpetacsv + this.estado + '_DIS' + `${id}` + '.csv', {responseType: 'text'});
    }
 
-   getCOOKIE() {
-    this.cookieValue = this.cookieService.get('user');
-    return this.cookieValue;
-   }
+
 }

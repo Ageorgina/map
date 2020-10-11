@@ -1,0 +1,31 @@
+<div class="col-md-6 offset-md-3 mt-5">
+  <div id="loginCard" class="card" style="background-color: transparent">
+    <h4 class="card-header">Entropía - Ingreso</h4>
+    <div class="card-body">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <img class="logo navimg" src="../../../assets/logos/LOGO.png">
+        </div>
+        <div class="form-group">
+          <label for="username">Usuario</label>
+          <input id="username" type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>
+        </div>
+        <button [disabled]="loading" class="btn" style="color: white;">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Ingresar
+        </button>
+        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+      </form>
+    </div>
+  </div>
+</div>

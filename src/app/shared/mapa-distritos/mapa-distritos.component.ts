@@ -3,6 +3,7 @@ import * as Highcharts from 'highcharts/highmaps';
 import {EstadosService} from '../../general/services/estados.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MenuService} from '../../general/services/menu.service';
+import {AuthenticationService} from '../../general/services/authentication.service';
 //const datas = [['16', 16],['8', 8],['9',9],['10',10],['15',15]];
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -96,8 +97,9 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
     }]
   };
 
-  constructor(private estados: EstadosService, private menuSrv: MenuService, private router: Router, private ngZone: NgZone) {
-    this.distValue = this.estados.getCOOKIE().match(regex).toString();
+  constructor(private estados: EstadosService, private menuSrv: MenuService, private router: Router, private ngZone: NgZone,
+              private authService: AuthenticationService) {
+    this.distValue = this.authService.getCOOKIE().match(regex).toString();
     this.menuSrv.getInfoDistritos(this.distValue).subscribe(info => this.ejemplo = info[0]);
     this.distValue = this.distValue.replace(/\b0+/g, '');
 
@@ -132,9 +134,9 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   }
 
   selected(id, $event) {
-    
+
     console.log('id ', id, this.distValue == id, this.distValue);
-    const cook = this.estados.getCOOKIE();
+    const cook = this.authService.getCOOKIE();
     if (id === null) {
       return;
     }
