@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  // cartografiaUrl: 'https://s3.amazonaws.com/nullpointerexception.com',
-  // cartografiaUrl: 'https://www.entropia-ecosystem.com'
-  cartografiaUrl: 'http://localhost:4200'
+   cartografiaUrl: 'https://s3.amazonaws.com/nullpointerexception.com',
+  // cartografiaUrl: 'https://www.entropia-ecosystem.com',
+  // cartografiaBack: 'http://localhost:8081'
 };
 
 /*

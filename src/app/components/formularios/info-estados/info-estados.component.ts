@@ -31,16 +31,12 @@ export class InfoEstadosComponent implements OnInit {
 
    this.distritos = [ 'Saltillo', 'Torreón', 'Piedras Negras', 'San Juan', 'Sabinas', 'Acuña', 'Matamoros', 'Monclova', 'San Pedro'];
 
-   this.menu.getEstados().subscribe(estados => {
-      this.estados = estados;
-    });
+   this.menu.getEstados().subscribe(estados => this.estados = estados );
   }
-  get fval() { return this.estadoForm.controls; console.log() }
+  get fval() { return this.estadoForm.controls; }
 
-  ngOnInit() {
-    
-  }
-  onSubmit(){
-    console.log(this.fval)
+  ngOnInit() { }
+  onSubmit() {
+    console.log(this.fval);
   }
 }

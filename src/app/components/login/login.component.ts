@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../general/services/authentication.service';
-import {first} from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-login',
@@ -16,6 +14,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
+
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -46,6 +45,7 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe(ps => {
+
       console.log('ps ', ps);
       this.authenticationService.setCookie(this.f.username.value);
       this.router.navigate([this.returnUrl]);

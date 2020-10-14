@@ -1,5 +1,5 @@
 [{
-    "clave": "COA",
+    "id": "COA",
     "base": "452,812",
     "gentilicio": "Coahuilenses",
     "indecisos": "84,823",

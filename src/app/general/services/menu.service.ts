@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class MenuService {
+  estado = 'COA'
 
   constructor(private http: HttpClient) { }
   getOpts() {
@@ -16,7 +17,7 @@ export class MenuService {
     return this.http.get<Emocion[]>('/assets/mock_info/grafica.js');
   }
   getInfo() {
-    return this.http.get<any[]>('/assets/mock_info/base.js');
+    return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + this.estado + '_INFO.js');
   }
   getDistritos() {
     return this.http.get<any[]>('/assets/mock_info/distritos.js');
@@ -29,6 +30,6 @@ export class MenuService {
   }
 
   getEstados() {
-    return this.http.get<any[]>('/data/js/DATA_MX.js');
+    return this.http.get<any[]>(`${environment.cartografiaUrl}` + '/data/js/DATA_MX.js');
   }
 }

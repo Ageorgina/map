@@ -1,4 +1,196 @@
 img {
-  width: 100%;
+    width: 200px;
+}
 
+.card {
+    min-width: 350px;
+    min-height: 420px;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column nowrap;
+    align-items: center !important;
+    -webkit-box-shadow: -3px 5px 51px 1px rgba(115, 115, 115, 1);
+    -moz-box-shadow: -3px 5px 51px 1px rgba(115, 115, 115, 1);
+    box-shadow: -3px 5px 51px 1px rgba(115, 115, 115, 1);
+    border-radius: 20px;
+}
+
+.card-body {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+}
+
+h4 {
+    width: 100%;
+    text-align: center;
+    text-shadow: -1px 0 1px #444 !important;
+}
+
+.img {
+    width: 100px;
+    height: 120px;
+    border: 5px solid rgb(0, 0, 0);
+    -moz-border-radius: 0 100% 0 0;
+    -webkit-border-radius: 0 100% 0 0;
+    border-radius: 0 100% 0 0;
+}
+
+.btn {
+    width: 100%;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+    flex-flow: column nowrap !important;
+    min-height: 100vh;
+    background: url('/assets/images/backgroud/fondo.jpg'), no-repeat center center;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #F0F0F0;
+}
+
+@media only screen and (max-width: 600px) {
+    img {
+        width: 80px;
+    }
+    .card {
+        min-width: 180px !important;
+        max-width: 280px !important;
+        max-height: 250px;
+        display: flex;
+        justify-content: space-between;
+        flex-flow: column nowrap;
+        align-items: center !important;
+        -webkit-box-shadow: -3px 5px 51px 1px rgba(115, 115, 115, 1);
+        -moz-box-shadow: -3px 5px 51px 1px rgba(115, 115, 115, 1);
+        box-shadow: -3px 5px 51px 1px rgba(115, 115, 115, 1);
+        border-radius: 20px;
+    }
+}
+
+.input-group {
+    position: relative;
+    margin: 40px 0 20px;
+}
+
+input {
+    color: #F0F0F0;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #757575;
+    background-color: transparent !important;
+}
+
+input:focus {
+    outline: none !important;
+    background-color: transparent;
+}
+
+label {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+input:focus~label,
+input:valid~label {
+    top: -20px;
+    // font-size: 14px;
+    color: #747474;
+}
+
+.bar {
+    position: relative;
+    display: block;
+    min-width: 100%;
+}
+
+.bar:before,
+.bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #9b9b9b;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+    left: 50%;
+}
+
+.bar:after {
+    right: 50%;
+}
+
+input:focus~.bar:before,
+input:focus~.bar:after {
+    width: 50%;
+}
+
+.highlight {
+    position: absolute;
+    height: 60%;
+    // width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+input:focus~.highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+    background-color: transparent;
+}
+
+
+/* animations */
+
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: transparent;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from {
+        background: transparent;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: transparent;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
 }

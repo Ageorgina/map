@@ -33,7 +33,7 @@ export class InfoDistritosComponent implements OnInit {
       fhorafin: [''],
     });
     this.estado.getDistritos().subscribe(distritos => this.distritos = distritos);
-    this.menu.getEstados().subscribe(estados => this.estados = estados );
+    this.menu.getEstados().subscribe(estados => { console.log('estados', estados); this.estados = estados } );
   }
   get fval() { return this.distritoForm.controls;  }
 
