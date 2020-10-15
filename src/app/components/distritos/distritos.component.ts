@@ -2,12 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {MenuService} from '../../general/services/menu.service';
 import * as Highcharts from 'highcharts';
 import {Emocion} from '../../general/model/emocion';
-import {ActivatedRoute} from '@angular/router';
 
 declare var require: any;
-let Boost = require('highcharts/modules/boost');
-let noData = require('highcharts/modules/no-data-to-display');
-let More = require('highcharts/highcharts-more');
+const Boost = require('highcharts/modules/boost');
+const noData = require('highcharts/modules/no-data-to-display');
+const More = require('highcharts/highcharts-more');
 
 Boost(Highcharts);
 noData(Highcharts);
@@ -22,8 +21,6 @@ noData(Highcharts);
 export class DistritosComponent implements OnInit {
 
   emociones: Emocion[] = [];
-  ejemplo: any;
-  distritos: any;
   people = '452,812';
   idSeccion: number;
   options: any = {
@@ -97,10 +94,7 @@ export class DistritosComponent implements OnInit {
     }
   };
 
-  constructor(private menuSrv: MenuService, private route: ActivatedRoute) {
-
-    this.menuSrv.getInfo().subscribe(info => this.ejemplo = info[0]);
-    this.menuSrv.getDistritos().subscribe(distritos => this.distritos = distritos);
+  constructor(private menuSrv: MenuService ) {
 
     this.menuSrv.getEmociones().toPromise().then(emociones => {
       this.emociones = emociones;

@@ -12,6 +12,8 @@ export class AuthenticationService {
 
   cookies: any;
   cookieValue: string;
+  response: any;
+  user: any;
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
@@ -25,10 +27,8 @@ export class AuthenticationService {
   }
 
   getCOOKIE() {
-
     this.cookieValue = this.cookieService.get('user');
-    localStorage.setItem('user', JSON.stringify(this.cookieValue));
-    this.currentUserSubject.next(this.cookieValue);
+
     return this.cookieValue;
   }
 
@@ -40,16 +40,14 @@ export class AuthenticationService {
     this.cookieService.set('user', username);
   }
 
-  login(username: string, password: string): Observable<string> {
-    //console.log('entro')
-    // this.http.get<any>(`${environment.cartografiaBack}/login`+ {username, password}).pipe(map( x => {
-    //   //console.log('entro', x)
-    // }
-    // ));
-    // localStorage.setItem('currentUser', JSON.stringify(user));
-    // this.currentUserSubject.next(user);
-    const authfile = Base64.encode(username + '-' + password);
-    console.log('=>', username + '-' + password, authfile);
-    return this.http.get<string>(`${environment.cartografiaUrl}/data/auth/${authfile}.txt`);
-  }
+  login(user: string, password: string) {
+      return this.http.get<any>(`${environment.cartografiaBack}` + '/login?user=' + user + '&password=' + password)
+             .pipe(map( user => {
+               this.user = user.user;
+              localStorage.setItem('user', JSON.stringify(this.user));
+              this.currentUserSubject.next(this.user);
+               console.log('USER ->',this.user)
+
+      }));
+   }
 }

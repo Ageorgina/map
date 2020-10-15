@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../general/services/menu.service';
 import { CookieService } from 'ngx-cookie-service';
-import { EstadosService } from '../../general/services/estados.service';
 import {AuthenticationService} from '../../general/services/authentication.service';
+import { PartidosService } from '../../general/services/partidos.service';
 
 var regex = /(\d+)/g;
 @Component({
@@ -12,7 +12,7 @@ var regex = /(\d+)/g;
 })
 export class PartidosComponent implements OnInit {
   emociones = [];
-  ejemplo: any;
+  info: any;
   partidos: any;
   partido1: any;
   partido2: any;
@@ -20,16 +20,17 @@ export class PartidosComponent implements OnInit {
   partido4: any;
   loading = true;
   distrito: any;
+  estado: string;
 
-  constructor( private menuSrv: MenuService, private estado: EstadosService, private authService: AuthenticationService) {
+  constructor( private partidoSrv: PartidosService, private authService: AuthenticationService) {
+    this.estado = this.authService.getCOOKIE().substring(0, 3);
     this.distrito = this.authService.getCOOKIE().match(regex).toString();
-    this.menuSrv.getEmociones().subscribe( emociones => this.emociones = emociones);
-    this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
-    this.menuSrv.getPartidos().subscribe( partidos => {
-      this.partido1 = partidos[0];
-      this.partido2 = partidos[1];
-      this.partido3 = partidos[2];
-      this.partido4 = partidos[3];
+    this.partidoSrv.getInfoGral(this.estado, this.distrito).subscribe(info => this.info = info[0]);
+    this.partidoSrv.getInfoPartidos(this.estado, this.distrito).subscribe( partidos => {
+        this.partido1 = partidos[0];
+        this.partido2 = partidos[1];
+        this.partido3 = partidos[2];
+        this.partido4 = partidos[3];
     });
   }
 

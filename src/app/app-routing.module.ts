@@ -9,6 +9,7 @@ import {InfoDistritosComponent} from './components/formularios/info-distritos/in
 import {LoginComponent} from './components/login/login.component';
 import {LoginGuard} from './shared/guards/login.guard';
 import {LogoutComponent} from './components/logout/logout.component';
+import { Error404Component } from './components/errors/error404/error404.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'secciones/:id', component: SeccionesComponent, canActivate: [LoginGuard]},
   {path: 'partidos', component: PartidosComponent, canActivate: [LoginGuard]},
   {path: 'agregar_info_estados', component: InfoEstadosComponent, canActivate: [LoginGuard]},
-  {path: 'agregar_info_distritos', component: InfoDistritosComponent, canActivate: [LoginGuard]}
+  {path: 'agregar_info_distritos', component: InfoDistritosComponent, canActivate: [LoginGuard]},
+  {path: '404', component: Error404Component}
 
 ];
 

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../general/services/authentication.service';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +17,12 @@ export class LoginComponent implements OnInit {
   error = '';
 
 
-  constructor(private formBuilder: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private authenticationService: AuthenticationService) {
+
+  constructor( private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
+               private authenticationService: AuthenticationService) {
   }
 
-  get f() {
-    return this.loginForm.controls;
-  }
+  get f() { return this.loginForm.controls; }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -37,23 +35,18 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe(ps => {
-
-      console.log('ps ', ps);
+    this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe(user => {
       this.authenticationService.setCookie(this.f.username.value);
       this.router.navigate([this.returnUrl]);
     }, error => {
-      console.log('Error', error);
+      // console.log('Error Login', error);
       this.error = 'El usuario / contraseña son incorrectos';
       this.loading = false;
     });
   }
-
 }

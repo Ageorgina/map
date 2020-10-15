@@ -5,7 +5,7 @@
             <div></div>
         </div>
     </div>
-    <app-sidebar class="sidebar r "></app-sidebar>
+    <app-sidebar class="sidebar"></app-sidebar>
     <div id="bloquear " class="partidos ">
         <div class="column ">
             <div class="partido ">
@@ -46,20 +46,21 @@
             </div>
         </div>
     </div>
-    <div id="bloquear " aria-disabled="true " class="informacion r ">
-        <p>Base D XIV <br>{{ejemplo?.baseD}}</p>
-        <p>Indecisos <br> {{ejemplo?.indecisosD}}</p>
-        <p>Arrepentidos <br> {{ejemplo?.arrependidosD}} </p>
-        <p>Pro Oposición <br> {{ejemplo?.pro_OposicionD}}</p>
-        <p>Audiencia Digital <br> {{ejemplo?.audiencia_DigitalD}}</p>
+    <div id="bloquear " aria-disabled="true " class="informacion ">
+        <p>Base D XIV <br>{{info?.base}}</p>
+        <p>Indecisos <br> {{info?.indecisos}}</p>
+        <p>Arrepentidos <br> {{info?.arrependidos}} </p>
+        <p>Pro Oposición <br> {{info?.pro_Oposicion}}</p>
+        <p>Audiencia Digital <br> {{info?.audiencia_Digital}}</p>
         <p> Mejor Horario
-            <br> {{ejemplo?.hombresD}}
-            <br> {{ejemplo?.mujeresD}} </p>
-        <p class="competencias ">Competencia: <br> {{ejemplo?.competencia_c}}</p>
-        <p class="competencias ">Afiliados: <br> {{ejemplo?.afiliados_c}}</p>
-        <p class="competencias ">ActivosDigitales: <br> {{ejemplo?.activos_Digitales_c}}</p>
-        <p class="competencias ">Tracking: <br> {{ejemplo?.tracking_c}}</p>
-        <p class="alianza ">Alcance coalición: <br> {{ejemplo?.alcanceCoalicion}}</p>
-        <p class="alianza ">Influencia: <br> {{ejemplo?.influencia}}</p>
+            <a> {{info?.hombres}} Hombres</a>
+            <a> {{info?.mujeres}} Mujeres</a>
+        </p>
+        <p class="competencias ">Competencia: <br> {{info?.competencia}}</p>
+        <p class="competencias ">Afiliados: <br> {{info?.afiliados}}</p>
+        <p class="competencias ">ActivosDigitales: <br> {{info?.activosDigitales}}</p>
+        <p class="competencias ">Tracking: <br> {{info?.tracking}}</p>
+        <p class="alianza ">Alcance coalición: <br> {{info?.alcanceCoalicion}}</p>
+        <p class="alianza ">Influencia: <br> {{info?.influencia}}</p>
     </div>
 </div>

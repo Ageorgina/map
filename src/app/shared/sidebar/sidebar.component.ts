@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu } from '../../general/model/menu';
 import { MenuService } from '../../general/services/menu.service';
-import { EstadosService } from '../../general/services/estados.service';
 import {AuthenticationService} from '../../general/services/authentication.service';
+import { PartidosService } from '../../general/services/partidos.service';
 var regex = /(\d+)/g;
 @Component({
   selector: 'app-sidebar',
@@ -12,11 +12,16 @@ var regex = /(\d+)/g;
 export class SidebarComponent implements OnInit {
   menu: Menu[] = [];
   distrito: any;
-  constructor(private menuSrv: MenuService, private estado: EstadosService, private authService: AuthenticationService) {
+  info: any;
+  estado: any;
+  error: boolean;
+  constructor(private menuSrv: MenuService, private partidoSrv: PartidosService, private authService: AuthenticationService) {
+    this.estado = this.authService.getCOOKIE().substring(0, 3);
+    this.distrito = this.authService.getCOOKIE().match(regex).toString();
+    this.partidoSrv.getError(this.estado, this.distrito).subscribe(() => this.error = this.partidoSrv.error404);
     this.menuSrv.getOpts().subscribe((main: Menu[]) => {
-      this.distrito = this.authService.getCOOKIE().match(regex).toString();
       main.filter( op => {
-        if (this.distrito === '014') {
+        if (this.error === false) {
           this.menu = main;
         } else {
           if (op.nombre !== 'Partidos') {

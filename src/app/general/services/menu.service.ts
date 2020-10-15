@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class MenuService {
-  estado = 'COA'
+  estado = 'COA';
 
   constructor(private http: HttpClient) { }
   getOpts() {
@@ -19,17 +19,14 @@ export class MenuService {
   getInfo() {
     return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + this.estado + '_INFO.js');
   }
-  getDistritos() {
+  getDistritosCOA() {
     return this.http.get<any[]>('/assets/mock_info/distritos.js');
-  }
-  getPartidos() {
-    return this.http.get<any[]>('/assets/mock_info/partidos.js');
   }
   getInfoDistritos(id) {
     return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_DIS' + `${id}` + '.js' );
   }
 
-  getEstados() {
+  getinfoMx() {
     return this.http.get<any[]>(`${environment.cartografiaUrl}` + '/data/js/DATA_MX.js');
   }
 }

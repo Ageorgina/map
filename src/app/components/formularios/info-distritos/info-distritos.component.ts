@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { EstadosService } from '../../../general/services/estados.service';
 import { MenuService } from '../../../general/services/menu.service';
+import { MapasService } from '../../../general/services/mapas.service';
 
 @Component({
   selector: 'app-info-distritos',
@@ -14,7 +14,7 @@ export class InfoDistritosComponent implements OnInit {
   distritos: any[] = [];
   estados: any[] = [];
   distritoForm: FormGroup;
-  constructor(private estado: EstadosService, private menu: MenuService, private formBuilder: FormBuilder) {
+  constructor(private mapaSrv: MapasService, private menu: MenuService, private formBuilder: FormBuilder) {
     console.log('entro')
     this.distritoForm = this.formBuilder.group({
       base: [''],
@@ -32,14 +32,14 @@ export class InfoDistritosComponent implements OnInit {
       mhorafin: [''],
       fhorafin: [''],
     });
-    this.estado.getDistritos().subscribe(distritos => this.distritos = distritos);
-    this.menu.getEstados().subscribe(estados => { console.log('estados', estados); this.estados = estados } );
+    this.mapaSrv.getCoordenadasDistritos().subscribe(distritos => this.distritos = distritos);
+    this.menu.getinfoMx().subscribe(estados => { console.log('estados', estados); this.estados = estados } );
   }
   get fval() { return this.distritoForm.controls;  }
 
   ngOnInit() {
   }
   onSubmit() {
-    console.log( this.fval )
+    console.log( this.fval );
   }
 }

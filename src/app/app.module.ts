@@ -17,10 +17,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { InfoEstadosComponent } from './components/formularios/info-estados/info-estados.component';
 import { InfoDistritosComponent } from './components/formularios/info-distritos/info-distritos.component';
 import { TagInputModule } from 'ngx-chips';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
-import { LogoutComponent } from './components/logout/logout.component'
+import { LogoutComponent } from './components/logout/logout.component';
+import { Error404Component } from './components/errors/error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { LogoutComponent } from './components/logout/logout.component'
     InfoDistritosComponent,
     LoginComponent,
     LogoutComponent,
+    Error404Component,
   ],
   imports: [
     BrowserModule,

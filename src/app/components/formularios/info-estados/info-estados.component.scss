@@ -6,7 +6,13 @@
 input,
 select {
     border-color: gray;
-    background-color: transparent;
+    background-color: #3F3F3F !important;
+}
+
+option {
+    background: #3F3F3F !important;
+    background-color: #3F3F3F !important;
+    color: #FFFFFF;
 }
 
 h1 {
@@ -15,9 +21,11 @@ h1 {
 }
 
 .card {
-    min-width: 62.5%;
+    margin-top: 5px;
+    min-width: 100%;
     margin-bottom: 5px !important;
-    background-color: #4f4646;
+    background-color: transparent;
+    border-color: transparent;
 }
 
 .between-row {

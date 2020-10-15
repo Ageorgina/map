@@ -3,9 +3,9 @@ import { MenuService } from '../../general/services/menu.service';
 import * as Highcharts from 'highcharts';
 import { Emocion } from '../../general/model/emocion';
 declare var require: any;
-let Boost = require('highcharts/modules/boost');
-let noData = require('highcharts/modules/no-data-to-display');
-let More = require('highcharts/highcharts-more');
+const Boost = require('highcharts/modules/boost');
+const noData = require('highcharts/modules/no-data-to-display');
+const More = require('highcharts/highcharts-more');
 
 Boost(Highcharts);
 noData(Highcharts);
@@ -17,42 +17,36 @@ noData(Highcharts);
   styleUrls: ['./emociones.component.scss']
 })
 export class EmocionesComponent implements OnInit {
-  emociones:Emocion[] = [];
-  ejemplo: any;
-  distritos: any;
+  emociones: Emocion[] = [];
   people = '452,812';
   constructor( private menuSrv: MenuService) {
-
-
-    this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
-    this.menuSrv.getDistritos().subscribe( distritos => this.distritos = distritos);
 
     this.menuSrv.getEmociones().toPromise().then( emociones =>  {
       this.emociones = emociones;
       this.options.series[0].data[0] = {
-        name: this.emociones[0]['nombre'],
-        y: this.emociones[0]['dato']
-      }
+        name: this.emociones[0].nombre,
+        y: this.emociones[0].dato
+      };
       this.options.series[0].data[1] = {
-        name: this.emociones[1]['nombre'],
-        y: this.emociones[1]['dato']
-      }
+        name: this.emociones[1].nombre,
+        y: this.emociones[1].dato
+      };
       this.options.series[0].data[2] = {
-        name: this.emociones[2]['nombre'],
-        y: this.emociones[2]['dato']
-      }
+        name: this.emociones[2].nombre,
+        y: this.emociones[2].dato
+      };
       this.options.series[0].data[3] = {
-        name: this.emociones[3]['nombre'],
-        y: this.emociones[3]['dato']
-      }
+        name: this.emociones[3].nombre,
+        y: this.emociones[3].dato
+      };
       this.options.series[0].data[4] = {
-        name: this.emociones[4]['nombre'],
-        y: this.emociones[4]['dato']
-      }
+        name: this.emociones[4].nombre,
+        y: this.emociones[4].dato
+      };
       this.options.series[0].data[5] = {
-        name: this.emociones[5]['nombre'],
-        y: this.emociones[5]['dato']
-      }
+        name: this.emociones[5].nombre,
+        y: this.emociones[5].dato
+      };
     }).finally(() => this.inicializarChart());
   }
 
@@ -126,13 +120,13 @@ export class EmocionesComponent implements OnInit {
             fontSize: '18px'
         },
     }
-  }
+  };
 
 
   ngOnInit() {
 
   }
-  
+
   inicializarChart() {
 
     Highcharts.setOptions({

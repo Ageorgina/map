@@ -3,7 +3,6 @@ import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as Highcharts from 'highcharts/highmaps';
 import { MenuService } from '../../general/services/menu.service';
-import { EstadosService } from '../../general/services/estados.service';
 import { CookieService } from 'ngx-cookie-service';
 import {AuthenticationService} from '../../general/services/authentication.service';
 import { FilesService } from '../../general/services/files.service';
@@ -31,20 +30,17 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
     distValue: string;
     partidoValue: string;
     estadoID: any;
-    dato: any;
+    infoEstado: any;
     distritos: any;
     cookies: any;
     loading = true;
 
-  constructor(  private menuSrv: MenuService,  private router: Router,
-                private estado: EstadosService, private route: ActivatedRoute,
-                private cookieService: CookieService, private ngZone: NgZone,
+  constructor(  private menuSrv: MenuService,  private router: Router, private ngZone: NgZone,
                 private authService: AuthenticationService, private fileSrv: FilesService) {
-    this.fileSrv.getInfoEstado().subscribe( info => this.dato = info[0]);
-    this.fileSrv.getInfoDistrito().subscribe( distritos => this.distritos = distritos);
-        /* tslint:disable:no-string-literal */
-        window['angularComponentRef'] = {component: this, zone: ngZone};
-        /* tslint:enable:no-string-literal */
+    this.fileSrv.getInfoEstado().subscribe( info => this.infoEstado = info[0] );
+    this.menuSrv.getDistritosCOA().subscribe(distritos => this.distritos = distritos );
+        // tslint:disable-next-line: align
+        window['angularComponentRef'] = { component: this, zone: ngZone } ;
    }
 
    options: any = {

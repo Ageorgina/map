@@ -5,20 +5,20 @@
             <div></div>
         </div>
     </div>
-    <div class="mapMX" id="estado" (click)="selected($event?.point?.DISTRITO_L, $event)" (touchend)="selected($event?.point?.DISTRITO_L,$event)" ></div>
+    <div class="mapMX" id="estado" (click)="selected($event?.point?.DISTRITO_L, $event)" (touchend)="selected($event?.point?.DISTRITO_L,$event)"></div>
     <div id="bloquear" class="informacion infodistritos">
-        <p>Base: <br> {{ejemplo?.base}}</p>
-        <p class="distritos">{{ejemplo?.distrito}} </p>
-        <p>Indecisos <br> {{ejemplo?.indecisos}}</p>
-        <p>Arrepentidos <br> {{ejemplo?.arrependidos}} </p>
-        <p>Pro Oposición <br> {{ejemplo?.proOposicion}}</p>
-        <p>Audiencia Digital <br>{{ejemplo?.audienciaDigital}}</p>
+        <p>Base: <br> {{info?.base}}</p>
+        <p class="distritos">{{info?.distrito}} </p>
+        <p>Indecisos <br> {{info?.indecisos}}</p>
+        <p>Arrepentidos <br> {{info?.arrependidos}} </p>
+        <p>Pro Oposición <br> {{info?.proOposicion}}</p>
+        <p>Audiencia Digital <br>{{info?.audienciaDigital}}</p>
         <p> Mejor Horario:
-            <br> {{ejemplo?.hombres}}
-            <br> {{ejemplo?.mujeres}} </p>
-        <p class="competenciasdistritos">Competencia: <br>{{ejemplo?.competencia}}</p>
-        <p class="competenciasdistritos">Afiliados: <br>{{ejemplo?.afiliados}}</p>
-        <p class="competenciasdistritos">ActivosDigitales: <br>{{ejemplo?.activosDigitales}}</p>
-        <p class="competenciasdistritos">Tracking: <br>{{ejemplo?.tracking}}</p>
+            <br> {{info?.hombres}}
+            <br> {{info?.mujeres}} </p>
+        <p class="competenciasdistritos">Competencia: <br>{{info?.competencia}}</p>
+        <p class="competenciasdistritos">Afiliados: <br>{{info?.afiliados}}</p>
+        <p class="competenciasdistritos">ActivosDigitales: <br>{{info?.activosDigitales}}</p>
+        <p class="competenciasdistritos">Tracking: <br>{{info?.tracking}}</p>
     </div>
 </div>

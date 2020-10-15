@@ -7,15 +7,15 @@
     </div>
     <div class="mapMX" id="mexico" (click)="selected($event?.point?.value)"></div>
     <div id="bloquear" class="informacion">
-        <p>Base: <br> {{dato?.base}} {{dato?.gentilicio}}</p>
+        <p>Base: <br> {{infoEstado?.base}} {{infoEstado?.gentilicio}}</p>
         <p class="distritos" *ngFor="let distrito of distritos"> {{distrito?.nombre}}</p>
-        <p>Indecisos <br> {{dato?.indecisos}}</p>
-        <p>Arrepentidos <br> {{dato?.arrepentidos}} </p>
-        <p>Pro Oposición <br> {{dato?.proOposicion}}</p>
-        <p>Audiencia Digital <br>{{dato?.audiencia_Digital}}</p>
-        <p class="mx">Competencia: <br> {{dato?.competencia}}</p>
-        <p class="mx">Afiliados: <br> {{dato?.afiliados}}</p>
-        <p class="mx">ActivosDigitales: <br> {{dato?.activos_Digitales}}</p>
-        <p class="mx">Tracking: <br> {{dato?.tracking}}</p>
+        <p>Indecisos <br> {{infoEstado?.indecisos}}</p>
+        <p>Arrepentidos <br> {{infoEstado?.arrepentidos}} </p>
+        <p>Pro Oposición <br> {{infoEstado?.proOposicion}}</p>
+        <p>Audiencia Digital <br>{{infoEstado?.audiencia_Digital}}</p>
+        <p class="mx">Competencia: <br> {{infoEstado?.competencia}}</p>
+        <p class="mx">Afiliados: <br> {{infoEstado?.afiliados}}</p>
+        <p class="mx">ActivosDigitales: <br> {{infoEstado?.activos_Digitales}}</p>
+        <p class="mx">Tracking: <br> {{infoEstado?.tracking}}</p>
     </div>
 </div>

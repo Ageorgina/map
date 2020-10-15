@@ -1,10 +1,10 @@
 import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
-import {EstadosService} from '../../general/services/estados.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { MapasService } from '../../general/services/mapas.service';
+import { Router} from '@angular/router';
 import {MenuService} from '../../general/services/menu.service';
 import {AuthenticationService} from '../../general/services/authentication.service';
-//const datas = [['16', 16],['8', 8],['9',9],['10',10],['15',15]];
+
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
 const noData = require('highcharts/modules/no-data-to-display');
@@ -25,10 +25,10 @@ var regex = /(\d+)/g;
 })
 export class MapaDistritosComponent implements OnInit, OnDestroy {
   distritoID: any;
-  ejemplo: any;
+  info: any;
   distritos: any;
   distritosMapas: any;
-  estado = 'COA';
+  estado: string;
   estadoValue: string;
   distValue: string;
   partidoValue: string;
@@ -55,7 +55,7 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
         point: {
           events: {
             click: (e) => {
-              console.log('click ', e, this);
+              //console.log(e)
               /* tslint:disable:no-string-literal */
               window['angularComponentRef'].zone.run(() => {
                 if (e.point && e.point.DISTRITO_L) {
@@ -69,7 +69,6 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
       }
     },
     tooltip: {
-      headerFormat: '<br><b>Saltillo D XVI</b><br>',
       pointFormat: '<br>' +
         '<b><b><br>' +
         '<b>Preocupaciones:<b><br>' +
@@ -97,17 +96,16 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
     }]
   };
 
-  constructor(private estados: EstadosService, private menuSrv: MenuService, private router: Router, private ngZone: NgZone,
+  constructor(private mapaSrv: MapasService, private menuSrv: MenuService, private router: Router, private ngZone: NgZone,
               private authService: AuthenticationService) {
-    this.distValue = this.authService.getCOOKIE().match(regex).toString();
-    this.menuSrv.getInfoDistritos(this.distValue).subscribe(info => this.ejemplo = info[0]);
-    this.distValue = this.distValue.replace(/\b0+/g, '');
+                this.estado = this.authService.getCOOKIE().substring(0, 3);
+                this.distValue = this.authService.getCOOKIE().match(regex).toString();
+                this.menuSrv.getInfoDistritos(this.distValue).subscribe(info => this.info = info[0]);
+                this.distValue = this.distValue.replace(/\b0+/g, '');
+                this.menuSrv.getDistritosCOA().subscribe(distritos => this.distritos = distritos);
+                this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(data => {
+                  data.filter(x => {
 
-    this.menuSrv.getDistritos().subscribe(distritos => {
-      this.distritos = distritos;
-    });
-    this.estados.getMapaDistritos(this.estado).subscribe(data => {
-      data.filter(x => {
         if (x[0] === this.distValue) {
           data = [x];
           this.distritosMapas = data;
@@ -116,11 +114,10 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
     });
     /* tslint:disable:no-string-literal */
     window['angularComponentRef'] = {component: this, zone: ngZone};
-    /* tslint:enable:no-string-literal */
   }
 
   ngOnInit() {
-    this.estados.getDistritos().subscribe(entidades => {
+    this.mapaSrv.getCoordenadasDistritos().subscribe(entidades => {
       this.construirMapa(entidades).finally(() => {
         this.loading = false;
       });
@@ -128,19 +125,17 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   }
 
   async construirMapa(entidadesJSON) {
+    this.mapa.tooltip.headerFormat =  this.info['distrito'];
     this.mapa.chart.map = entidadesJSON;
     this.mapa.series[0].data = this.distritosMapas;
     Highcharts.mapChart('estado', this.mapa);
   }
 
   selected(id, $event) {
-
-    console.log('id ', id, this.distValue == id, this.distValue);
     const cook = this.authService.getCOOKIE();
-    if (id === null) {
-      return;
-    }
-    if (this.distValue == id) {
+    if (id === null) { return; }
+    if (this.distValue.toString() === id.toString()) {
+
       this.router.navigate(['secciones', id]);
     }
 
@@ -149,6 +144,5 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     /* tslint:disable:no-string-literal */
     window['angularComponentRef'] = null;
-    /* tslint:enable:no-string-literal */
   }
 }

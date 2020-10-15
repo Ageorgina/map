@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EstadosService } from '../../../general/services/estados.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MenuService } from '../../../general/services/menu.service';
+import { MapasService } from '../../../general/services/mapas.service';
 
 @Component({
   selector: 'app-info-estados',
@@ -14,9 +14,9 @@ export class InfoEstadosComponent implements OnInit {
   distritos: any[] = [];
   estados: any[] = [];
   estadoForm: FormGroup;
-  constructor(private estado: EstadosService, private menu: MenuService, private formBuilder: FormBuilder) {
+  constructor(private mapaSrv: MapasService, private menu: MenuService, private formBuilder: FormBuilder) {
    this.estadoForm = this.formBuilder.group({
-      gentilicio: [''],
+     clave_entidad: [''],
       base: [''],
       indecisos: [''],
       arrepentidos: [''],
@@ -31,7 +31,7 @@ export class InfoEstadosComponent implements OnInit {
 
    this.distritos = [ 'Saltillo', 'Torreón', 'Piedras Negras', 'San Juan', 'Sabinas', 'Acuña', 'Matamoros', 'Monclova', 'San Pedro'];
 
-   this.menu.getEstados().subscribe(estados => this.estados = estados );
+   this.menu.getinfoMx().subscribe(estados => this.estados = estados );
   }
   get fval() { return this.estadoForm.controls; }
 

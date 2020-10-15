@@ -15,10 +15,6 @@ export class SeccionesComponent implements OnInit {
   constructor( private menuSrv: MenuService) {
     this.menuSrv.getEmociones().subscribe( emociones => this.emociones = emociones);
     this.menuSrv.getInfo().subscribe( info => this.ejemplo = info[0]);
-
-    this.menuSrv.getPartidos().subscribe( partidos => {
-      this.partido1 = partidos[0];
-    });
   }
 
   ngOnInit() {

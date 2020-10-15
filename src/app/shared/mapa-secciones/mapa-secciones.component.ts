@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
-import {EstadosService} from '../../general/services/estados.service';
 import {ActivatedRoute} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {AuthenticationService} from '../../general/services/authentication.service';
+import { MapasService } from '../../general/services/mapas.service';
 
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -13,7 +13,6 @@ Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
-
 var regex = /(\d+)/g;
 
 @Component({
@@ -79,8 +78,9 @@ export class MapaSeccionesComponent implements OnInit {
     }]
   };
 
-  constructor(private estado: EstadosService, private route: ActivatedRoute, private cookieService: CookieService,
+  constructor(private mapaSrv: MapasService, private route: ActivatedRoute, private cookieService: CookieService,
               private authService: AuthenticationService) {
+                
     this.logoPartido(this.authService.getCOOKIE().slice(6));
 
     this.id = this.route.snapshot.paramMap.get('id');
@@ -91,7 +91,7 @@ export class MapaSeccionesComponent implements OnInit {
       }
     }
     this.traerData(this.id).finally(() => {
-      this.estado.getSecciones(this.id).subscribe(cvsInfo => {
+      this.mapaSrv.getCoordenadasSecciones(this.id).subscribe(cvsInfo => {
         this.construirMapa(cvsInfo).finally(() => this.loading = false);
       });
     });
@@ -116,7 +116,7 @@ export class MapaSeccionesComponent implements OnInit {
         this.id = '0' + this.id.toString();
       }
     }
-    this.estado.getCSV(this.id).subscribe(info => {
+    this.mapaSrv.getCSV(this.id).subscribe(info => {
       const match = info.match(/\n+[0-9]{1,4}/g);
       for (let i = 0; i < match.length; i++) {
         info = info.replace(match[i], '|' + match[i].substring(1, match[i].length));
@@ -194,7 +194,7 @@ export class MapaSeccionesComponent implements OnInit {
   }
 
   async traerData(id) {
-    this.estado.getSeccionesMapas(id).subscribe(secciones => {
+    this.mapaSrv.getInfoMapaSecciones(id).subscribe(secciones => {
       this.seccionInf = secciones;
     });
   }
@@ -209,6 +209,5 @@ export class MapaSeccionesComponent implements OnInit {
     } else if (partido === 'MOC') {
       this.logo = 'assets/logos/MCL.png';
     }
-
   }
 }
