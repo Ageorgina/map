@@ -1,27 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-
+import { catchError, map } from 'rxjs/operators';
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'}).append('Authorization', localStorage.getItem('token'))
+};
 @Injectable({
   providedIn: 'root'
 })
 export class FilesService {
-  estado = 'COA';
-
-  constructor(private http: HttpClient) { }
-  getInfoEstado() {
-    return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + this.estado + '_INFO.js');
+  constructor(private http: HttpClient) {
   }
-  getInfoDistrito() {
-    return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + this.estado + '_INFO.js');
+  postInfoEstado( nombreArchivo, contenido) {
+    return this.http.post<any[]>(`${environment.cartografiaBack}/entropia/archivoEstadosJS`, { nombreArchivo, contenido}, httpOptions);
   }
 
-  updateInfoEstado() {
-    return this.http.get<any[]>(`${environment.cartografiaUrl}` + '/data/js/DATA_MX.js');
+  getInfoDistrito(estado) {
+    return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/' + estado + '/' + estado + '_DISTRITOS.js' );
+  }
+  getInfoEstado(estado) {
+    return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + estado + '_INFO.js');
   }
 
-  updateInfoDistrito() {
-    return this.http.get<any[]>(`${environment.cartografiaUrl}` + '/data/js/DATA_MX.js');
+  postInfoDistrito(nombreArchivo, contenido) {
+    return this.http.post<any[]>(`${environment.cartografiaBack}/entropia/archivoDistritosJS`, { nombreArchivo, contenido}, httpOptions);
+  }
+
+
+  postCSV(nombreArchivo, contenido) {
+    return this.http.post<any[]>(`${environment.cartografiaBack}/entropia/archivo`, { nombreArchivo, contenido}, httpOptions);
+
   }
 
 }

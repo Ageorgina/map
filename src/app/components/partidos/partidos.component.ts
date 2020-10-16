@@ -23,8 +23,8 @@ export class PartidosComponent implements OnInit {
   estado: string;
 
   constructor( private partidoSrv: PartidosService, private authService: AuthenticationService) {
-    this.estado = this.authService.getCOOKIE().substring(0, 3);
-    this.distrito = this.authService.getCOOKIE().match(regex).toString();
+    this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
+    this.distrito = localStorage.getItem('distrito').replace(/[""]/g, '');
     this.partidoSrv.getInfoGral(this.estado, this.distrito).subscribe(info => this.info = info[0]);
     this.partidoSrv.getInfoPartidos(this.estado, this.distrito).subscribe( partidos => {
         this.partido1 = partidos[0];

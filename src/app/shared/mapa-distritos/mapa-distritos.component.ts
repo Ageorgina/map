@@ -98,8 +98,8 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
 
   constructor(private mapaSrv: MapasService, private menuSrv: MenuService, private router: Router, private ngZone: NgZone,
               private authService: AuthenticationService) {
-                this.estado = this.authService.getCOOKIE().substring(0, 3);
-                this.distValue = this.authService.getCOOKIE().match(regex).toString();
+                this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
+                this.distValue = localStorage.getItem('distrito').replace(/[""]/g, '');
                 this.menuSrv.getInfoDistritos(this.distValue).subscribe(info => this.info = info[0]);
                 this.distValue = this.distValue.replace(/\b0+/g, '');
                 this.menuSrv.getDistritosCOA().subscribe(distritos => this.distritos = distritos);

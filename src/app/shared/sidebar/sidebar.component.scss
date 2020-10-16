@@ -40,9 +40,8 @@
         div#side,
         .side {
             width: min-content;
-            // height: 350px;
             display: flex;
-            justify-content: start;
+            justify-content: flex-start;
             flex-flow: column wrap;
         }
         .navside,

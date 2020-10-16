@@ -20,9 +20,12 @@ export class MenuService {
     return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + this.estado + '_INFO.js');
   }
   getDistritosCOA() {
+    console.log('getDistritosCOA', '/assets/mock_info/distritos.js');
     return this.http.get<any[]>('/assets/mock_info/distritos.js');
   }
   getInfoDistritos(id) {
+
+    console.log('getInfoDistritos(id)', `${environment.cartografiaUrl}/` + 'data/js/INFO_DIS' + `${id}` + '.js');
     return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_DIS' + `${id}` + '.js' );
   }
 

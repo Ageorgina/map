@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { Error404Component } from './components/errors/error404/error404.component';
+import { DocumentosComponent } from './components/documentos/documentos.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { Error404Component } from './components/errors/error404/error404.compone
     LoginComponent,
     LogoutComponent,
     Error404Component,
+    DocumentosComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,8 +16,8 @@ export class SidebarComponent implements OnInit {
   estado: any;
   error: boolean;
   constructor(private menuSrv: MenuService, private partidoSrv: PartidosService, private authService: AuthenticationService) {
-    this.estado = this.authService.getCOOKIE().substring(0, 3);
-    this.distrito = this.authService.getCOOKIE().match(regex).toString();
+    this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
+    this.distrito = localStorage.getItem('distrito').replace(/[""]/g, '');
     this.partidoSrv.getError(this.estado, this.distrito).subscribe(() => this.error = this.partidoSrv.error404);
     this.menuSrv.getOpts().subscribe((main: Menu[]) => {
       main.filter( op => {

@@ -1,9 +1,8 @@
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import * as Highcharts from 'highcharts/highmaps';
 import { MenuService } from '../../general/services/menu.service';
-import { CookieService } from 'ngx-cookie-service';
 import {AuthenticationService} from '../../general/services/authentication.service';
 import { FilesService } from '../../general/services/files.service';
 declare var require: any;
@@ -37,7 +36,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
 
   constructor(  private menuSrv: MenuService,  private router: Router, private ngZone: NgZone,
                 private authService: AuthenticationService, private fileSrv: FilesService) {
-    this.fileSrv.getInfoEstado().subscribe( info => this.infoEstado = info[0] );
+    this.fileSrv.getInfoEstado(localStorage.getItem('estado')).subscribe( info => this.infoEstado = info[0] );
     this.menuSrv.getDistritosCOA().subscribe(distritos => this.distritos = distritos );
         // tslint:disable-next-line: align
         window['angularComponentRef'] = { component: this, zone: ngZone } ;
@@ -142,12 +141,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-      this.chart().finally(()=> {
-        this.estadoValue = this.authService.getCOOKIE().substring(0, 3);
-        // this.distValue = this.estado.getCOOKIE().match(regex).toString();
-        // this.distValue= this.distValue.replace(/[0+]/g, "");
-        //this.partidoValue = this.estado.getCOOKIE().slice(6);
-
+      this.chart().finally(() => {
         this.loading = false;
       });
 
@@ -160,7 +154,6 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   }
 
   selected(id) {
-      console.log(id)
       this.router.navigate(['distritos', id]);
 
   }

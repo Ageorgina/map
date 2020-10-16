@@ -1,11 +1,48 @@
 .input {
     margin-bottom: 5px !important;
-    min-width: 25% !important;
+    min-width: 40% !important;
+}
+
+.fondo {
+    min-width: 96%;
+    background: url('/assets/images/backgroud/background-black.jpg'), no-repeat center center;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #F0F0F0;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 input,
 select {
     border-color: gray;
+    color: #FFFFFF;
+    background-color: #3F3F3F !important;
+}
+
+.ng-tns-c3-0 {
+    border-color: gray !important;
+    color: #FFFFFF !important;
+    background-color: #3F3F3F !important;
+}
+
+.ng2-tag-input__text-input[_ngcontent-xpf-c5] {
+    border-color: gray !important;
+    color: #FFFFFF !important;
+    background-color: #3F3F3F !important;
+}
+
+tag-input-dropdown {
+    border-color: gray;
+    color: #FFFFFF;
+    background-color: #3F3F3F !important;
+}
+
+input:focus,
+select:focus {
+    border-color: gray;
+    color: #FFFFFF;
     background-color: #3F3F3F !important;
 }
 
@@ -40,6 +77,8 @@ h1 {
     display: flex;
     flex-flow: row wrap !important;
     justify-content: space-around !important;
+    margin-bottom: 10px;
+    padding-bottom: 10px !important;
 }
 
 .botones {
@@ -47,7 +86,6 @@ h1 {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around !important;
-    // background-color: turquoise;
 }
 
 button#button {

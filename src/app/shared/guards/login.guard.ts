@@ -12,9 +12,10 @@ export class LoginGuard implements CanLoad, CanActivate {
 
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const cookie = this.authService.getCOOKIE();
-    if (cookie) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+  Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    const user  = localStorage.getItem('user');
+    if (user) {
       return true;
     }
     this.router.navigate(['login'], {queryParams: {returnUrl: 'home'}});
@@ -22,8 +23,8 @@ export class LoginGuard implements CanLoad, CanActivate {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    const cookie = this.authService.getCOOKIE();
-    if (cookie) {
+    const user  = localStorage.getItem('user');
+    if (user) {
       return true;
     }
     this.router.navigate(['login'], {queryParams: {returnUrl: 'home'}});

@@ -11,9 +11,6 @@ export class InfoDistrito {
     tracking: string;
     hombres: string;
     mujeres: string;
-    preocupaciones: [];
-    mhoraini: string;
-    fhoraini: string;
-    mhorafin: string;
-    fhorafin: string;
+    alcance: string;
+    influencia: string;
 }

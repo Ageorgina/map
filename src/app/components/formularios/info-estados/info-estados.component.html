@@ -1,71 +1,114 @@
 <div class="container col-md-12">
+    <div class="loading" *ngIf="loading">
+        <div class="lds-ripple" *ngIf="loading">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <app-sidebar class="sidebar"></app-sidebar>
-    <div class="formulario">
+    <div class="formulario fondo">
         <h1>{{titulo}} información</h1>
         <br>
         <form [formGroup]="estadoForm" (ngSubmit)="onSubmit()" class="go-bottom">
             <div class="between-row">
                 <div class="input">
                     <label for="base">Base</label>
-                    <input id="base" formControlName="base" type="text" class="form-control">
+                    <input id="base" formControlName="base" type="text" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.base.errors }">
+                    <div *ngIf="submitted && fval.base.errors" class="invalid-feedback">
+                        <div *ngIf="fval.base.errors.required">{{error}}</div>
+                    </div>
                 </div>
-                <div class="input">
-                    <div class="input">
-                        <select formControlName="clave_entidad" type="text" class="form-control">
-                            <option selected >Estados</option>
+                <div class=" input">
+                    <label for="base">Estado</label>
+                    <select formControlName="clave_entidad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.clave_entidad.errors }" (change)="selected($event)">
+                            <option selected value="" disabled>Estados</option>
                             <option *ngFor="let estado of estados" value="{{estado.clave_entidad}}">{{estado.nombre}}</option>
                         </select>
+                    <div *ngIf="submitted && fval.clave_entidad.errors" class="invalid-feedback">
+                        <div *ngIf="fval.clave_entidad.errors.required">{{error}}</div>
                     </div>
                 </div>
             </div>
-
-
-            <div class="between-row">
-                <div class="card">
-                    <tag-input formControlName="distritos">
-                        <tag-input-dropdown [autocompleteItems]="distritos">
+            <div class="between-row ">
+                <div class="card" *ngIf="disabledDist">
+                    <label for="base">Distritos</label>
+                    <tag-input [secondaryPlaceholder]="tag" formControlName="distritos" [editable]='true' [onlyFromAutocomplete]="true" theme='dark' [ngClass]="{ 'is-invalid': submitted && fval.distritos.errors }">
+                        <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="distritos">
                         </tag-input-dropdown>
                     </tag-input>
-                    <label for="base">Distritos</label>
+                    <div *ngIf="submitted && fval.distritos.errors" class="invalid-feedback">
+                        <div *ngIf="fval.distritos.errors.required">{{error}}</div>
+                    </div>
                 </div>
             </div>
             <div class="between-row">
                 <div class="input">
-                    <input id="indecisos" formControlName="indecisos" type="text" class="form-control">
                     <label for="indecisos">Indecisos</label>
+                    <input id="indecisos" formControlName="indecisos" type="text" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.indecisos.errors }">
+                    <div *ngIf="submitted && fval.indecisos.errors" class="invalid-feedback">
+                        <div *ngIf="fval.indecisos.errors.required">{{error}}</div>
+                    </div>
                 </div>
                 <div class="input">
-                    <input id="arrepentidos" formControlName="arrepentidos" type="text" class="form-control">
                     <label for="arrepentidos">Arrepentidos</label>
+                    <input id="arrepentidos" formControlName="arrepentidos" type="text" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.arrepentidos.errors }">
+                    <div *ngIf="submitted && fval.arrepentidos.errors" class="invalid-feedback">
+                        <div *ngIf="fval.arrepentidos.errors.required">{{error}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="between-row">
+                <div class="input">
+                    <label for="audienciaDigital">Audiencia Digital</label>
+                    <input id="audienciaDigital" formControlName="audienciaDigital" type="text" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.audienciaDigital.errors }">
+                    <div *ngIf="submitted && fval.audienciaDigital.errors" class="invalid-feedback">
+                        <div *ngIf="fval.audienciaDigital.errors.required">{{error}}</div>
+                    </div>
                 </div>
                 <div class="input">
-                    <input id="proOposicion" formControlName="proOposicion" type="text" class="form-control">
-                    <label for="proOposicion">Pro Oposición</label>
+                    <label for="activosDigitales">Activos Digitales</label>
+                    <input id="activosDigitales" formControlName="activosDigitales" type="text" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.activosDigitales.errors }">
+                    <div *ngIf="submitted && fval.activosDigitales.errors" class="invalid-feedback">
+                        <div *ngIf="fval.activosDigitales.errors.required">{{error}}</div>
+                    </div>
                 </div>
             </div>
+            <div class="between-row">
+                <div class="input">
+                    <label for="competencia">Competencia</label>
+                    <input id="competencia" type="text" formControlName="competencia" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.competencia.errors }">
+                    <div *ngIf="submitted && fval.competencia.errors" class="invalid-feedback">
+                        <div *ngIf="fval.competencia.errors.required">{{error}}</div>
+                    </div>
+                </div>
+                <div class="input">
+                    <label for="proOposicion">Pro Oposición</label>
+                    <input id="proOposicion" formControlName="proOposicion" type="text" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.proOposicion.errors }">
+                    <div *ngIf="submitted && fval.proOposicion.errors" class="invalid-feedback">
+                        <div *ngIf="fval.proOposicion.errors.required">{{error}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="between-row">
+                <div class="input">
+                    <label for="afiliados">Afiliados</label>
+                    <input id="afiliados" type="text" formControlName="afiliados" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.afiliados.errors }">
+                    <div *ngIf="submitted && fval.afiliados.errors" class="invalid-feedback">
+                        <div *ngIf="fval.afiliados.errors.required">{{error}}</div>
+                    </div>
+                </div>
 
-            <div class="input">
-                <input id="audienciaDigital" formControlName="audienciaDigital" type="text" class="form-control">
-                <label for="audienciaDigital">Audiencia Digital</label>
+                <div class="input">
+                    <label for="tracking">Tracking</label>
+                    <input id="tracking" type="text" formControlName="tracking" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.tracking.errors }">
+                    <div *ngIf="submitted && fval.tracking.errors" class="invalid-feedback">
+                        <div *ngIf="fval.tracking.errors.required">{{error}}</div>
+                    </div>
+                </div>
             </div>
-            <div class="input">
-                <input id="competencia" type="text" formControlName="competencia" class="form-control">
-                <label for="competencia">Competencia</label>
-            </div>
-            <div class="input">
-                <input id="afiliados" type="text" formControlName="afiliados" class="form-control">
-                <label for="afiliados">Afiliados</label>
-            </div>
-            <div class="input">
-                <input id="activosDigitales" formControlName="activosDigitales" type="text" class="form-control">
-                <label for="activosDigitales">Activos Digitales</label>
-            </div>
-            <div class="input">
-                <input id="tracking" type="text" class="form-control">
-                <label for="tracking">Tracking</label>
-            </div>
+            <br>
             <div class="botones">
-                <button id="button" type="reset" class="btn btn-danger">CANCELAR</button>
+                <button id="button" type="reset" [routerLink]="['/home']" class="btn btn-danger">CANCELAR</button>
                 <button id="button" type="submit" class="btn btn-success">GUARDAR</button>
             </div>
             <br>

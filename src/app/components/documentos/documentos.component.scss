@@ -1,0 +1,130 @@
+.right {
+    width: 50% !important;
+    display: flex;
+    justify-content: space-around !important;
+    text-align: center;
+    flex-flow: column wrap !important;
+    min-height: 60%;
+}
+
+.formulario {
+    min-height: 100vh !important;
+    display: flex;
+    justify-content: space-between !important;
+    flex-flow: column nowrap !important;
+}
+
+h4 {
+    font-weight: bold;
+}
+
+p {
+    font-style: italic;
+    font-size: small;
+}
+
+.left {
+    padding-top: 1.5%;
+    width: 50% !important;
+    text-align: center;
+    min-height: 60%;
+}
+
+.alert {
+    height: min-content;
+    max-width: 90%;
+}
+
+.fondo {
+    min-width: 96%;
+    min-height: min-content;
+    background: url('/assets/images/backgroud/background-black.jpg'), no-repeat center center;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #F0F0F0;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.selected {
+    display: flex;
+    justify-content: space-around !important;
+    text-align: center;
+    flex-flow: row nowrap !important;
+}
+
+select {
+    min-width: 50%;
+    border-color: gray;
+    color: #FFFFFF;
+    background-color: #3F3F3F !important;
+}
+
+select:focus {
+    border-color: gray;
+    color: #FFFFFF;
+    background-color: #3F3F3F !important;
+}
+
+option {
+    background: #3F3F3F !important;
+    background-color: #3F3F3F !important;
+    color: #FFFFFF;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.between-row {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.botones {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap !important;
+    justify-content: space-around !important;
+    margin-top: 20px;
+    padding-bottom: 10%;
+}
+
+button#button {
+    width: 40%;
+    background-color: transparent !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .input {
+        margin-bottom: 5px !important;
+        min-width: 100% !important;
+    }
+    .right {
+        width: 100% !important;
+        display: flex;
+        justify-content: space-around !important;
+        text-align: center;
+        flex-flow: column wrap !important;
+        min-height: auto !important;
+    }
+    .left {
+        padding-top: 0;
+        width: 100% !important;
+        text-align: center;
+        min-height: auto !important;
+    }
+    .alert {
+        height: min-content;
+        max-width: 100% !important;
+        font-size: small !important;
+    }
+}
+
+.image-upload>input {
+    display: none;
+}

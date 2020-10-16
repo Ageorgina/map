@@ -3,8 +3,9 @@ import {CookieService} from 'ngx-cookie-service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {BehaviorSubject, Observable} from 'rxjs';
-import { Base64 } from 'js-base64';
-import { map } from 'rxjs/operators';
+
+import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,13 +15,14 @@ export class AuthenticationService {
   cookieValue: string;
   response: any;
   user: any;
+
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
     localStorage.removeItem('currentUser');
-    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('user')));
-    this.currentUser = this.currentUserSubject.asObservable();
+   //this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('user')));
+    //this.currentUser = this.currentUserSubject.asObservable();
   }
   public get currentUserValue(): any {
     return this.currentUserSubject.value;
@@ -41,13 +43,6 @@ export class AuthenticationService {
   }
 
   login(user: string, password: string) {
-      return this.http.get<any>(`${environment.cartografiaBack}` + '/login?user=' + user + '&password=' + password)
-             .pipe(map( user => {
-               this.user = user.user;
-              localStorage.setItem('user', JSON.stringify(this.user));
-              this.currentUserSubject.next(this.user);
-               console.log('USER ->',this.user)
-
-      }));
+    return this.http.get<any>(`${environment.cartografiaBack}` + '/login?user=' + user + '&password=' + password);
    }
 }

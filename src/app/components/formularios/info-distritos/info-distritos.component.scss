@@ -1,3 +1,15 @@
+.fondo {
+    min-width: 96%;
+    min-height: min-content;
+    background: url('/assets/images/backgroud/background-black.jpg'), no-repeat center center;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #F0F0F0;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
 .medio {
     display: flex;
     flex-flow: row wrap;
@@ -5,9 +17,24 @@
     width: 48%;
 }
 
+h6 {
+    width: 100%;
+    max-height: min-content;
+}
+
 .input {
     margin-bottom: 5px !important;
+    min-width: 45% !important;
+}
+
+.input-t {
+    margin-bottom: 5px !important;
     min-width: 25% !important;
+}
+
+.input-h {
+    margin-bottom: 5px !important;
+    min-width: 20% !important;
 }
 
 input#inicio,
@@ -44,7 +71,7 @@ h1 {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around !important;
-    // background-color: turquoise;
+    padding-bottom: 10px;
 }
 
 button#button {
@@ -56,5 +83,10 @@ button#button {
     .input {
         margin-bottom: 5px !important;
         min-width: 100% !important;
+    }
+    .input-t {
+        margin-bottom: 5px !important;
+        min-width: 100% !important;
+        margin-top: 5px !important;
     }
 }

@@ -1,7 +1,8 @@
 [{
-    "id": "COA",
+    "clave_entidad": "COA",
     "base": "452,812",
     "gentilicio": "Coahuilenses",
+    "distritos": [],
     "indecisos": "84,823",
     "arrepentidos": "52,356",
     "proOposicion": "38,236",

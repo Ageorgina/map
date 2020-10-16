@@ -11,4 +11,5 @@ export class InfoEstado {
     afiliados: string;
     activosDigitales: string;
     tracking: string;
+    distritos: [];
 }

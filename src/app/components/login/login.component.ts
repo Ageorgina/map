@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../general/services/authentication.service';
-import { Observable, BehaviorSubject } from 'rxjs';
-
+const regex = /(\d+)/g;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,8 +14,10 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
-
-
+  estadoValue: string;
+  partidoValue: string;
+  distValue: string;
+  user: string;
 
   constructor( private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
                private authenticationService: AuthenticationService) {
@@ -35,16 +36,27 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.loginForm.invalid) {
-      return;
-    }
-
+    if (this.loginForm.invalid) { return; }
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe(user => {
-      this.authenticationService.setCookie(this.f.username.value);
-      this.router.navigate([this.returnUrl]);
+    this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe(resultado => {
+      if (resultado === 'e') {
+        this.loading = false;
+        this.error = 'El usuario / contraseña son incorrectos';
+        return ;
+      }
+      if (resultado.token !== ('' || undefined || null) ) {
+        this.user = resultado.user;
+        this.estadoValue = this.user.substring(0, 3);
+        this.distValue = this.user.match(regex).toString();
+        this.partidoValue = this.user.slice(6);
+        localStorage.setItem('user', this.user);
+        localStorage.setItem('token', resultado.token);
+        localStorage.setItem('partido', this.partidoValue);
+        localStorage.setItem('estado', this.estadoValue);
+        localStorage.setItem('distrito', this.distValue);
+        this.router.navigate([this.returnUrl]);
+      }
     }, error => {
-      // console.log('Error Login', error);
       this.error = 'El usuario / contraseña son incorrectos';
       this.loading = false;
     });
