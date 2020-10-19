@@ -39,7 +39,7 @@
     @media only screen and (max-width: 600px) {
         div#side,
         .side {
-            width: min-content;
+            width: auto !important;
             display: flex;
             justify-content: flex-start;
             flex-flow: column wrap;

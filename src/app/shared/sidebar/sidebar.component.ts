@@ -19,17 +19,25 @@ export class SidebarComponent implements OnInit {
     this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
     this.distrito = localStorage.getItem('distrito').replace(/[""]/g, '');
     this.partidoSrv.getError(this.estado, this.distrito).subscribe(() => this.error = this.partidoSrv.error404);
-    this.menuSrv.getOpts().subscribe((main: Menu[]) => {
-      main.filter( op => {
-        if (this.error === false) {
-          this.menu = main;
-        } else {
-          if (op.nombre !== 'Partidos') {
-            this.menu.push(op);
-          }
-        }
+
+    if (localStorage.getItem('distrito') === '000' && localStorage.getItem('estado') === 'ADM') {
+      this.menuSrv.getOptsADM().subscribe((main: Menu[]) => {
+        this.menu = main;
       });
-    });
+    } else {
+      this.menuSrv.getOpts().subscribe((main: Menu[]) => {
+        main.filter( op => {
+          if (this.error === false) {
+            this.menu = main;
+          } else {
+            if (op.nombre !== 'Partidos') {
+              this.menu.push(op);
+            }
+          }
+        });
+      });
+    }
+
   }
 
   ngOnInit() {

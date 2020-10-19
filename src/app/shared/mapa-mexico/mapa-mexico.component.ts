@@ -154,6 +154,9 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   }
 
   selected(id) {
+      if (localStorage.getItem('distrito') === '000' && localStorage.getItem('estado') === 'ADM') {
+          return ;
+      }
       this.router.navigate(['distritos', id]);
 
   }
