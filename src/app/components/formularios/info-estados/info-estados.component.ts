@@ -82,7 +82,6 @@ gentilicio: string;
         this.estadoForm.reset();
 			});
 		}, error => {
-      console.log('e,', error)
 			this.loading = false;
 			this.errorOperacion().finally(() => {});
 		});

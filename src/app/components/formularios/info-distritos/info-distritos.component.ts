@@ -97,7 +97,7 @@ export class InfoDistritosComponent implements OnInit {
 	 		this.numDistrito = '00' + dist;
 	 	}
      this.nombre = this.estado + '_DIS' + this.numDistrito + '_INFO.js';
-     console.log(this.nombre);
+
 	}
 
   checkNumeros($event: KeyboardEvent) { this.utils.numeros($event); }
@@ -108,7 +108,6 @@ export class InfoDistritosComponent implements OnInit {
     this.estados.filter( estado => {
       if (estado.clave_entidad === event.srcElement.value ) {
         this.gentilicio = estado.gentilicio;
-        console.log(this.gentilicio)
         this.distritos = estado.distritos;
       }
     });

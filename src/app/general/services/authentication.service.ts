@@ -20,7 +20,7 @@ export class AuthenticationService {
   public currentUser: Observable<any>;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('user');
    //this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('user')));
     //this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -44,5 +44,14 @@ export class AuthenticationService {
 
   login(user: string, password: string) {
     return this.http.get<any>(`${environment.cartografiaBack}` + '/login?user=' + user + '&password=' + password);
+   }
+   logout(){
+     localStorage.removeItem('user');
+     localStorage.removeItem('username');
+     localStorage.removeItem('partido');
+     localStorage.removeItem('token');
+     localStorage.removeItem('estado');
+     localStorage.removeItem('distrito');
+
    }
 }

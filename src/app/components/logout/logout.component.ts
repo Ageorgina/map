@@ -14,6 +14,7 @@ export class LogoutComponent implements OnInit {
   ngOnInit() {
     this.authService.deleteCookie();
     this.router.navigate(['login'], {queryParams: {returnUrl: 'home'}});
+    this.authService.logout();
   }
 
 }

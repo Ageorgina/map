@@ -123,6 +123,17 @@ button#button {
         max-width: 100% !important;
         font-size: small !important;
     }
+    .selected {
+        width: 100% !important;
+        display: flex;
+        justify-content: space-around !important;
+        text-align: center;
+        flex-flow: row wrap !important;
+    }
+    select {
+        width: 100% !important;
+        margin-top: 20px !important;
+    }
 }
 
 .image-upload>input {
