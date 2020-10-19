@@ -21,6 +21,7 @@ INFO_DIS016.js en la ruta /data/js/COA/  que son los archivos que obtenemos (get
 V2.6 Para las pantallas agregar_info_estados y agregar_info_distritos se creo la siguiente nomenclatura
 ** <clave_estado>_INFO.js --> el archivo contiene la informacion que creamos para pintar la información de la pantalla del mapa de la republica.
 ** <clave_estado>_<clave_distrito>_INFO.js --> el archivocontiene la informacion que creamos para pintar la información de la pantalla del mapa de distrito.
+
 # LOS ARCHIVOS JSON TIENEN LA INFORMACION PARA PINTAR LOS MAPAS
 Se encuentran dentro de una carpeta json
 divididas por estado con abreviacion a 3 digitos
@@ -42,6 +43,7 @@ Dentro de la carpeta csv
 # EN LA CARPETA JS INFO_MAPA_MX
 V2.6 SE CREO EL ARCHIVO COA_INFO.js --> Contiene la información del lado derecho de la  pantalla home.
 ** con la siguiente nomenclatura <clave_estado>_INFO.json
+V2.7 Los archivos que se muestran en la pantalla de inicio se agregan en /data/js/INFO_MAPA_MX/
  # EN LA CARPETA JS <estado a 3 caracteres>
  V2.6 SE CREO EL ARCHIVO COA_DIS<clave_distrito>_PARTIDOS.js --> Contiene la información de los partidos en la pantalla partidos.
 
