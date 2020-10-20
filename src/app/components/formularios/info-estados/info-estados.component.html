@@ -1,4 +1,4 @@
-<div class="container col-md-12">
+<div id="bloquear" class="container col-md-12">
     <div class="loading" *ngIf="loading">
         <div class="lds-ripple" *ngIf="loading">
             <div></div>
@@ -31,13 +31,24 @@
             </div>
             <div class="between-row ">
                 <div class="card" *ngIf="disabledDist">
-                    <label for="base">Distritos</label>
-                    <tag-input [secondaryPlaceholder]="tag" formControlName="distritos" [editable]='true' [onlyFromAutocomplete]="true" theme='dark' [ngClass]="{ 'is-invalid': submitted && fval.distritos.errors }">
-                        <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="distritos">
-                        </tag-input-dropdown>
-                    </tag-input>
-                    <div *ngIf="submitted && fval.distritos.errors" class="invalid-feedback">
-                        <div *ngIf="fval.distritos.errors.required">{{error}}</div>
+                    <label for="base">Ciudades</label>
+                    <div class="betrow">
+                        <div class="in">
+                            <input id="ciudades" formControlName="ciudades" type="text" class="form-control ciudades" value="">
+                            <button class="btn btn-outline-info add" role="group" type="button" (click)="addCiudades(fval.ciudades.value)" data-toggle="modal" data-target="#add">
+                                Agregar
+                            </button>
+                        </div>
+
+                        <div class="menu">
+                            <p *ngFor="let ciudad of ciudades; let i of index" [ngClass]="{ 'is-invalid': submitted && fval.ciudades.errors }"> <a (click)="borrar(ciudades,i)"><i class="fas fa-trash mr-2"></i> </a> {{ciudad}} </p>
+                            <div class="alert alert-danger" role="alert" *ngIf="errorCd !== false">
+                                {{errorText}}
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="submitted && fval.ciudades.errors" class="invalid-feedback">
+                        <div *ngIf="fval.ciudades.errors.required">{{error}}</div>
                     </div>
                 </div>
             </div>
@@ -100,7 +111,7 @@
 
                 <div class="input">
                     <label for="tracking">Tracking</label>
-                    <input id="tracking" type="text" formControlName="tracking" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.tracking.errors }">
+                    <input id="tracking" type="text" formControlName="tracking" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.tracking.errors }">
                     <div *ngIf="submitted && fval.tracking.errors" class="invalid-feedback">
                         <div *ngIf="fval.tracking.errors.required">{{error}}</div>
                     </div>

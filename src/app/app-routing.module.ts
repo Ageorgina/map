@@ -26,17 +26,6 @@ const routes: Routes = [
   {path: 'distrito', component: InfoDistritosComponent, canActivate: [LoginGuard]},
   {path: 'data', component: DocumentosComponent, canActivate: [LoginGuard] },
   {path: '404', component: Error404Component, canActivate: [LoginGuard] }
-  //  {path: 'home', component: HomeComponent},
-  //  {path: 'distritos', component: DistritosComponent},
-  //  {path: 'distritos/:id', component: DistritosComponent},
-  //  {path: 'secciones', component: SeccionesComponent},
-  //  {path: 'secciones/:id', component: SeccionesComponent},
-  //  {path: 'partidos', component: PartidosComponent},
-  //  {path: 'agregar_info_estados', component: InfoEstadosComponent},
-  //  {path: 'agregar_info_distritos', component: InfoDistritosComponent},
-  //  {path: '404', component: Error404Component},
-  //  {path: 'agregar_cvs', component: DocumentosComponent }
-
 ];
 
 @NgModule({

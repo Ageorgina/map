@@ -11,5 +11,5 @@ export class InfoEstado {
     afiliados: string;
     activosDigitales: string;
     tracking: string;
-    ciudades: [];
+    ciudades: any[];
 }

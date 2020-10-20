@@ -16,7 +16,7 @@ export class InfoEstadosComponent implements OnInit {
   titulo = 'ESTADO';
   date = Date().toString();
   tag = '+Tag';
-  distritos: any[] = [];
+  ciudades = [];
   estados: any[] = [];
   estadoForm: FormGroup;
   submitted = false;
@@ -29,6 +29,8 @@ export class InfoEstadosComponent implements OnInit {
 pass: string;
 token: any;
 gentilicio: string;
+errorCd = false;
+errorText = '';
 
   constructor( private mapaSrv: MapasService, private menu: MenuService, private formBuilder: FormBuilder,
                private utils: Utils, private fileSrv: FilesService, private alert: AlertsService) {
@@ -40,7 +42,7 @@ gentilicio: string;
       proOposicion: ['', Validators.required],
       audienciaDigital: ['', Validators.required],
       competencia: ['', Validators.required],
-      distritos: ['', Validators.required],
+      ciudades: ['', Validators.required],
       afiliados: ['', Validators.required],
       activosDigitales: ['', Validators.required],
       tracking: ['', Validators.required]
@@ -61,7 +63,7 @@ gentilicio: string;
     this.estadoInfo.clave_entidad = this.estadoForm.value.clave_entidad;
     this.estadoInfo.base = this.estadoForm.value.base;
     this.estadoInfo.gentilicio = this.gentilicio;
-    this.estadoInfo.distritos = this.estadoForm.value.distritos;
+    this.estadoInfo.ciudades = this.ciudades;
     this.estadoInfo.indecisos = this.estadoForm.value.indecisos;
     this.estadoInfo.arrepentidos = this.estadoForm.value.arrepentidos;
     this.estadoInfo.proOposicion = this.estadoForm.value.proOposicion;
@@ -80,9 +82,10 @@ gentilicio: string;
         this.submitted = false;
         this.disabledDist = false;
         this.estadoForm.reset();
+        this.ciudades = [];
 			});
-		}, error => {
-			this.loading = false;
+		}, () => {
+      this.loading = false;
 			this.errorOperacion().finally(() => {});
 		});
   }
@@ -94,12 +97,26 @@ gentilicio: string;
     this.estados.filter(estado => {
       if (estado.clave_entidad === event.srcElement.value ) {
         this.gentilicio = estado.gentilicio;
-          estado.distritos.filter(distrito => {
-            this.distritos.push(distrito.toString());
-          });
         }
     });
   }
   async success() { this.alert.showSaveSuccess(); }
   async errorOperacion() { this.alert.showError(); }
+
+addCiudades(ciudad) {
+  if (ciudad === '' || ciudad === null) {
+    return ;
+  }
+  if (this.ciudades.includes(ciudad)) {
+    this.errorCd = true;
+    this.errorText = 'Ya esta registrada esa ciudad';
+  } else {
+    this.errorCd = false;
+    this.ciudades.push(ciudad);
+  }
+}
+borrar(arr, ciudad) {
+  const x = arr.indexOf( ciudad );
+  this.ciudades.splice( x, 1 );
+}
 }
