@@ -29,7 +29,7 @@ import { error } from 'protractor';
 	private base64textString = '';
 	username = '';
 	pass = '';
-	titulo = 'Agrega un archivo csv';
+	titulo = 'DATA';
 	distritosArr: any;
 
 	constructor(private menu: MenuService, private alert: AlertsService, private fileSrv: FilesService) {

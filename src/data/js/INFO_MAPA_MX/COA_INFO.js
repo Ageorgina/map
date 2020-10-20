@@ -2,7 +2,7 @@
     "clave_entidad": "COA",
     "base": "452,812",
     "gentilicio": "Coahuilenses",
-    "distritos": [],
+    "ciudades": [],
     "indecisos": "84,823",
     "arrepentidos": "52,356",
     "proOposicion": "38,236",

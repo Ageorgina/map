@@ -30,14 +30,14 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
     partidoValue: string;
     estadoID: any;
     infoEstado: any;
-    distritos: any;
+    ciudades: any;
     cookies: any;
     loading = true;
 
   constructor(  private menuSrv: MenuService,  private router: Router, private ngZone: NgZone,
                 private authService: AuthenticationService, private fileSrv: FilesService) {
     this.fileSrv.getInfoEstado(localStorage.getItem('estado')).subscribe( info => this.infoEstado = info[0] );
-    this.menuSrv.getDistritosCOA().subscribe(distritos => this.distritos = distritos );
+    this.menuSrv.getDistritosCOA().subscribe(distritos => this.ciudades = distritos );
         // tslint:disable-next-line: align
         window['angularComponentRef'] = { component: this, zone: ngZone } ;
    }

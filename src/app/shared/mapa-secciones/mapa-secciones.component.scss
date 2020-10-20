@@ -66,4 +66,11 @@ p {
     .informacion {
         width: 100% !important;
     }
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0;
+        font-weight: bold;
+        font-size: medium !important;
+    }
 }

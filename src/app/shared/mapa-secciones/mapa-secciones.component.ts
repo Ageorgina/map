@@ -81,7 +81,7 @@ export class MapaSeccionesComponent implements OnInit {
   constructor(private mapaSrv: MapasService, private route: ActivatedRoute, private cookieService: CookieService,
               private authService: AuthenticationService) {
                 
-    this.logoPartido(this.authService.getCOOKIE().slice(6));
+    this.logoPartido(localStorage.getItem('partido'));
 
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id.length < 3) {
@@ -205,6 +205,7 @@ export class MapaSeccionesComponent implements OnInit {
     } else if (partido === 'MOR') {
       this.logo = 'assets/logos/MORL.png';
     } else if (partido === 'PRI') {
+      
       this.logo = 'assets/logos/PRIL.png';
     } else if (partido === 'MOC') {
       this.logo = 'assets/logos/MCL.png';

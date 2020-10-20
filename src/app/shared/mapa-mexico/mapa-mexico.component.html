@@ -8,14 +8,14 @@
     <div class="mapMX" id="mexico" (click)="selected($event?.point?.value)"></div>
     <div id="bloquear" class="informacion">
         <p>Base: <br> {{infoEstado?.base}} {{infoEstado?.gentilicio}}</p>
-        <p class="distritos" *ngFor="let distrito of distritos"> {{distrito?.nombre}}</p>
+        <p class="distritos" *ngFor="let ciudad of ciudades"> {{ciudad?.nombre}}</p>
         <p>Indecisos <br> {{infoEstado?.indecisos}}</p>
         <p>Arrepentidos <br> {{infoEstado?.arrepentidos}} </p>
         <p>Pro Oposición <br> {{infoEstado?.proOposicion}}</p>
-        <p>Audiencia Digital <br>{{infoEstado?.audiencia_Digital}}</p>
+        <p>Audiencia Digital <br>{{infoEstado?.audienciaDigital}}</p>
         <p class="mx">Competencia: <br> {{infoEstado?.competencia}}</p>
         <p class="mx">Afiliados: <br> {{infoEstado?.afiliados}}</p>
-        <p class="mx">ActivosDigitales: <br> {{infoEstado?.activos_Digitales}}</p>
+        <p class="mx">ActivosDigitales: <br> {{infoEstado?.activosDigitales}}</p>
         <p class="mx">Tracking: <br> {{infoEstado?.tracking}}</p>
     </div>
 </div>

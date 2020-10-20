@@ -13,7 +13,7 @@ import { InfoEstado } from '../../../general/model/info-estado';
   styleUrls: ['./info-estados.component.scss']
 })
 export class InfoEstadosComponent implements OnInit {
-  titulo = 'Agregar';
+  titulo = 'ESTADO';
   date = Date().toString();
   tag = '+Tag';
   distritos: any[] = [];

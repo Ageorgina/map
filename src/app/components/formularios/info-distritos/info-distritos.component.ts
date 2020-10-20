@@ -14,7 +14,7 @@ import { FilesService } from '../../../general/services/files.service';
   styleUrls: ['./info-distritos.component.scss']
 })
 export class InfoDistritosComponent implements OnInit {
-  titulo = 'Agregar';
+  titulo = 'DISTRITO';
   date = Date().toString();
   distritos: any[] = [];
   estados: any[] = [];

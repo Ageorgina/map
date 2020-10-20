@@ -20,7 +20,7 @@
 
                     <div class="image-upload ">
                         <label for="file-input">
-                            <img src="/assets/images/img-cvs.png" width="120px">
+                            <img src="/assets/images/img-csv.png" width="120px">
                         </label>
                         <input #inp id="file-input" type="file" (change)="obtenerArchivo($event)" accept=".csv" runat="server">
                     </div>
@@ -33,7 +33,7 @@
                 <div class="left">
                     <div>
                         <h4>Ingresa la siguiente información:</h4>
-                        <p>Basada en el Estado y Distrito al que pertenece el archivo cvs</p>
+                        <p>Basada en el Estado y Distrito al que pertenece el archivo csv</p>
                     </div>
                     <div class="selected">
                         <select [(ngModel)]="opcionSeleccionado" (change)="estadoSelected()">
@@ -50,8 +50,8 @@
         </div>
 
         <div class="botones">
+            <button [disabled]="saveDisabled" id="button" type="submit" class="btn btn-outline-success" (click)="clicked()">SUBIR</button>
             <button id="button" type="reset" [routerLink]="['/home']" class="btn btn-danger">CANCELAR</button>
-            <button [disabled]="saveDisabled" id="button" type="submit" class="btn btn-outline-success" (click)="clicked()">SUBIR ARCHIVO</button>
         </div>
 
     </div>

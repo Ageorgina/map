@@ -7,7 +7,7 @@
     </div>
     <app-sidebar class="sidebar"></app-sidebar>
     <div class="formulario fondo">
-        <h1>{{titulo}} información</h1>
+        <h1>{{titulo}}</h1>
         <br>
         <form [formGroup]="estadoForm" (ngSubmit)="onSubmit()" class="go-bottom">
             <div class="between-row">
@@ -108,8 +108,9 @@
             </div>
             <br>
             <div class="botones">
-                <button id="button" type="reset" [routerLink]="['/home']" class="btn btn-danger">CANCELAR</button>
                 <button id="button" type="submit" class="btn btn-success">GUARDAR</button>
+                <button id="button" type="reset" [routerLink]="['/home']" class="btn btn-danger">CANCELAR</button>
+
             </div>
             <br>
         </form>
