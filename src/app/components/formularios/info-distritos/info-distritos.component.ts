@@ -49,7 +49,7 @@ export class InfoDistritosComponent implements OnInit {
       mhorafin: ['', Validators.required],
       fhorafin: ['', Validators.required],
     });
-    this.mapaSrv.getCoordenadasDistritos().subscribe(distritos => this.distritos = distritos);
+    // this.mapaSrv.getCoordenadasDistritos().subscribe(distritos => this.distritos = distritos);
     this.menu.getinfoMx().subscribe(estados =>  this.estados = estados );
   }
   get fval() { return this.distritoForm.controls;  }

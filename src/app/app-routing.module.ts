@@ -11,6 +11,8 @@ import {LoginGuard} from './shared/guards/login.guard';
 import {LogoutComponent} from './components/logout/logout.component';
 import { Error404Component } from './components/errors/error404/error404.component';
 import { DocumentosComponent } from './components/documentos/documentos.component';
+import { DistritoAdminComponent } from './components/distrito-admin/distrito-admin.component';
+import { MapaSeccionesAdminComponent } from './shared/mapa-secciones-admin/mapa-secciones-admin.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -25,7 +27,9 @@ const routes: Routes = [
   {path: 'estado', component: InfoEstadosComponent, canActivate: [LoginGuard]},
   {path: 'distrito', component: InfoDistritosComponent, canActivate: [LoginGuard]},
   {path: 'data', component: DocumentosComponent, canActivate: [LoginGuard] },
-  {path: '404', component: Error404Component, canActivate: [LoginGuard] }
+  {path: '404', component: Error404Component, canActivate: [LoginGuard] },
+  {path: 'home_admin', component: DistritoAdminComponent, canActivate: [LoginGuard]},
+  {path: 'secciones_admin/:id', component: MapaSeccionesAdminComponent, canActivate: [LoginGuard]},
 ];
 
 @NgModule({

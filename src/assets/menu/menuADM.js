@@ -1,6 +1,6 @@
 [{
     "nombre": "Inicio",
-    "redirectTo": "home"
+    "redirectTo": "home_admin"
 }, {
     "nombre": "Data",
     "redirectTo": "data"

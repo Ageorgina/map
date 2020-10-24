@@ -22,11 +22,15 @@ export class MenuService {
   // getInfo() {
   //   return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + this.estado + '_INFO.js');
   // }
+  getPartidos() {
+    return this.http.get<any[]>('/assets/menu/partidos.js');
+  }
   getDistritosCOA() {
     return this.http.get<any[]>('/assets/mock_info/distritos.js');
   }
-  getInfoDistritos(id) {
-    return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_DIS' + `${id}` + '.js' );
+
+  getInfoDistritos(id, estado) {
+    return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/' + estado + '/INFO_DIS' + `${id}` + '.js' );
   }
 
   getinfoMx() {

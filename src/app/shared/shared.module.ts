@@ -6,8 +6,7 @@ import { MapaMexicoComponent } from './mapa-mexico/mapa-mexico.component';
 import { EmocionesComponent } from './emociones/emociones.component';
 import { MapaDistritosComponent } from './mapa-distritos/mapa-distritos.component';
 import { MapaSeccionesComponent } from './mapa-secciones/mapa-secciones.component';
-
-
+import { MapaSeccionesAdminComponent } from './mapa-secciones-admin/mapa-secciones-admin.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,8 @@ import { MapaSeccionesComponent } from './mapa-secciones/mapa-secciones.componen
     MapaMexicoComponent,
     EmocionesComponent,
     MapaDistritosComponent,
-    MapaSeccionesComponent
+    MapaSeccionesComponent,
+    MapaSeccionesAdminComponent
   ],
   imports: [
     CommonModule,

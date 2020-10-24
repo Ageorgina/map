@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   partidoValue: string;
   distValue: string;
   user: string;
+  returnUrl2: string;
 
   constructor( private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
                private authenticationService: AuthenticationService) {
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    this.returnUrl2 = this.route.snapshot.queryParams.returnUrl2 || 'home_admin';
   }
 
   onSubmit() {
@@ -54,7 +56,13 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('partido', this.partidoValue);
         localStorage.setItem('estado', this.estadoValue);
         localStorage.setItem('distrito', this.distValue);
-        this.router.navigate([this.returnUrl]);
+
+        if (this.user === 'ADM000ENT') {
+          this.router.navigate([this.returnUrl2]);
+        } else {
+          this.router.navigate([this.returnUrl]);
+        }
+
       }
     }, error => {
       this.error = 'El usuario / contraseña son incorrectos';

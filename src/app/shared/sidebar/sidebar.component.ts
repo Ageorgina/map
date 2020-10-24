@@ -15,11 +15,9 @@ export class SidebarComponent implements OnInit {
   info: any;
   estado: any;
   error: boolean;
-  constructor(private menuSrv: MenuService, private partidoSrv: PartidosService, private authService: AuthenticationService) {
+  constructor(private menuSrv: MenuService) {
     this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
     this.distrito = localStorage.getItem('distrito').replace(/[""]/g, '');
-    this.partidoSrv.getError(this.estado, this.distrito).subscribe(() => this.error = this.partidoSrv.error404);
-
     if (localStorage.getItem('distrito') === '000' && localStorage.getItem('estado') === 'ADM') {
       this.menuSrv.getOptsADM().subscribe((main: Menu[]) => {
         this.menu = main;

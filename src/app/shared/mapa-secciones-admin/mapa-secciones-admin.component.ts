@@ -16,12 +16,13 @@ More(Highcharts);
 noData(Highcharts);
 var regex = /(\d+)/g;
 
+
 @Component({
-  selector: 'app-mapa-secciones',
-  templateUrl: './mapa-secciones.component.html',
-  styleUrls: ['./mapa-secciones.component.scss']
+  selector: 'app-mapa-secciones-admin',
+  templateUrl: './mapa-secciones-admin.component.html',
+  styleUrls: ['./mapa-secciones-admin.component.scss']
 })
-export class MapaSeccionesComponent implements OnInit {
+export class MapaSeccionesAdminComponent implements OnInit {
   loading = true;
   datosSecciones = [];
   headers = [];
@@ -44,7 +45,7 @@ export class MapaSeccionesComponent implements OnInit {
   estadoValue: string;
   distValue: string;
   partidoValue: string;
-  estado = localStorage.getItem('estado');
+  estado = localStorage.getItem('estadoView');
   logo: string;
   mapa: any = {
     chart: {
@@ -82,7 +83,7 @@ export class MapaSeccionesComponent implements OnInit {
 
   constructor(private mapaSrv: MapasService, private route: ActivatedRoute, private cookieService: CookieService) {
                 
-    this.logoPartido(localStorage.getItem('partido'));
+    this.logoPartido(localStorage.getItem('partidoView'));
 
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id.length < 3) {

@@ -1,0 +1,40 @@
+<div class="container-row seccionesinfo">
+    <div class="loading" *ngIf="loading">
+        <div class="lds-ripple" *ngIf="loading">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <app-sidebar class="sidebar"></app-sidebar>
+    <div class="seccion">
+        <div class="left">
+            <div class="representante">
+                <img [src]="logo">
+            </div>
+        </div>
+        <div class="mapMX right" id="secciones" (click)="seccionClicked($event?.point?.seccion)"></div>
+    </div>
+    <div class="informacion" *ngIf="seccionID != null">
+        <p>SECCION {{seccionID}}</p>
+        <p>Temas Relevantes:
+            <br>
+            <a class="info">{{temas}}</a>
+        </p>
+        <p>Manejo de emociones:
+            <br>
+            <a class="info">{{emociones}}</a>
+        </p>
+        <p>Mujeres
+            <br>
+            <a class="info">{{mujeres}}</a>
+        </p>
+        <p>Hombres
+            <br>
+            <a class="info">{{hombres}}</a>
+        </p>
+        <p>IMPACTOS DIARIOS
+            <br>
+            <a class="info"> {{impactos}}</a>
+        </p>
+    </div>
+</div>

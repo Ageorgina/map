@@ -34,10 +34,8 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
     cookies: any;
     loading = true;
 
-  constructor(  private menuSrv: MenuService,  private router: Router, private ngZone: NgZone,
-                private authService: AuthenticationService, private fileSrv: FilesService) {
+  constructor(  private router: Router, private ngZone: NgZone, private fileSrv: FilesService) {
     this.fileSrv.getInfoEstado(localStorage.getItem('estado')).subscribe( info => this.infoEstado = info[0] );
-    this.menuSrv.getDistritosCOA().subscribe(distritos => this.ciudades = distritos );
         // tslint:disable-next-line: align
         window['angularComponentRef'] = { component: this, zone: ngZone } ;
    }
@@ -154,16 +152,12 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   }
 
   selected(id) {
-      if (localStorage.getItem('distrito') === '000' && localStorage.getItem('estado') === 'ADM') {
-          return ;
-      }
       this.router.navigate(['distritos', id]);
 
   }
   ngOnDestroy() {
     /* tslint:disable:no-string-literal */
     window['angularComponentRef'] = null;
-    /* tslint:enable:no-string-literal */
   }
 
 }

@@ -98,11 +98,12 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
 
   constructor(private mapaSrv: MapasService, private menuSrv: MenuService, private router: Router, private ngZone: NgZone,
               private authService: AuthenticationService) {
+
                 this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
                 this.distValue = localStorage.getItem('distrito').replace(/[""]/g, '');
-                this.menuSrv.getInfoDistritos(this.distValue).subscribe(info => this.info = info[0]);
+                this.menuSrv.getInfoDistritos(this.distValue, this.estado).subscribe(info => this.info = info[0]);
                 this.distValue = this.distValue.replace(/\b0+/g, '');
-                this.menuSrv.getDistritosCOA().subscribe(distritos => this.distritos = distritos);
+                // this.menuSrv.getDistritosCOA().subscribe(distritos => { console.log('distritos', distritos);this.distritos = distritos});
                 this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(data => {
                   data.filter(x => {
 
@@ -117,7 +118,7 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.mapaSrv.getCoordenadasDistritos().subscribe(entidades => {
+    this.mapaSrv.getCoordenadasDistritos(this.estado).subscribe(entidades => {
       this.construirMapa(entidades).finally(() => {
         this.loading = false;
       });

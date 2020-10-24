@@ -1,0 +1,148 @@
+.busqueda {
+    width: 100%;
+}
+
+.form {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column wrap !important;
+    height: 50%;
+    // background-color: slateblue;
+}
+
+.input-t {
+    margin-bottom: 5px !important;
+    min-width: 25% !important;
+}
+
+.contenido {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap !important;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+}
+
+///DOCUMENTOS
+select,
+input {
+    min-width: 100%;
+    border-color: gray;
+    color: #FFFFFF;
+    background-color: #3F3F3F !important;
+    margin-bottom: 5px !important;
+}
+
+select:focus,
+input:focus {
+    border-color: gray;
+    color: #FFFFFF;
+    background-color: #3F3F3F !important;
+}
+
+option {
+    background: #3F3F3F !important;
+    background-color: #3F3F3F !important;
+    color: #FFFFFF;
+}
+
+.boton {
+    width: 100%;
+    text-align: center;
+}
+
+button {
+    margin-top: 20px !important;
+    width: min-content;
+    background-color: transparent !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .form {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-flow: column wrap !important;
+        height: min-content;
+        // background-color: slateblue;
+    }
+    .input {
+        margin-bottom: 5px !important;
+        min-width: 100% !important;
+    }
+    .right {
+        width: 100% !important;
+        display: flex;
+        justify-content: space-around !important;
+        text-align: center;
+        flex-flow: column wrap !important;
+        min-height: auto !important;
+    }
+    .left {
+        padding-top: 0;
+        width: 100% !important;
+        text-align: center;
+        min-height: auto !important;
+    }
+    .alert {
+        height: min-content;
+        max-width: 100% !important;
+        font-size: small !important;
+    }
+    .selected {
+        width: 100% !important;
+        display: flex;
+        justify-content: space-around !important;
+        text-align: center;
+        flex-flow: row wrap !important;
+    }
+    select {
+        width: 100% !important;
+        margin-top: 20px !important;
+    }
+    .mapMX {
+        width: 100% !important;
+    }
+    .distritos {
+        color: #4C93C6;
+        font-weight: normal;
+        font-size: medium !important;
+    }
+}
+
+div#container-mapa {
+    padding-top: 20px;
+    min-width: 60% !important;
+    min-height: 100% !important;
+}
+
+///MAPA
+.mapMX {
+    min-height: 550px !important;
+    margin: 0 !important;
+    width: min-content;
+}
+
+.width {
+    width: 98%;
+}
+
+.distritos {
+    color: #4C93C6;
+    font-weight: normal;
+    font-size: small !important;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: medium !important;
+    width: min-content;
+}

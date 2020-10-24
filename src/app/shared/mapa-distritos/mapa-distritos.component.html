@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="mapMX" id="estado" (click)="selected($event?.point?.DISTRITO_L, $event)" (touchend)="selected($event?.point?.DISTRITO_L,$event)"></div>
-    <div id="bloquear" class="informacion infodistritos">
+    <div id="bloquear" *ngIf="info !== undefined" class="informacion infodistritos">
         <p>Base: <br> {{info?.base}}</p>
         <p class="distritos">{{info?.distrito}} </p>
         <p>Indecisos <br> {{info?.indecisos}}</p>
