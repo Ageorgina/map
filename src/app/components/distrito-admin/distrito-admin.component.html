@@ -1,10 +1,4 @@
 <div class="container col-md-12">
-    <div class="loading" *ngIf="loading">
-        <div class="lds-ripple" *ngIf="loading">
-            <div></div>
-            <div></div>
-        </div>
-    </div>
     <app-sidebar class="sidebar"></app-sidebar>
     <div class="busqueda">
         <div>
@@ -12,34 +6,35 @@
         </div>
         <div class="contenido">
             <div class="form">
-                <!-- <div class=" input-t">
-                    <label for="base">Password</label>
-                    <input id="base" type="password" class="form-control-sm" (change)="pass($event.target.value)">
-                </div> -->
                 <div class="selected">
                     <select (change)="estadoSelected($event.target.value)">
-                        <option value="0">Selecciona un Estado</option>
+                        <option value="0" disabled>Selecciona un Estado</option>
                         <option *ngFor="let estado of estados" value="{{estado.clave_entidad}}">{{estado.nombre}}</option>
                     </select>
                     <br>
                     <select *ngIf="disabledDist !== true" (change)="distritoSelected($event.target.value)">
-                        <option value="0" >Selecciona un Distrito</option>
+                        <option value="0" disabled>Selecciona un Distrito</option>
                         <option *ngFor="let distrito of distritos">{{distrito}}</option>
                     </select>
                     <br>
                     <select *ngIf="disabledPartido !== true" (change)="partidoSelected($event.target.value)">
-                        <option value="0">Selecciona un Partido</option>
+                        <option value="0" disabled>Selecciona un Partido</option>
                         <option *ngFor="let partido of partidos" value="{{partido.id_name}}">{{partido.nombre}}</option>
                     </select>
                     <br>
+                    <div class="alert alert-info" role="alert" *ngIf="alertError === true">
+                        {{textAlert}}
+                    </div>
                     <div class="boton">
-                        <button (click)="buscar()" class="btn btn-outline-info">BUSCAR</button>
+                        <button (click)="buscar()" class="btn btn-outline-info" *ngIf="alertError === false">BUSCAR</button>
                     </div>
                 </div>
-
+            </div>
+            <div class="alert alert-info" role="alert" *ngIf="infoError === true ">
+                {{infoAlert}}
             </div>
 
-            <div class="mapMX" id="estado" (click)="selected($event?.point?.DISTRITO_L, $event)" (touchend)="selected($event?.point?.DISTRITO_L,$event)"></div>
+            <div class="mapMX" *ngIf="infoError !== true " id="estado" (click)="selected($event?.point?.DISTRITO_L, $event)" (touchend)="selected($event?.point?.DISTRITO_L,$event)"></div>
 
             <div id="bloquear" *ngIf="info !== undefined" class="informacion infodistritos">
                 <p>Base: <br> {{info?.base}}</p>
@@ -59,5 +54,10 @@
         </div>
 
     </div>
-
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="lds-ripple" *ngIf="loading">
+        <div></div>
+        <div></div>
+    </div>
 </div>

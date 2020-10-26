@@ -39,6 +39,10 @@ export class DistritoAdminComponent implements OnInit {
   info: any;
   distritosMapas: any;
   distValue: string;
+  textAlert = '';
+  alertError: boolean;
+  infoError: boolean;
+  infoAlert = '';
 
 
   mapa: any = {
@@ -63,7 +67,7 @@ export class DistritoAdminComponent implements OnInit {
         point: {
           events: {
             click: (e) => {
-              //console.log(e)
+              // console.log(e)
               /* tslint:disable:no-string-literal */
               window['angularComponentRef'].zone.run(() => {
                 if (e.point && e.point.DISTRITO_L) {
@@ -116,14 +120,26 @@ export class DistritoAdminComponent implements OnInit {
   estadoSelected(event) {
     this.estados.filter( estado => {
       if (estado.clave_entidad === event) {
+        if (estado.clave_entidad !== 'COA') {
+          this.alertError = true;
+          this.disabledDist = true;
+          this.disabledPartido = true;
+          this.infoError = false;
+          this.textAlert = 'Por el momento no esta disponible este Estado ';
+          return;
+        }
+        this.alertError = false;
+        this.textAlert = '';
         this.estado = event;
         this.distritos = estado.distritos;
         this.disabledDist = false;
+        this.disabledPartido = false;
       }
     });
   }
 
   distritoSelected(distrito) {
+    this.info = undefined;
     this.distValue = distrito;
     if (distrito.length === 2) {
       this.distrito = '0' + distrito;
@@ -135,38 +151,41 @@ export class DistritoAdminComponent implements OnInit {
   partidoSelected(partido) {
     this.partido = partido;
   }
-  pass(event) {
-    this.password = event;
-  }
 
   buscar() {
     this.loading = true;
     localStorage.setItem('estadoView', this.estado);
     localStorage.setItem('distritoView', this.distrito);
     localStorage.setItem('partidoView', this.partido);
-    // this.nombre = this.estado + this.distrito + this.partido;
-        // this.admin.checkDistrito(localStorage.getItem('user'), this.password, this.nombre).subscribe(response => {
-    //   this.loading = false;
-    // });
     this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(data => {
       data.filter(x => {
         if (x[0] === this.distValue) {
           data = [x];
           this.distritosMapas = data;
-          this.traerMapa();
+          this.traerMapa().finally(() => {
+            this.menu.getInfoDistritos(this.distrito, this.estado).subscribe(info => {
+
+              this.infoError = false;
+              this.info = info[0];
+            } , error => {
+              this.infoError = true;
+              // this.disabledDist = true;
+              // this.disabledPartido = true;
+              this.infoAlert = 'Por el momento no esta disponible esta información ';
+              this.loading = false;
+            });
+            this.loading = false;
+          });
         }
         });
       });
       /* tslint:disable:no-string-literal */
-      window['angularComponentRef'] = {component: this, zone: this.ngZone};
-      
-
+    window['angularComponentRef'] = {component: this, zone: this.ngZone};
     }
-    traerMapa() {
+
+    async traerMapa() {
       this.mapaSrv.getCoordenadasDistritos(this.estado).subscribe(entidades => {
         this.construirMapa(entidades).finally(() => {
-          this.menu.getInfoDistritos(this.distrito, this.estado).subscribe(info => this.info = info[0]);
-          this.loading = false;
         });
       });
     }
