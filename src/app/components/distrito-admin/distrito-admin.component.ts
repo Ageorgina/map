@@ -1,8 +1,6 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
-import { AlertsService } from '../../general/services/alerts.service';
 import { MenuService } from '../../general/services/menu.service';
-import { AdministradorService } from '../../general/services/administrador.service';
 import { MapasService } from '../../general/services/mapas.service';
 import { Router} from '@angular/router';
 
@@ -23,7 +21,7 @@ highchartsCustomEvents(Highcharts);
   templateUrl: './distrito-admin.component.html',
   styleUrls: ['./distrito-admin.component.scss']
 })
-export class DistritoAdminComponent implements OnInit {
+export class DistritoAdminComponent implements OnInit, OnDestroy {
   partidos: any;
   distritos: any;
   estados: any;
@@ -67,14 +65,12 @@ export class DistritoAdminComponent implements OnInit {
         point: {
           events: {
             click: (e) => {
-              // console.log(e)
               /* tslint:disable:no-string-literal */
               window['angularComponentRef'].zone.run(() => {
                 if (e.point && e.point.DISTRITO_L) {
                   window['angularComponentRef'].component.selected(e.point.DISTRITO_L);
                 }
               });
-              /* tslint:enable:no-string-literal */
             }
           }
         }
@@ -108,8 +104,7 @@ export class DistritoAdminComponent implements OnInit {
     }]
   };
 
-  constructor( private menu: MenuService, private alert: AlertsService,
-               private admin: AdministradorService, private mapaSrv: MapasService,
+  constructor( private menu: MenuService, private mapaSrv: MapasService,
                private router: Router, private ngZone: NgZone) {
     this.menu.getPartidos().subscribe(partidos => this.partidos = partidos );
     this.menu.getinfoMx().subscribe(estados => this.estados = estados );
@@ -169,8 +164,6 @@ export class DistritoAdminComponent implements OnInit {
               this.info = info[0];
             } , error => {
               this.infoError = true;
-              // this.disabledDist = true;
-              // this.disabledPartido = true;
               this.infoAlert = 'Por el momento no esta disponible esta información ';
               this.loading = false;
             });
@@ -185,20 +178,18 @@ export class DistritoAdminComponent implements OnInit {
 
     async traerMapa() {
       this.mapaSrv.getCoordenadasDistritos(this.estado).subscribe(entidades => {
-        this.construirMapa(entidades).finally(() => {
-        });
+        this.construirMapa(entidades);
       });
     }
 
-
-async construirMapa(entidadesJSON) {
+construirMapa(entidadesJSON) {
   this.mapa.tooltip.headerFormat =  this.info['distrito'];
   this.mapa.chart.map = entidadesJSON;
   this.mapa.series[0].data = this.distritosMapas;
   Highcharts.mapChart('estado', this.mapa);
 }
 
-selected(id, $event) {
+selected(id) {
   if (id === null) { return; }
   if (this.distValue.toString() === id.toString()) {
     this.router.navigate(['secciones_admin', id]);

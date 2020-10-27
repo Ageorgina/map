@@ -3,7 +3,6 @@ import * as Highcharts from 'highcharts/highmaps';
 import { MapasService } from '../../general/services/mapas.service';
 import { Router} from '@angular/router';
 import {MenuService} from '../../general/services/menu.service';
-import {AuthenticationService} from '../../general/services/authentication.service';
 
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -55,7 +54,6 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
         point: {
           events: {
             click: (e) => {
-              //console.log(e)
               /* tslint:disable:no-string-literal */
               window['angularComponentRef'].zone.run(() => {
                 if (e.point && e.point.DISTRITO_L) {
@@ -96,25 +94,23 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
     }]
   };
 
-  constructor(private mapaSrv: MapasService, private menuSrv: MenuService, private router: Router, private ngZone: NgZone,
-              private authService: AuthenticationService) {
-
+  constructor( private mapaSrv: MapasService, private menu: MenuService,
+               private router: Router, private ngZone: NgZone ) {
                 this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
                 this.distValue = localStorage.getItem('distrito').replace(/[""]/g, '');
-                this.menuSrv.getInfoDistritos(this.distValue, this.estado).subscribe(info => this.info = info[0]);
-                this.distValue = this.distValue.replace(/\b0+/g, '');
+                this.menu.getInfoDistritos(this.distValue, this.estado).subscribe(info => this.info = info[0]);
+                this.distValue = this.distValue.replace(/\b0+/g, '') ;
                 // this.menuSrv.getDistritosCOA().subscribe(distritos => { console.log('distritos', distritos);this.distritos = distritos});
-                this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(data => {
-                  data.filter(x => {
-
-        if (x[0] === this.distValue) {
-          data = [x];
-          this.distritosMapas = data;
-        }
-      });
-    });
-    /* tslint:disable:no-string-literal */
-    window['angularComponentRef'] = {component: this, zone: ngZone};
+                this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(distArr => {
+                  distArr.filter(dist => {
+                    if (dist[0] === this.distValue) {
+                      distArr = [dist];
+                      this.distritosMapas = distArr;
+                    }
+                  });
+                });
+                /* tslint:disable:no-string-literal */
+                window['angularComponentRef'] = {component: this, zone: ngZone};
   }
 
   ngOnInit() {
@@ -132,11 +128,10 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
     Highcharts.mapChart('estado', this.mapa);
   }
 
-  selected(id, $event) {
-    const cook = this.authService.getCOOKIE();
+  selected(id) {
+    console.log(id)
     if (id === null) { return; }
-    if (this.distValue.toString() === id.toString()) {
-
+    if (String(this.distValue) === String(id)) {
       this.router.navigate(['secciones', id]);
     }
 

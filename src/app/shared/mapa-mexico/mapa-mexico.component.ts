@@ -37,7 +37,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   constructor(  private router: Router, private ngZone: NgZone, private fileSrv: FilesService) {
     this.fileSrv.getInfoEstado(localStorage.getItem('estado')).subscribe( info => this.infoEstado = info[0] );
         // tslint:disable-next-line: align
-        window['angularComponentRef'] = { component: this, zone: ngZone } ;
+        window['angularComponentRef'] = { component: this, zone: this.ngZone } ;
    }
 
    options: any = {
@@ -76,7 +76,19 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
                 hover: {
                     color: '#dba604'
                 }
-            }
+            },
+            point: {
+                events: {
+                  click: (e) => {
+                    /* tslint:disable:no-string-literal */
+                    window['angularComponentRef'].zone.run(() => {
+                      if (e.point && e.point.value) {
+                        window['angularComponentRef'].component.selected(e.point.value);
+                        }
+                    });
+                  }
+                }
+              }
         }
     },
     tooltip: {

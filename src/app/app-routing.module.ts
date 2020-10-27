@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: 'data', component: DocumentosComponent, canActivate: [LoginGuard] },
   {path: '404', component: Error404Component, canActivate: [LoginGuard] },
   {path: 'home_admin', component: DistritoAdminComponent, canActivate: [LoginGuard]},
-  {path: 'secciones_admin/:id', component: MapaSeccionesAdminComponent, canActivate: [LoginGuard]},
+  {path: 'secciones_admin/:id', component: MapaSeccionesAdminComponent, canActivate: [LoginGuard]}
 ];
 
 @NgModule({

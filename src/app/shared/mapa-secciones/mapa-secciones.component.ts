@@ -1,10 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
 import {ActivatedRoute} from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
-import {AuthenticationService} from '../../general/services/authentication.service';
 import { MapasService } from '../../general/services/mapas.service';
-import { Console } from 'console';
 
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -14,14 +11,13 @@ Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
-var regex = /(\d+)/g;
 
 @Component({
   selector: 'app-mapa-secciones',
   templateUrl: './mapa-secciones.component.html',
   styleUrls: ['./mapa-secciones.component.scss']
 })
-export class MapaSeccionesComponent implements OnInit {
+export class MapaSeccionesComponent implements OnInit, OnDestroy {
   loading = true;
   datosSecciones = [];
   headers = [];
@@ -58,6 +54,22 @@ export class MapaSeccionesComponent implements OnInit {
       tickPixelInterval: 100,
       showInLegend: false,
       dataClasses: this.infoSecciones()
+    },plotOptions: {
+      map: {
+        point: {
+          events: {
+            click: (e) => {
+              /* tslint:disable:no-string-literal */
+              window['angularComponentRef'].zone.run(() => {
+                if (e.point && e.point.value) {
+                  window['angularComponentRef'].component.seccionClicked(e.point.value);
+                  }
+              });
+              /* tslint:enable:no-string-literal */
+            }
+          }
+        }
+      }
     },
     tooltip: {
       headerFormat: 'Sección  ',
@@ -80,10 +92,8 @@ export class MapaSeccionesComponent implements OnInit {
     }]
   };
 
-  constructor(private mapaSrv: MapasService, private route: ActivatedRoute, private cookieService: CookieService) {
-                
+  constructor(private mapaSrv: MapasService, private route: ActivatedRoute, private ngZone: NgZone) {
     this.logoPartido(localStorage.getItem('partido'));
-
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id.length < 3) {
       const completar = 3 - this.id.length;
@@ -93,10 +103,11 @@ export class MapaSeccionesComponent implements OnInit {
     }
     this.traerData(this.id).finally(() => {
       this.mapaSrv.getCoordenadasSecciones(this.id, this.estado).subscribe(cvsInfo => {
-
         this.construirMapa(cvsInfo).finally(() => this.loading = false);
       });
     });
+    // tslint:disable-next-line: no-string-literal
+    window['angularComponentRef'] = {component: this, zone: this.ngZone};
   }
 
   ngOnInit() {
@@ -120,6 +131,7 @@ export class MapaSeccionesComponent implements OnInit {
     }
     this.mapaSrv.getCSV(this.id, this.estado).subscribe(info => {
       const match = info.match(/\n+[0-9]{1,4}/g);
+      // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < match.length; i++) {
         info = info.replace(match[i], '|' + match[i].substring(1, match[i].length));
       }
@@ -207,10 +219,13 @@ export class MapaSeccionesComponent implements OnInit {
     } else if (partido === 'MOR') {
       this.logo = 'assets/logos/MORL.png';
     } else if (partido === 'PRI') {
-      
       this.logo = 'assets/logos/PRIL.png';
     } else if (partido === 'MOC') {
       this.logo = 'assets/logos/MCL.png';
     }
+  }
+  ngOnDestroy() {
+    /* tslint:disable:no-string-literal */
+    window['angularComponentRef'] = null;
   }
 }

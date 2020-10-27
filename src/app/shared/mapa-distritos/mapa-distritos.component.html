@@ -1,11 +1,5 @@
 <div class="container-row width">
-    <div class="loading" *ngIf="loading">
-        <div class="lds-ripple" *ngIf="loading">
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-    <div class="mapMX" id="estado" (click)="selected($event?.point?.DISTRITO_L, $event)" (touchend)="selected($event?.point?.DISTRITO_L,$event)"></div>
+    <div class="mapMX" id="estado"></div>
     <div id="bloquear" *ngIf="info !== undefined" class="informacion infodistritos">
         <p>Base: <br> {{info?.base}}</p>
         <p class="distritos">{{info?.distrito}} </p>
@@ -20,5 +14,11 @@
         <p class="competenciasdistritos">Afiliados: <br>{{info?.afiliados}}</p>
         <p class="competenciasdistritos">ActivosDigitales: <br>{{info?.activosDigitales}}</p>
         <p class="competenciasdistritos">Tracking: <br>{{info?.tracking}}</p>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="lds-ripple" *ngIf="loading">
+        <div></div>
+        <div></div>
     </div>
 </div>

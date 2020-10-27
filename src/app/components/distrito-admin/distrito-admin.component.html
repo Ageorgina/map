@@ -34,7 +34,7 @@
                 {{infoAlert}}
             </div>
 
-            <div class="mapMX" *ngIf="infoError !== true " id="estado" (click)="selected($event?.point?.DISTRITO_L, $event)" (touchend)="selected($event?.point?.DISTRITO_L,$event)"></div>
+            <div class="mapMX" *ngIf="infoError !== true " id="estado"></div>
 
             <div id="bloquear" *ngIf="info !== undefined" class="informacion infodistritos">
                 <p>Base: <br> {{info?.base}}</p>
