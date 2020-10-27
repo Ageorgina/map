@@ -100,7 +100,6 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
                 this.distValue = localStorage.getItem('distrito').replace(/[""]/g, '');
                 this.menu.getInfoDistritos(this.distValue, this.estado).subscribe(info => this.info = info[0]);
                 this.distValue = this.distValue.replace(/\b0+/g, '') ;
-                // this.menuSrv.getDistritosCOA().subscribe(distritos => { console.log('distritos', distritos);this.distritos = distritos});
                 this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(distArr => {
                   distArr.filter(dist => {
                     if (dist[0] === this.distValue) {
@@ -129,7 +128,6 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   }
 
   selected(id) {
-    console.log(id)
     if (id === null) { return; }
     if (String(this.distValue) === String(id)) {
       this.router.navigate(['secciones', id]);
