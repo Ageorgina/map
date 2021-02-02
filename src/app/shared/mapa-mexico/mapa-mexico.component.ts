@@ -36,7 +36,6 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   ciudades: any;
   cookies: any;
   loading = true;
-
   mapData: any[];
 
   llavesEstado: any[] = [{"value":"BCN","id": "mx-bc"},
@@ -219,9 +218,9 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
       };
 
     // options.series.data = [...this.mapData];
-    console.log('options ',this.options, this.mapData)
+    //console.log('options ',this.options, this.mapData)
 
-    Highcharts.mapChart('mexico', options);
+    // Highcharts.mapChart('mexico', options);
   }
 
   selected(id) {
