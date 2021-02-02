@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit {
 
   emociones: Emocion[] = [];
   people = '452,812';
+
+
+
   constructor( private menuSrv: MenuService) {
 
     this.menuSrv.getEmociones().toPromise().then( emociones =>  {
@@ -123,6 +126,7 @@ export class HomeComponent implements OnInit {
         },
     }
   };
+
 
 
   ngOnInit() {}

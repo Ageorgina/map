@@ -5,6 +5,7 @@ import {environment} from '../../../environments/environment';
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import { Router } from '@angular/router';
+import {Login, User} from "../model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +43,8 @@ export class AuthenticationService {
     this.cookieService.set('user', username);
   }
 
-  login(user: string, password: string) {
-    return this.http.get<any>(`${environment.cartografiaBack}` + '/login?user=' + user + '&password=' + password);
+  login(user: string, password: string):Observable<Login> {
+    return this.http.get<Login>(`${environment.cartografiaBack}` + '/login?user=' + user + '&password=' + password);
    }
    logout(){
      localStorage.removeItem('user');

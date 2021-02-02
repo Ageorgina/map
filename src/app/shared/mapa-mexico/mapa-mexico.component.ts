@@ -1,10 +1,12 @@
-import { Route } from '@angular/compiler/src/core';
-import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
-import {  Router } from '@angular/router';
+import {Route} from '@angular/compiler/src/core';
+import {Component, OnInit, NgZone, OnDestroy, Input} from '@angular/core';
+import {Router} from '@angular/router';
 import * as Highcharts from 'highcharts/highmaps';
-import { MenuService } from '../../general/services/menu.service';
+import {MenuService} from '../../general/services/menu.service';
 import {AuthenticationService} from '../../general/services/authentication.service';
-import { FilesService } from '../../general/services/files.service';
+import {FilesService} from '../../general/services/files.service';
+import {User} from "../../general/model/user";
+
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
@@ -19,81 +21,151 @@ More(Highcharts);
 noData(Highcharts);
 var $;
 var regex = /(\d+)/g;
+
 @Component({
   selector: 'app-mapa-mexico',
   templateUrl: './mapa-mexico.component.html',
   styleUrls: ['./mapa-mexico.component.scss']
 })
 export class MapaMexicoComponent implements OnInit, OnDestroy {
-    estadoValue: string;
-    distValue: string;
-    partidoValue: string;
-    estadoID: any;
-    infoEstado: any;
-    ciudades: any;
-    cookies: any;
-    loading = true;
+  estadoValue: string;
+  distValue: string;
+  partidoValue: string;
+  estadoID: any;
+  infoEstado: any;
+  ciudades: any;
+  cookies: any;
+  loading = true;
 
-  constructor(  private router: Router, private ngZone: NgZone, private fileSrv: FilesService) {
-    this.fileSrv.getInfoEstado(localStorage.getItem('estado')).subscribe( info => this.infoEstado = info[0] );
-        // tslint:disable-next-line: align
-        window['angularComponentRef'] = { component: this, zone: this.ngZone } ;
-   }
+  mapData: any[];
 
-   options: any = {
-    chart: {
-        backgroundColor: '#3F3F3F',
-        events: {
+  llavesEstado: any[] = [{"value":"BCN","id": "mx-bc"},
+    {"value":"BCS","id": "mx-bs"},
+    {"value":"SON","id": "mx-so"},
+    {"value":"COL","id": "mx-cl"},
+    {"value":"NAY","id": "mx-na"},
+    {"value":"CAM","id": "mx-cm"},
+    {"value":"QOO","id": "mx-qr"},
+    {"value":"MEX","id": "mx-mx"},
+    {"value":"MOR","id": "mx-mo"},
+    {"value":"CMX","id": "mx-df"},
+    {"value":"QRO","id": "mx-qt"},
+    {"value":"TAB","id": "mx-tb"},
+    {"value":"CHS","id": "mx-cs"},
+    {"value":"NVL","id": "mx-nl"},
+    {"value":"SIN","id": "mx-si"},
+    {"value":"CHI","id": "mx-ch"},
+    {"value":"VER","id": "mx-ve"},
+    {"value":"ZAC","id": "mx-za"},
+    {"value":"AGS","id": "mx-ag"},
+    {"value":"JAL","id": "mx-ja"},
+    {"value":"MIC","id": "mx-mi"},
+    {"value":"OAX","id": "mx-oa"},
+    {"value":"PUE","id": "mx-pu"},
+    {"value":"GRO","id": "mx-gr"},
+    {"value":"TLX","id": "mx-tl"},
+    {"value":"TAM","id": "mx-tm"},
+    {"value":"COA","id": "mx-co"},
+    {"value":"YUC","id": "mx-yu"},
+    {"value":"DUR","id": "mx-dg"},
+    {"value":"GTO","id": "mx-gj"},
+    {"value":"SLP","id": "mx-sl"},
+    {"value":"HGO","id": "mx-hg"}]
+
+
+
+  constructor(private router: Router, private ngZone: NgZone, private fileSrv: FilesService) {
+    const usuario: User = JSON.parse(localStorage.getItem('user'));
+    const est = [];
+    for (const dist of usuario.distritos) {
+      if (!est.find(t => t === dist.estado)) {
+        this.fileSrv.getInfoEstado(dist.estado).subscribe(info => { this.infoEstado = info[0]; console.log('info ', this.infoEstado) });
+        est.push(dist.estado);
+      }
+    }
+    const data = []
+    est.forEach( es => {
+      console.log('es ', es, est);
+      const dt = this.llavesEstado.find( t => t.value === es);
+      data.push(dt)
+    });
+
+    this.mapData = data;
+    // this.options.series[0].data = data;
+    // this.options = this.baseOptions;
+    // tslint:disable-next-line: align
+    window['angularComponentRef'] = {component: this, zone: this.ngZone};
+  }
+
+
+
+
+
+  ngOnInit() {
+    this.chart().finally(() => {
+      this.loading = false;
+    });
+
+
+  }
+
+  async chart() {
+    const options = {
+      // options: any = {
+        chart: {
+          backgroundColor: '#3F3F3F',
+          events: {
             drilldown(e) {
-                if (!e.seriesOptions) {
-                    var chart = this,
-                        mapKey = 'countries/mx/' + e.point.drilldown + '-all',
-                        fail = setTimeout(function() {
-                            if (!Highcharts.maps[mapKey]) {
-                                this.estadoID = e.point.name;
-                                chart.showLoading('<i class="icon-frown"></i> Failed loading ' + e.point.name);
-                                fail = setTimeout(function() {
-                                    chart.hideLoading();
-                                }, 1000);
-                            }
-                        }, 3000);
-                }
+              if (!e.seriesOptions) {
+                var chart = this,
+                  mapKey = 'countries/mx/' + e.point.drilldown + '-all',
+
+                  fail = setTimeout(function () {
+                    if (!Highcharts.maps[mapKey]) {
+                      this.estadoID = e.point.name;
+                      chart.showLoading('<i class="icon-frown"></i> Failed loading ' + e.point.name);
+                      fail = setTimeout(function () {
+                        chart.hideLoading();
+                      }, 1000);
+                    }
+                  }, 3000);
+              }
             },
-        }
-    },
-    title: {
-        text: ''
-    },
-    mapNavigation: {
-        enabled: true,
-        buttonOptions: {
+          }
+        },
+        title: {
+          text: ''
+        },
+        mapNavigation: {
+          enabled: true,
+          buttonOptions: {
             verticalAlign: 'bottom'
-        }
-    },
-    plotOptions: {
-        map: {
+          }
+        },
+        plotOptions: {
+          map: {
             states: {
-                hover: {
-                    color: '#dba604'
-                }
+              hover: {
+                color: '#dba604'
+              }
             },
             point: {
-                events: {
-                  click: (e) => {
-                    /* tslint:disable:no-string-literal */
-                    window['angularComponentRef'].zone.run(() => {
-                      if (e.point && e.point.value) {
-                        window['angularComponentRef'].component.selected(e.point.value);
-                        }
-                    });
-                  }
+              events: {
+                click: (e) => {
+                  /* tslint:disable:no-string-literal */
+                  window['angularComponentRef'].zone.run(() => {
+                    if (e.point && e.point.value) {
+                      window['angularComponentRef'].component.selected(e.point.value);
+                    }
+                  });
                 }
               }
-        }
-    },
-    tooltip: {
-        headerFormat: '<br><b>Padrón</b><br> ',
-        pointFormat: '1,827,129<br>' +
+            }
+          }
+        },
+        tooltip: {
+          headerFormat: '<br><b>Padrón</b><br> ',
+          pointFormat: '1,827,129<br>' +
             '<b>Nominal<b><br>' +
             '1,821,124<br>' +
             '<br>' +
@@ -103,70 +175,60 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
             'Sequía<br>' +
             'Corrupción<br>' +
             'Ley Protección Animal<br>',
-        footerFormat: 'Todos por Saltillo<br>' + 'Echado pa´delante<br>'
-    },
-    series: [{
-        name: 'MX',
-        color: '#ed6706',
-        data: [{
-            id: "mx-co",
-            value: '5'
+          footerFormat: 'Todos por Saltillo<br>' + 'Echado pa´delante<br>'
+        },
+        series: [{
+          name: 'MX',
+          color: '#ed6706',
+          data: [...this.mapData],
+          mapData: usaMap,
+          showInLegend: false,
+          joinBy: ["hc-key", "id"],
+          dataLabels: {
+            enabled: true,
+            format: '{point.properties.name}'
+          },
+          allowPointSelect: false,
         }],
-        mapData:  usaMap,
-        showInLegend: false,
-                    joinBy: ["hc-key", "id"],
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.properties.name}'
-                    },
-        allowPointSelect: false,
-    }],
-    responsive: {
-        rules: [{
+        responsive: {
+          rules: [{
             condition: {
-                maxHeight: '600px'
+              maxHeight: '600px'
             },
             chartOptions: {
-                xAxis: {
-                    labels: {
-                        formatter() {
-                            return this.value.charAt(0);
-                        }
-                    }
-                },
-                yAxis: {
-                    labels: {
-                        align: 'left',
-                        x: 0,
-                        y: -2
-                    },
-                    title: {
-                        text: ''
-                    }
+              xAxis: {
+                labels: {
+                  formatter() {
+                    return this.value.charAt(0);
+                  }
                 }
+              },
+              yAxis: {
+                labels: {
+                  align: 'left',
+                  x: 0,
+                  y: -2
+                },
+                title: {
+                  text: ''
+                }
+              }
             }
-        }]
-    }
-  };
+          }]
+        }
+      };
 
+    // options.series.data = [...this.mapData];
+    console.log('options ',this.options, this.mapData)
 
-  ngOnInit() {
-      this.chart().finally(() => {
-        this.loading = false;
-      });
-
-
-
-  }
-
-  async chart() {
-    Highcharts.mapChart('mexico', this.options);
+    Highcharts.mapChart('mexico', options);
   }
 
   selected(id) {
-      this.router.navigate(['distritos', id]);
+    this.router.navigate(['distritos', id]);
 
   }
+
   ngOnDestroy() {
     /* tslint:disable:no-string-literal */
     window['angularComponentRef'] = null;

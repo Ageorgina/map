@@ -2,7 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../general/services/authentication.service';
+import {User} from "../../general/model/user";
+
 const regex = /(\d+)/g;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,17 +17,16 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
-  estadoValue: string;
-  partidoValue: string;
-  distValue: string;
-  user: string;
+  user: User;
   returnUrl2: string;
 
-  constructor( private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
-               private authenticationService: AuthenticationService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
+              private authenticationService: AuthenticationService) {
   }
 
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -38,31 +40,40 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.loginForm.invalid) { return; }
+    if (this.loginForm.invalid) {
+      return;
+    }
     this.loading = true;
     this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe(resultado => {
-      if (resultado === 'e') {
-        this.loading = false;
-        this.error = 'El usuario / contraseña son incorrectos';
-        return ;
-      }
-      if (resultado.token !== ('' || undefined || null) ) {
+
+      if (resultado.token !== ('' || undefined || null)) {
         this.user = resultado.user;
-        this.estadoValue = this.user.substring(0, 3);
+        localStorage.setItem('token', resultado.token);
+        localStorage.setItem('user', JSON.stringify(this.user));
+        if (this.user.distritos) {
+          localStorage.setItem('estado', this.user.distritos[0].estado);
+          localStorage.setItem('distrito', this.user.distritos[0].distrito);
+        }
+
+        /*this.estadoValue = this.user.substring(0, 3);
         this.distValue = this.user.match(regex).toString();
         this.partidoValue = this.user.slice(6);
         localStorage.setItem('user', this.user);
-        localStorage.setItem('token', resultado.token);
-        localStorage.setItem('partido', this.partidoValue);
         localStorage.setItem('estado', this.estadoValue);
         localStorage.setItem('distrito', this.distValue);
+        */
 
-        if (this.user === 'ADM000ENT') {
+
+        if (this.user.username === 'ADM000ENT') {
           this.router.navigate([this.returnUrl2]);
         } else {
           this.router.navigate([this.returnUrl]);
         }
 
+      } else {
+        this.loading = false;
+        this.error = 'El usuario / contraseña son incorrectos';
+        return;
       }
     }, error => {
       this.error = 'El usuario / contraseña son incorrectos';

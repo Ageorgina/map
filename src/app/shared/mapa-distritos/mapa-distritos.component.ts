@@ -1,8 +1,9 @@
 import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
 import { MapasService } from '../../general/services/mapas.service';
-import { Router} from '@angular/router';
+import {ActivatedRoute, Route, Router} from '@angular/router';
 import {MenuService} from '../../general/services/menu.service';
+import {User} from "../../general/model/user";
 
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -95,21 +96,32 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   };
 
   constructor( private mapaSrv: MapasService, private menu: MenuService,
-               private router: Router, private ngZone: NgZone ) {
-                this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
-                this.distValue = localStorage.getItem('distrito').replace(/[""]/g, '');
-                this.menu.getInfoDistritos(this.distValue, this.estado).subscribe(info => this.info = info[0]);
-                this.distValue = this.distValue.replace(/\b0+/g, '') ;
-                this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(distArr => {
-                  distArr.filter(dist => {
-                    if (dist[0] === this.distValue) {
-                      distArr = [dist];
-                      this.distritosMapas = distArr;
-                    }
-                  });
-                });
-                /* tslint:disable:no-string-literal */
-                window['angularComponentRef'] = {component: this, zone: ngZone};
+               private router: Router, private ngZone: NgZone, private route: ActivatedRoute ) {
+      console.log('QUE PARAMS ', this.route.snapshot.params.id);
+
+      this.inicializarVariables();
+  }
+
+  inicializarVariables(){
+    this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
+    this.distValue = localStorage.getItem('distrito').replace(/[""]/g, '');
+    const usuario: User = JSON.parse(localStorage.getItem('user'));
+    for(const dist of usuario.distritos){
+      this.menu.getInfoDistritos(dist.distrito,dist.estado).subscribe(info => this.info = info[0]);
+      console.log('Info ',this.info);
+    }
+    // this.menu.getInfoDistritos(this.distValue, this.estado).subscribe(info => this.info = info[0]);
+    this.distValue = this.distValue.replace(/\b0+/g, '') ;
+    this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(distArr => {
+      distArr.filter(dist => {
+        if (dist[0] === this.distValue) {
+          distArr = [dist];
+          this.distritosMapas = distArr;
+        }
+      });
+    });
+    /* tslint:disable:no-string-literal */
+    window['angularComponentRef'] = {component: this, zone: this.ngZone};
   }
 
   ngOnInit() {
