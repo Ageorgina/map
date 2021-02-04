@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Menu } from '../model/menu';
-import { Emocion } from '../model/emocion';
+import { Menu, Emocion, Rol } from '../model';
 import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
@@ -19,9 +18,9 @@ export class MenuService {
   getEmociones() {
     return this.http.get<Emocion[]>('/assets/mock_info/grafica.js');
   }
-  // getInfo() {
-  //   return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + this.estado + '_INFO.js');
-  // }
+  getRoles() {
+    return this.http.get<Rol[]>('/assets/menu/roles.js');
+  }
   getPartidos() {
     return this.http.get<any[]>('/assets/menu/partidos.js');
   }

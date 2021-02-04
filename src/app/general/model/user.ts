@@ -1,3 +1,4 @@
+import { Distritos } from './distritos';
 export class Login{
   user: User;
   token: string;
@@ -8,14 +9,23 @@ export class Login{
 }
 
 export class User{
-  user: string;
+  distritos: Array<Distritos>;
+  id: number;
   partido: string;
-  influencer: boolean;
-  administrador: boolean;
-  distritos: any[];
-  enabled: boolean;
-  authorities: DistritoAsignado[];
+  rol: string;
   username: string;
+  access: string;
+
+  // user: string;
+  // partido: string;
+  // influencer: boolean;
+  // administrador: boolean;
+  // distritos: any[];
+  // enabled: boolean;
+  // authorities: DistritoAsignado[];
+  // username: string;
+  // rol: string;
+  
 
   constructor(init?: Partial<User>){
     // noinspection TypeScriptValidateTypes

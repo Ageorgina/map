@@ -13,4 +13,6 @@ export class InfoDistrito {
     mujeres: string;
     alcance: string;
     influencia: string;
+    candidato: string;
+    aceptacion: string;
 }

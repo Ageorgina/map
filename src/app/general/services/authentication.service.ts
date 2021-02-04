@@ -3,9 +3,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {BehaviorSubject, Observable} from 'rxjs';
-
 import { Router } from '@angular/router';
-import {Login, User} from "../model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -21,14 +19,7 @@ export class AuthenticationService {
   public currentUser: Observable<any>;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
-    localStorage.removeItem('user');
-   //this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('user')));
-    //this.currentUser = this.currentUserSubject.asObservable();
   }
-  public get currentUserValue(): any {
-    return this.currentUserSubject.value;
-  }
-
   getCOOKIE() {
     this.cookieValue = this.cookieService.get('user');
 
@@ -43,8 +34,8 @@ export class AuthenticationService {
     this.cookieService.set('user', username);
   }
 
-  login(user: string, password: string):Observable<Login> {
-    return this.http.get<Login>(`${environment.cartografiaBack}` + '/login?user=' + user + '&password=' + password);
+  login(user) {
+    return this.http.post(`${environment.cartografiaBack}` + '/login' , user);
    }
    logout(){
      localStorage.removeItem('user');
