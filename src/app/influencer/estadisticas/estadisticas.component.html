@@ -1,0 +1,15 @@
+<div class="container col-md-12 ">
+    <app-sidebar lass="sidebar"></app-sidebar>
+    <div class="iframe">
+        <h1 class="title">Estadisticas</h1>
+        <iframe class="chart" src="https://app.powerbi.com/view?r=eyJrIjoiMzc3YjY5N2EtNGIxYS00NjM4LWE3MzctNWYzNDcxODZmZmZlIiwidCI6IjkxMTRlZDA1LTI5YTktNGI0Yy1hZDVmLTVjYTM0MDRmODk2ZSJ9" frameborder="0" allowFullScreen="true"></iframe>
+
+    </div>
+</div>
+
+<div class="loading" *ngIf="loading">
+    <div class="lds-ripple" *ngIf="loading">
+        <div></div>
+        <div></div>
+    </div>
+</div>

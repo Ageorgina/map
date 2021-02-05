@@ -3,6 +3,7 @@ import { Menu } from '../../general/model/menu';
 import { MenuService } from '../../general/services/menu.service';
 import {AuthenticationService} from '../../general/services/authentication.service';
 import { PartidosService } from '../../general/services/partidos.service';
+import { User } from '../../general/model/user';
 var regex = /(\d+)/g;
 @Component({
   selector: 'app-sidebar',
@@ -15,11 +16,15 @@ export class SidebarComponent implements OnInit {
   info: any;
   estado: any;
   error: boolean;
+  user = new User;
   constructor(private menuSrv: MenuService) {
-    this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
-    this.distrito = localStorage.getItem('distrito').replace(/[""]/g, '');
-    if (localStorage.getItem('distrito') === '000' && localStorage.getItem('estado') === 'ADM') {
+    this.user = JSON.parse(localStorage.getItem('user'))
+    if (this.user.rol === 'ADMINISTRADOR') {
       this.menuSrv.getOptsADM().subscribe((main: Menu[]) => {
+        this.menu = main;
+      });
+    } else if (this.user.rol === 'INFLUENCER') {
+      this.menuSrv.getOptsINF().subscribe((main: Menu[]) => {
         this.menu = main;
       });
     } else {

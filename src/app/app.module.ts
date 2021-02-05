@@ -24,6 +24,9 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { Error404Component } from './components/errors/error404/error404.component';
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { DistritoAdminComponent } from './components/distrito-admin/distrito-admin.component';
+import { AdminModule } from './admin/admin.module';
+import { InfluencerModule } from './influencer/influencer.module';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +41,7 @@ import { DistritoAdminComponent } from './components/distrito-admin/distrito-adm
     LogoutComponent,
     Error404Component,
     DocumentosComponent,
-    DistritoAdminComponent,
+    DistritoAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,9 @@ import { DistritoAdminComponent } from './components/distrito-admin/distrito-adm
     TagInputModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AdminModule,
+    InfluencerModule
   ],
   providers: [CookieService ],
   bootstrap: [AppComponent],

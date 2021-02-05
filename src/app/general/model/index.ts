@@ -7,3 +7,4 @@ export * from './menu';
 export * from './rol';
 export * from './user';
 export * from './distritos';
+export * from './userLogin';

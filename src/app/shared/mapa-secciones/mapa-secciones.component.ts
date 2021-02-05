@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
 import {ActivatedRoute} from '@angular/router';
 import { MapasService } from '../../general/services/mapas.service';
+import { User } from '../../general/model/user';
 
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -20,6 +21,7 @@ noData(Highcharts);
 export class MapaSeccionesComponent implements OnInit, OnDestroy {
   loading = true;
   datosSecciones = [];
+  usuario : User;
   headers = [];
   secciones = [];
   datosSeccion: any;
@@ -93,7 +95,8 @@ export class MapaSeccionesComponent implements OnInit, OnDestroy {
   };
 
   constructor(private mapaSrv: MapasService, private route: ActivatedRoute, private ngZone: NgZone) {
-    this.logoPartido(localStorage.getItem('partido'));
+    this.usuario = JSON.parse(localStorage.getItem('user'));
+    this.logoPartido(this.usuario.partido);
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id.length < 3) {
       const completar = 3 - this.id.length;

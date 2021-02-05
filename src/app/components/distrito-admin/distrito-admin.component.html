@@ -33,9 +33,7 @@
             <div class="alert alert-info" role="alert" *ngIf="infoError === true ">
                 {{infoAlert}}
             </div>
-
             <div class="mapMX" *ngIf="infoError !== true " id="estado"></div>
-
             <div id="bloquear" *ngIf="info !== undefined" class="informacion infodistritos">
                 <p>Base: <br> {{info?.base}}</p>
                 <p class="distritos">{{info?.distrito}} </p>
@@ -55,6 +53,7 @@
 
     </div>
 </div>
+
 <div class="loading" *ngIf="loading">
     <div class="lds-ripple" *ngIf="loading">
         <div></div>

@@ -15,6 +15,9 @@ export class MenuService {
   getOptsADM() {
     return this.http.get<Menu[]>('/assets/menu/menuADM.js');
   }
+  getOptsINF() {
+    return this.http.get<Menu[]>('/assets/menu/menuINF.js');
+  }
   getEmociones() {
     return this.http.get<Emocion[]>('/assets/mock_info/grafica.js');
   }
@@ -29,7 +32,7 @@ export class MenuService {
   }
 
   getInfoDistritos(id, estado) {
-    console.log('info derecha dist-->',`${environment.cartografiaUrl}/` + 'data/js/' + estado + '/INFO_DIS' + `${id}` + '.js')
+    /*console.log('info derecha dist-->',`${environment.cartografiaUrl}/` + 'data/js/' + estado + '/INFO_DIS' + `${id}` + '.js')*/
     return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/' + estado + '/INFO_DIS' + `${id}` + '.js' );
   }
 

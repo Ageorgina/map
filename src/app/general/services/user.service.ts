@@ -16,4 +16,8 @@ export class UserService {
    createUser(user){
     return this.http.post(`${environment.cartografiaBack}` + '/usuario/crear', user, httpOptions);
    }
+   getUsers(){
+    return this.http.get(`${environment.cartografiaBack}` + '/usuario' , httpOptions);
+
+   }
 }

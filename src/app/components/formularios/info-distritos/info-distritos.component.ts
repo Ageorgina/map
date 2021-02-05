@@ -26,7 +26,7 @@ export class InfoDistritosComponent implements OnInit {
   estado: string;
   numDistrito: string;
   nombre: string;
-  distritoInfo = new InfoDistrito();
+  distritoInfo = new InfoDistrito;
   gentilicio: string;
   constructor( private mapaSrv: MapasService, private menu: MenuService, private formBuilder: FormBuilder, private fileSrv: FilesService,
                public utils: Utils, private alert: AlertsService ) {
@@ -48,6 +48,8 @@ export class InfoDistritosComponent implements OnInit {
       fhoraini: ['', Validators.required],
       mhorafin: ['', Validators.required],
       fhorafin: ['', Validators.required],
+      candidato: ['', Validators.required],
+      aceptacion: ['', Validators.required],
     });
     // this.mapaSrv.getCoordenadasDistritos().subscribe(distritos => this.distritos = distritos);
     this.menu.getinfoMx().subscribe(estados =>  this.estados = estados );
@@ -75,7 +77,11 @@ export class InfoDistritosComponent implements OnInit {
     this.distritoInfo.tracking = this.distritoForm.value.tracking;
     this.distritoInfo.alcance = this.distritoForm.value.alcance;
     this.distritoInfo.influencia = this.distritoForm.value.influencia;
+    this.distritoInfo.candidato = this.distritoForm.value.candidato;
+    this.distritoInfo.aceptacion = this.distritoForm.value.aceptacion;
+    console.log('82',this.distritoInfo)
     this.fileSrv.postInfoDistrito(this.nombre, this.distritoInfo).subscribe( () => {
+
 			this.loading = false;
 			this.success().finally(() => {
         this.submitted = false;
@@ -101,6 +107,7 @@ export class InfoDistritosComponent implements OnInit {
 	}
 
   checkNumeros($event: KeyboardEvent) { this.utils.numeros($event); }
+  checkPorcentaje($event: KeyboardEvent) { this.utils.porcentaje($event); }
 
   selected(event) {
     this.estado = event.srcElement.value;
@@ -112,6 +119,7 @@ export class InfoDistritosComponent implements OnInit {
       }
     });
   }
+
 
   async success() { this.alert.showSaveSuccess(); }
   async errorOperacion() { this.alert.showError(); }

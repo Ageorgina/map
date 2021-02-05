@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AlertsService {
   timer = 1500;
   seguro = true;
 
-  constructor() {
+  constructor(private http: HttpClient) {
 
   }
 
@@ -83,6 +84,22 @@ export class AlertsService {
       showConfirmButton: false,
       timer: this.timer
     });
+  }
+  showInfoError() {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Información no disponible',
+      showConfirmButton: false,
+      timer: this.timer
+    });
+  }
+
+  getEDOInfo(){
+    return this.http.get<any[]>('./data/js/INFO_MAPA_MX/INFO_DIS.js');
+  }
+  getDISInfo(){
+    return this.http.get<any[]>('./data/js/INFO_MAPA_MX/INFO_DIS000.js');
   }
 
 

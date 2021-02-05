@@ -1,9 +1,10 @@
 import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
 import { MapasService } from '../../general/services/mapas.service';
-import {ActivatedRoute, Route, Router} from '@angular/router';
+import {ActivatedRoute,  Router} from '@angular/router';
 import {MenuService} from '../../general/services/menu.service';
 import {User} from "../../general/model/user";
+import { AlertsService } from '../../general/services/alerts.service';
 
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -25,14 +26,13 @@ var regex = /(\d+)/g;
 })
 export class MapaDistritosComponent implements OnInit, OnDestroy {
   distritoID: any;
-  info: any;
+  info = [];
   distritos: any;
   distritosMapas: any;
   estado: string;
-  estadoValue: string;
   distValue: string;
-  partidoValue: string;
   loading = true;
+  usuario: User;
   mapa: any = {
     chart: {
       backgroundColor: '#3F3F3F'
@@ -96,24 +96,39 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   };
 
   constructor( private mapaSrv: MapasService, private menu: MenuService,
-               private router: Router, private ngZone: NgZone, private route: ActivatedRoute ) {
-      console.log('QUE PARAMS ', this.route.snapshot.params.id);
-
+               private router: Router, private ngZone: NgZone, private route: ActivatedRoute, 
+               private alert: AlertsService) {
+      this.estado = localStorage.getItem('estado');
+      this.usuario = JSON.parse(localStorage.getItem('user'));
       this.inicializarVariables();
+      this.mapaSrv.getCoordenadasDistritos(this.estado).subscribe(entidades => {
+        this.construirMapa(entidades).finally(() => {
+          this.loading = false;
+        });
+      }, () =>{
+        this.loading = false;
+        this.alert.serverError();
+      });
   }
-
+ 
   inicializarVariables(){
-    this.estado = localStorage.getItem('estado').replace(/[""]/g, '');
-    this.distValue = localStorage.getItem('distrito').replace(/[""]/g, '');
-    const usuario: User = JSON.parse(localStorage.getItem('user'));
-    for(const dist of usuario.distritos){
-      this.menu.getInfoDistritos(dist.distrito,dist.estado).subscribe(info => this.info = info[0]);
-      console.log('Info ',this.info);
-    }
-    // this.menu.getInfoDistritos(this.distValue, this.estado).subscribe(info => this.info = info[0]);
-    this.distValue = this.distValue.replace(/\b0+/g, '') ;
+       this.menu.getInfoDistritos(this.route.snapshot.params.id,this.estado).subscribe(info =>{ 
+        if(info === null){
+          this.info =[];
+          this.loading = false;
+        }else{
+
+          this.info = info[0];
+          this.loading = false;
+        }
+       }, () =>{
+        this.loading = false;
+        this.alert.serverError();
+      } );
+    
     this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(distArr => {
       distArr.filter(dist => {
+        this.distValue = this.route.snapshot.params.id.replace(/\b0+/g, '') ;
         if (dist[0] === this.distValue) {
           distArr = [dist];
           this.distritosMapas = distArr;
@@ -125,11 +140,7 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.mapaSrv.getCoordenadasDistritos(this.estado).subscribe(entidades => {
-      this.construirMapa(entidades).finally(() => {
-        this.loading = false;
-      });
-    });
+
   }
 
   async construirMapa(entidadesJSON) {

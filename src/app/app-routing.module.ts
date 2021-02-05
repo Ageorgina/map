@@ -13,6 +13,9 @@ import { Error404Component } from './components/errors/error404/error404.compone
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { DistritoAdminComponent } from './components/distrito-admin/distrito-admin.component';
 import { MapaSeccionesAdminComponent } from './shared/mapa-secciones-admin/mapa-secciones-admin.component';
+import { UsuariosComponent } from './admin/usuarios/usuarios.component';
+import { AdmonUsersComponent } from './admin/admon-users/admon-users.component';
+import { EstadisticasComponent } from './influencer/estadisticas/estadisticas.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -29,7 +32,10 @@ const routes: Routes = [
   {path: 'data', component: DocumentosComponent, canActivate: [LoginGuard] },
   {path: '404', component: Error404Component, canActivate: [LoginGuard] },
   {path: 'home_admin', component: DistritoAdminComponent, canActivate: [LoginGuard]},
-  {path: 'secciones_admin/:id', component: MapaSeccionesAdminComponent, canActivate: [LoginGuard]}
+  {path: 'secciones_admin/:id', component: MapaSeccionesAdminComponent, canActivate: [LoginGuard]},
+  {path: 'usuarios', component: UsuariosComponent},
+  {path: 'admon_usuarios', component: AdmonUsersComponent},
+  {path: 'estadisticas', component: EstadisticasComponent}
 ];
 
 @NgModule({

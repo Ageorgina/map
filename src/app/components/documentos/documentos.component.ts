@@ -112,7 +112,7 @@ import { error } from 'protractor';
 		} else {
 			this.numDistrito = '00' + this.verDistrito;
 		}
-		this.nombreArchivo = this.claveEntNom + this.numDistrito + '.csv';
+		this.nombreArchivo = this.claveEntNom + '_DIS'+this.numDistrito + '.csv';
 	}
 
 async success() { this.alert.showSaveSuccess(); }

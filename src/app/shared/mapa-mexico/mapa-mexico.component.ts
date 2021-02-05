@@ -1,16 +1,20 @@
-import {Route} from '@angular/compiler/src/core';
-import {Component, OnInit, NgZone, OnDestroy, Input} from '@angular/core';
+import {Component, OnInit, NgZone, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import * as Highcharts from 'highcharts/highmaps';
-import {MenuService} from '../../general/services/menu.service';
-import {AuthenticationService} from '../../general/services/authentication.service';
-import {FilesService} from '../../general/services/files.service';
-import {User} from "../../general/model/user";
+
+import customEvents from 'highcharts-custom-events';
+import {FilesService} from '../../general/services';
+import {User} from "../../general/model";
+import { AlertsService } from '../../general/services/alerts.service';
+import { catchError, map } from 'rxjs/operators';
+import { error } from 'protractor';
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
 let noData = require('highcharts/modules/no-data-to-display');
 let More = require('highcharts/highcharts-more');
+customEvents(Highcharts);
+
 
 declare var require: any;
 const usaMap = require("@highcharts/map-collection/countries/mx/mx-all.geo.json");
@@ -19,6 +23,7 @@ Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
+
 var $;
 var regex = /(\d+)/g;
 
@@ -37,6 +42,9 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   cookies: any;
   loading = true;
   mapData: any[];
+  usuario: User;
+  options: any;
+  
 
   llavesEstado: any[] = [{"value":"BCN","id": "mx-bc"},
     {"value":"BCS","id": "mx-bs"},
@@ -73,26 +81,20 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private router: Router, private ngZone: NgZone, private fileSrv: FilesService) {
-    const usuario: User = JSON.parse(localStorage.getItem('user'));
-    const est = [];
-    for (const dist of usuario.distritos) {
-      if (!est.find(t => t === dist.estado)) {
-        this.fileSrv.getInfoEstado(dist.estado).subscribe(info => { this.infoEstado = info[0]; console.log('info ', this.infoEstado) });
-        est.push(dist.estado);
-      }
-    }
+  constructor(private router: Router, private ngZone: NgZone, 
+    private fileSrv: FilesService, private alert : AlertsService) {
+    this.usuario = JSON.parse(localStorage.getItem('user'));
     const data = []
-    est.forEach( es => {
-      console.log('es ', es, est);
-      const dt = this.llavesEstado.find( t => t.value === es);
-      data.push(dt)
-    });
+     this.usuario.distritos.filter(es =>{
+       const dt = this.llavesEstado.find( t => t.value === es['estado']);
+       data.push(dt);
+    }, error =>{
+      this.loading = false;
+      this.alert.serverError();
+    }
+    );
 
-    this.mapData = data;
-    // this.options.series[0].data = data;
-    // this.options = this.baseOptions;
-    // tslint:disable-next-line: align
+    this.mapData = data;    
     window['angularComponentRef'] = {component: this, zone: this.ngZone};
   }
 
@@ -109,37 +111,18 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   }
 
   async chart() {
-    const options = {
-      // options: any = {
+    this.options = {
         chart: {
-          backgroundColor: '#3F3F3F',
-          events: {
-            drilldown(e) {
-              if (!e.seriesOptions) {
-                var chart = this,
-                  mapKey = 'countries/mx/' + e.point.drilldown + '-all',
-
-                  fail = setTimeout(function () {
-                    if (!Highcharts.maps[mapKey]) {
-                      this.estadoID = e.point.name;
-                      chart.showLoading('<i class="icon-frown"></i> Failed loading ' + e.point.name);
-                      fail = setTimeout(function () {
-                        chart.hideLoading();
-                      }, 1000);
-                    }
-                  }, 3000);
-              }
-            },
-          }
+          backgroundColor: 'transparent',
+        
         },
-        title: {
-          text: ''
-        },
+        title:'',
         mapNavigation: {
           enabled: true,
           buttonOptions: {
             verticalAlign: 'bottom'
-          }
+          },
+          enableDoubleClickZoomTo: false
         },
         plotOptions: {
           map: {
@@ -150,11 +133,26 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
             },
             point: {
               events: {
-                click: (e) => {
-                  /* tslint:disable:no-string-literal */
+
+                dblclick: (e)=> {
+                  this.loading =true;
                   window['angularComponentRef'].zone.run(() => {
                     if (e.point && e.point.value) {
+                      window['angularComponentRef'].component.navigate(e.point.value);
+
+                    }else{
+                      this.loading =false;
+                    }
+                  });
+                },
+                click: (e) => {
+                  this.loading =true;
+                  window['angularComponentRef'].zone.run(() => {
+
+                    if (e.point && e.point.value) {
                       window['angularComponentRef'].component.selected(e.point.value);
+                    } else{
+                      this.loading =false;
                     }
                   });
                 }
@@ -163,18 +161,34 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
           }
         },
         tooltip: {
+          useHTML: true,
           headerFormat: '<br><b>Padrón</b><br> ',
-          pointFormat: '1,827,129<br>' +
-            '<b>Nominal<b><br>' +
-            '1,821,124<br>' +
-            '<br>' +
-            '<b>__________________________________<b><br>' +
-            '<b>Preocupaciones:<b><br>' +
-            'Violencia<br>' +
-            'Sequía<br>' +
-            'Corrupción<br>' +
-            'Ley Protección Animal<br>',
-          footerFormat: 'Todos por Saltillo<br>' + 'Echado pa´delante<br>'
+          pointFormat: '{series.data}',
+          formatter: function ()  {
+            return '<br><b>Padrón</b><br> ';
+        },
+
+          /*formatter: 
+            function(e){
+              console.log(e.chart.hoverPoint.value, this)
+                  window['angularComponentRef'].component.tooltipFormatter(e.chart.hoverPoint.value);
+                 // return '<br><b>Padrón</b><br> '
+              
+            }
+          ,*/
+
+//          headerFormat: '<br><b>Padrón</b><br> ',
+/*          pointFormat: '1,827,129<br>' +
+             '<b>Nominal<b><br>' +
+             '1,821,124<br>' +
+             '<br>' +
+             '<b>__________________________________<b><br>' +
+             '<b>Preocupaciones:<b><br>' +
+             'Violencia<br>' +
+             'Sequía<br>' +
+             'Corrupción<br>' +
+             'Ley Protección Animal<br>',
+          footerFormat: 'Todos por Saltillo<br>' + 'Echado pa´delante<br>'*/
         },
         series: [{
           name: 'MX',
@@ -217,16 +231,49 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
         }
       };
 
-    // options.series.data = [...this.mapData];
-    //console.log('options ',this.options, this.mapData)
-
-    // Highcharts.mapChart('mexico', options);
+    //options.series.data = [...this.mapData];
+    //console.log('chart',this.options)
+    //this.options.tooltip['footerFormat'] = this.infoEstado.base +'Nominal';
+    //    '1,821,124<br>' +
+    //    '<b>Preocupaciones:<b><br>' +
+    //    'Violencia<br>' +
+    //    'Sequía<br>' +
+    //    'Corrupción<br>' +
+    //    'Ley Protección Animal<br>';
+  Highcharts.mapChart('mexico', this.options);
   }
 
   selected(id) {
-    this.router.navigate(['distritos', id]);
+    localStorage.setItem('estado',id); 
+
+      this.fileSrv.getInfoEstado(id).subscribe(info => {
+        if(info === null){
+          this.infoEstado =[];
+          this.loading = false;
+        }else{
+
+          this.infoEstado = info[0];
+          this.loading = false;
+        }
+      }, error =>{
+        console.log('92',error)
+        this.loading = false;
+        this.alert.serverError();
+      });
+  }
+
+  navigate(edo){
+    let id;
+    this.usuario['distritos'].filter(es => {
+      if(edo === es.estado) {
+        id = es.distrito;
+        this.loading = false;
+        this.router.navigate(['distritos', id]);
+      }
+   })
 
   }
+
 
   ngOnDestroy() {
     /* tslint:disable:no-string-literal */

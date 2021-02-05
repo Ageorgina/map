@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
   people = '452,812';
 
 
-
   constructor( private menuSrv: MenuService) {
 
     this.menuSrv.getEmociones().toPromise().then( emociones =>  {

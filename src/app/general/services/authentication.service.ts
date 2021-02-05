@@ -38,12 +38,13 @@ export class AuthenticationService {
     return this.http.post(`${environment.cartografiaBack}` + '/login' , user);
    }
    logout(){
+    localStorage.clear();
      localStorage.removeItem('user');
      localStorage.removeItem('username');
      localStorage.removeItem('partido');
      localStorage.removeItem('token');
      localStorage.removeItem('estado');
      localStorage.removeItem('distrito');
-
+     
    }
 }

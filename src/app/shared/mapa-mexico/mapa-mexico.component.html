@@ -1,10 +1,5 @@
 <div class="container-row  mexico">
-    <div class="loading" *ngIf="loading">
-        <div class="lds-ripple" *ngIf="loading">
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+
     <div class="mapMX" id="mexico"></div>
     <div id="bloquear" class="informacion">
         <p>Base: <br> {{infoEstado?.base}} {{infoEstado?.gentilicio}}</p>
@@ -17,5 +12,11 @@
         <p class="mx">Afiliados: <br> {{infoEstado?.afiliados}}</p>
         <p class="mx">ActivosDigitales: <br> {{infoEstado?.activosDigitales}}</p>
         <p class="mx">Tracking: <br> {{infoEstado?.tracking}}</p>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="lds-ripple" *ngIf="loading">
+        <div></div>
+        <div></div>
     </div>
 </div>

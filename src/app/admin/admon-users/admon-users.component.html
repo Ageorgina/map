@@ -1,0 +1,53 @@
+<div class="container col-md-12">
+
+    <app-sidebar class="sidebar"></app-sidebar>
+    <div class="admon">
+        <h1>ADMINISTRADOR DE USUARIOS</h1>
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th scope="col">USERNAME</th>
+                    <th scope="col">ROL</th>
+                    <th scope="col">ESTADO</th>
+                    <th scope="col">DISTRITO</th>
+                    <th class="icons" scope="col">EDITAR / ELIMINAR</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of usuarios">
+
+                    <td class="name">{{user.username}}</td>
+                    <td>{{user.rol}}</td>
+                    <td>
+                        <tr *ngFor="let edo of user.distritos">
+                            <td>{{edo.estado}}</td>
+                        </tr>
+                    </td>
+                    <td>
+                        <tr *ngFor="let edo of user.distritos">
+                            <td>{{edo.distrito}}</td>
+                        </tr>
+                    </td>
+                    <td>
+                        <tr class="icons">
+                            <i class="fas edit fa-2x fa-user-edit"></i>
+                            <i class="fas delete fa-2x fa-user-slash"></i>
+                        </tr>
+
+
+                    </td>
+                    <!-- <td>{{user.distritos.estado}}</td>
+                    <td>@twitter</td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="lds-ripple" *ngIf="loading">
+        <div></div>
+        <div></div>
+    </div>
+</div>

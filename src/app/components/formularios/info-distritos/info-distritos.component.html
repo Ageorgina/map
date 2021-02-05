@@ -56,6 +56,24 @@
             </div>
             <div class="between-row">
                 <div class="input">
+                    <label for="candidato">Candidato</label>
+                    <input id="candidato" formControlName="candidato" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.candidato.errors }">
+                    <div *ngIf="submitted && fval.candidato.errors" class="invalid-feedback">
+                        <div *ngIf="fval.candidato.errors.required">{{error}}</div>
+                    </div>
+                </div>
+                <div class="input">
+                    <label for="aceptacion">Porcentaje de aceptación</label>
+                    <input id="aceptacion" formControlName="aceptacion" type="text" maxlength="5" class="form-control" (keyup)="checkPorcentaje($event)" [ngClass]="{ 'is-invalid': submitted && fval.aceptacion.errors }">
+                    <div *ngIf="submitted && fval.aceptacion.errors" class="invalid-feedback">
+                        <div *ngIf="fval.aceptacion.errors.required">{{error}}</div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="between-row">
+                <div class="input">
                     <label for="audienciaDigital">Audiencia Digital</label>
                     <input id="audienciaDigital" formControlName="audienciaDigital" type="text" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.audienciaDigital.errors }">
                     <div *ngIf="submitted && fval.audienciaDigital.errors" class="invalid-feedback">
