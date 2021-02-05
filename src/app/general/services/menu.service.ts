@@ -29,6 +29,7 @@ export class MenuService {
   }
 
   getInfoDistritos(id, estado) {
+    console.log('info derecha dist-->',`${environment.cartografiaUrl}/` + 'data/js/' + estado + '/INFO_DIS' + `${id}` + '.js')
     return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/' + estado + '/INFO_DIS' + `${id}` + '.js' );
   }
 

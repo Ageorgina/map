@@ -19,7 +19,6 @@ export class FilesService {
     return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/' + estado + '/' + estado + '_DISTRITOS.js' );
   }
   getInfoEstado(estado) {
-    console.log('srv', (`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + estado + '_INFO.js'))
     return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + estado + '_INFO.js');
   }
 
