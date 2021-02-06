@@ -19,6 +19,7 @@
     <!-- <script src="https://code.highcharts.com/maps/modules/drilldown.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.highcharts.com/mapdata/countries/mx/mx-all.js"></script>
+    <script src="http://blacklabel.github.io/custom_events/js/customEvents.js"></script>
 
 </head>
 
@@ -54,10 +55,10 @@
     <script>
         window.onload = function() {
             var texto = document.getElementById('bloquear');
-            if(texto){
-              texto.oncopy = function(e) {
-                e.preventDefault();
-              }
+            if (texto) {
+                texto.oncopy = function(e) {
+                    e.preventDefault();
+                }
             }
         }
     </script>
