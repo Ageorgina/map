@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MenuService, UserService } from '../../general/services';
 import { User, Distritos } from '../../general/model';
+import { AlertsService } from '../../general/services/alerts.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -29,7 +30,8 @@ export class UsuariosComponent implements OnInit {
   estadoArr = new Distritos;
   new = false;
 
-  constructor(private formBuilder: FormBuilder,private menu: MenuService, private userSrv: UserService) { 
+  constructor(private formBuilder: FormBuilder,private menu: MenuService, private userSrv: UserService,
+                private alert: AlertsService ) { 
 
     this.menu.getPartidos().subscribe(partidos => this.partidos = partidos );
     this.menu.getinfoMx().subscribe(estados => this.estados = estados );
@@ -43,8 +45,8 @@ export class UsuariosComponent implements OnInit {
       clave_entidad: ['']
     });
     this.distForm = this.formBuilder.group({
-      estado: [''],
-      distrito: [''],
+      estado: ['', Validators.required],
+      distrito: ['', Validators.required],
       secciones: ['']
   });
   this.distForm.get(['estado']).setValue(['Estados']);
@@ -59,6 +61,10 @@ export class UsuariosComponent implements OnInit {
     this.loading = false;
   }
   onSubmit(){
+    if(this.userForm.invalid === true || this.distForm.invalid === true){
+      this.alert.showError();
+      return ;
+    }
     this.loading = true;
     this.user.username = this.fval.username.value;
     this.user.access = this.fval.access.value;
@@ -67,7 +73,7 @@ export class UsuariosComponent implements OnInit {
     this.user.distritos = this.distritosArr;
     this.userSrv.createUser(this.user).subscribe(response => {
       this.loading = false;
-      console.log('resp', response)
+      this.alert.showSuccess();
       this.clearUser();
     })
   }
@@ -94,7 +100,10 @@ export class UsuariosComponent implements OnInit {
      this.estadoArr.distrito = this.dist;
 
      this.estadoArr.estado = this.edo;
-     if(this.distForm.controls.secciones.value.length >= 1){
+     if(this.distForm.controls.secciones.value=== null){
+       this.secciones = [];
+      
+     } else if(this.distForm.controls.secciones.value.length >= 1){
      (this.distForm.controls.secciones.value).filter(seccion =>{
       this.secciones.push(seccion.value);
     })

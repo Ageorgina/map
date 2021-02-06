@@ -27,14 +27,14 @@
             <div class="input">
                 <label for="rol">Rol</label>
                 <select id="rol" formControlName="rol" class="form-control">
-                    <option value="0" selected disabled>{{userForm.controls.rol.value}</option>
+                    <option value="null" selected disabled>{{userForm.controls.rol.value}}</option>
                     <option *ngFor="let rol of roles" value="{{rol.value}}">{{rol.value}}</option>
                 </select>
             </div>
             <div class="input">
                 <label for="rol">Partido</label>
                 <select id="partido" formControlName="partido" class="form-control">
-                    <option value="0" selected disabled>{{userForm.controls.partido.value}</option>
+                    <option value="null" selected disabled>{{userForm.controls.partido.value}}</option>
                     <option *ngFor="let partido of partidos" value="{{partido.id_name}}">{{partido.nombre}}</option>
                 </select>
             </div>
@@ -44,14 +44,14 @@
                     <label for="base">Estado</label>
                     <select class="form-control" formControlName="estado" (change)="selectedEdo($event)">
 
-                        <option  value="0" disabled selected>{{distForm.controls.estado.value}}</option>
+                        <option  value="null" disabled selected>{{distForm.controls.estado.value}}</option>
                         <option *ngFor="let estado of estados" value="{{estado.clave_entidad}}">{{estado.nombre}}</option>
                     </select>
                 </div>
                 <div class="input" *ngIf="disabledDist">
                     <label for="distrito">Distrito</label>
                     <select class="form-control" formControlName="distrito" (change)="selectedDist()">
-                        <option  value="0" disabled selected>{{distForm.controls.distrito.value}}</option>
+                        <option  value="null" disabled selected>{{distForm.controls.distrito.value}}</option>
                         <option *ngFor="let item of distritos">{{item}}</option>
                     </select>
                 </div>

@@ -58,6 +58,7 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
               /* tslint:disable:no-string-literal */
               window['angularComponentRef'].zone.run(() => {
                 if (e.point && e.point.DISTRITO_L) {
+                  console.log(this)
                   window['angularComponentRef'].component.selected(e.point.DISTRITO_L);
                 }
               });
@@ -68,30 +69,36 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
       }
     },
     tooltip: {
-      pointFormat: '<br>' +
-        '<b><b><br>' +
-        '<b>Preocupaciones:<b><br>' +
-        'Recuperación Económica<br>' +
-        'Corrupción<br>' +
-        'Brutalidad Policiaca<br>' +
-        'Feminicidios<br>' +
-        'Salud<br>'
+      enabled: true,
+       pointFormat: '<br>' +
+         '<b><b><br>' +
+         '<b>Preocupaciones:<b><br>' +
+         'Recuperación Económica<br>' +
+         'Corrupción<br>' +
+         'Brutalidad Policiaca<br>' +
+         'Feminicidios<br>' +
+         'Salud<br>'
     },
     series: [{
 
       keys: ['DISTRITO_L', 'value'],
       joinBy: ['DISTRITO_L'],
+      
       dataLabels: {
         enabled: true,
         color: '#FFFFFF',
         fill: '#f1f7ff',
+        distance: 20,
+        y: 0,
+        allowOverlap: true,
+        align: 'left',
         format: '{point.properties.DISTRITO_L}',
         formatter() {
           if (this.point.value) {
             return this.point.name;
           }
         }
-      },
+      }
     }]
   };
 
