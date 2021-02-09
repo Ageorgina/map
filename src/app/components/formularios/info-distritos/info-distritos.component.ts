@@ -26,7 +26,7 @@ export class InfoDistritosComponent implements OnInit {
   estado: string;
   numDistrito: string;
   nombre: string;
-  distritoInfo = new InfoDistrito;
+  distritoInfo = new InfoDistrito();
   gentilicio: string;
   toolForm: FormGroup;
   preocupaciones = [];
