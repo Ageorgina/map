@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MenuService } from '../../../general/services/menu.service';
-import { MapasService } from '../../../general/services/mapas.service';
 import { Utils } from '../../../general/utils/utils';
-import { FilesService } from '../../../general/services/files.service';
-import { AlertsService } from '../../../general/services/alerts.service';
-import { InfoEstado } from '../../../general/model/info-estado';
+import { AlertsService, MenuService, MapasService, FilesService, } from '../../../general/services';
+import { InfoEstado, Tool} from '../../../general/model';
 
 @Component({
   selector: 'app-info-estados',
@@ -26,11 +23,14 @@ export class InfoEstadosComponent implements OnInit {
   disabledDist = false;
   estadoInfo = new InfoEstado();
   username: string;
-pass: string;
-token: any;
-gentilicio: string;
-errorCd = false;
-errorText = '';
+  pass: string;
+  token: any;
+  gentilicio: string;
+  errorCd = false;
+  errorText = '';
+  preocupaciones = [];
+  tooltip = new Tool();
+  toolName: string;
 
   constructor( private mapaSrv: MapasService, private menu: MenuService, private formBuilder: FormBuilder,
                private utils: Utils, private fileSrv: FilesService, private alert: AlertsService) {
@@ -45,7 +45,11 @@ errorText = '';
       ciudades: ['', Validators.required],
       afiliados: ['', Validators.required],
       activosDigitales: ['', Validators.required],
-      tracking: ['', Validators.required]
+      tracking: ['', Validators.required],
+      padron: [''],
+      nominal: [''],
+      preocupaciones: [''],
+      footer: ['']
     });
    this.menu.getinfoMx().subscribe(estados => this.estados = estados );
   }
@@ -72,11 +76,16 @@ errorText = '';
     this.estadoInfo.afiliados = this.estadoForm.value.afiliados;
     this.estadoInfo.activosDigitales = this.estadoForm.value.activosDigitales;
     this.estadoInfo.tracking = this.estadoForm.value.tracking;
+    this.tooltip.clave_entidad = this.fval.clave_entidad.value;
+    this.tooltip.padron = this.fval.padron.value;
+    this.tooltip.nominal = this.fval.nominal.value;
+    this.tooltip.footer = this.fval.footer.value;
+    this.tooltip.preocupaciones = this.preocupaciones;
     this.loading = false;
+    console.log(this.estadoInfo, this.tooltip)
 
 
-
-    this.fileSrv.postInfoEstado(this.nombre, this.estadoInfo).subscribe( () => {
+   this.fileSrv.postInfoEstado(this.nombre, this.estadoInfo).subscribe( () => {
 			this.loading = false;
 			this.success().finally(() => {
         this.submitted = false;
@@ -94,11 +103,7 @@ errorText = '';
   checkNumeros($event: KeyboardEvent) { this.utils.numeros($event); }
   selected( event ) {
     this.disabledDist = true;
-    this.estados.filter(estado => {
-      if (estado.clave_entidad === event.srcElement.value ) {
-        this.gentilicio = estado.gentilicio;
-        }
-    });
+    this.gentilicio =  this.estados.find(estado => estado.clave_entidad === event.srcElement.value) ;
   }
   async success() { this.alert.showSaveSuccess(); }
   async errorOperacion() { this.alert.showError(); }
@@ -115,8 +120,24 @@ addCiudades(ciudad) {
     this.ciudades.push(ciudad);
   }
 }
-borrar(arr, ciudad) {
+addPreocupaciones(preocupacion) {
+  if (preocupacion === '' ||  preocupacion=== null) {
+    return ;
+  }
+  if (this.preocupaciones.includes(preocupacion)) {
+    this.errorCd = true;
+    this.errorText = 'Ya esta registrada';
+  } else {
+    this.errorCd = false;
+    this.preocupaciones.push(preocupacion);
+  }
+}
+borrarC(arr, ciudad) {
   const x = arr.indexOf( ciudad );
   this.ciudades.splice( x, 1 );
+}
+borrarP(arr, value) {
+  const x = arr.indexOf( value );
+  this.preocupaciones.splice( x, 1 );
 }
 }

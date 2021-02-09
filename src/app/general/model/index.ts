@@ -8,3 +8,4 @@ export * from './rol';
 export * from './user';
 export * from './distritos';
 export * from './userLogin';
+export * from './tooltip';

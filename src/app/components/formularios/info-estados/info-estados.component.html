@@ -1,10 +1,4 @@
 <div id="bloquear" class="container col-md-12">
-    <div class="loading" *ngIf="loading">
-        <div class="lds-ripple" *ngIf="loading">
-            <div></div>
-            <div></div>
-        </div>
-    </div>
     <app-sidebar class="sidebar"></app-sidebar>
     <div class="formulario fondo">
         <h1>{{titulo}}</h1>
@@ -41,7 +35,7 @@
                         </div>
 
                         <div class="menu">
-                            <p *ngFor="let ciudad of ciudades; let i of index" [ngClass]="{ 'is-invalid': submitted && fval.ciudades.errors }"> <a (click)="borrar(ciudades,i)"><i class="fas fa-trash mr-2"></i> </a> {{ciudad}} </p>
+                            <p *ngFor="let ciudad of ciudades; let i of index" [ngClass]="{ 'is-invalid': submitted && fval.ciudades.errors }"> <a (click)="borrarC(ciudades,i)"><i class="fas fa-trash mr-2"></i> </a> {{ciudad}} </p>
                             <div class="alert alert-danger" role="alert" *ngIf="errorCd !== false">
                                 {{errorText}}
                             </div>
@@ -117,15 +111,70 @@
                     </div>
                 </div>
             </div>
+            <!-- <div class="between-row">
+                <div class="input">
+                    <label for="padron">Padron</label>
+                    <input id="padron" type="text" formControlName="padron" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.padron.errors }">
+                    <div *ngIf="submitted && fval.padron.errors" class="invalid-feedback">
+                        <div *ngIf="fval.padron.errors.required">{{error}}</div>
+                    </div>
+                </div>
+
+                <div class="input">
+                    <label for="nominal">Nominal</label>
+                    <input id="nominal" type="text" formControlName="nominal" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.nominal.errors }">
+                    <div *ngIf="submitted && fval.nominal.errors" class="invalid-feedback">
+                        <div *ngIf="fval.nominal.errors.required">{{error}}</div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div>
+                <div class="input">
+                    <label for="footer"> Lema </label>
+                    <input id="footer" type="text" formControlName="footer" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.footer.errors }">
+                    <div *ngIf="submitted && fval.footer.errors" class="invalid-feedback">
+                        <div *ngIf="fval.footer.errors.required">{{error}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="between-row ">
+                <div class="card">
+                    <label for="base">Preocupaciones</label>
+                    <div class="betrow">
+                        <div class="in">
+                            <input id="preocupaciones" formControlName="preocupaciones" type="text" class="form-control ciudades" value="">
+                            <button class="btn btn-outline-info add" role="group" type="button" (click)="addPreocupaciones(fval.preocupaciones.value)" data-toggle="modal" data-target="#add">
+                                Agregar
+                            </button>
+                        </div>
+
+                        <div class="menu">
+                            <p *ngFor="let item of preocupaciones; let i of index" [ngClass]="{ 'is-invalid': submitted && fval.preocupaciones.errors }"> <a (click)="borrarP(preocupaciones,i)"><i class="fas fa-trash mr-2"></i> </a> {{item}} </p>
+                            <div class="alert alert-danger" role="alert" *ngIf="errorCd !== false">
+                                {{errorText}}
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="submitted && fval.preocupaciones.errors" class="invalid-feedback">
+                        <div *ngIf="fval.preocupaciones.errors.required">{{error}}</div>
+                    </div>
+                </div>
+            </div>
             <br>
             <div class="botones">
                 <button id="button" type="submit" class="btn btn-success">GUARDAR</button>
                 <button id="button" type="reset" [routerLink]="['/home']" class="btn btn-danger">CANCELAR</button>
-
             </div>
             <br>
         </form>
 
     </div>
 
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="lds-ripple" *ngIf="loading">
+        <div></div>
+        <div></div>
+    </div>
 </div>

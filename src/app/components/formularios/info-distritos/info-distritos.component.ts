@@ -28,6 +28,8 @@ export class InfoDistritosComponent implements OnInit {
   nombre: string;
   distritoInfo = new InfoDistrito;
   gentilicio: string;
+  toolForm: FormGroup;
+  preocupaciones = [];
   constructor( private mapaSrv: MapasService, private menu: MenuService, private formBuilder: FormBuilder, private fileSrv: FilesService,
                public utils: Utils, private alert: AlertsService ) {
     this.distritoForm = this.formBuilder.group({
@@ -51,6 +53,12 @@ export class InfoDistritosComponent implements OnInit {
       candidato: ['', Validators.required],
       aceptacion: ['', Validators.required],
     });
+    this.toolForm = this.formBuilder.group({
+      padron: ['', Validators.required],
+      nominal: ['', Validators.required],
+      preocupaciones: [''],
+      footer: ['', Validators.required]
+    })
     // this.mapaSrv.getCoordenadasDistritos().subscribe(distritos => this.distritos = distritos);
     this.menu.getinfoMx().subscribe(estados =>  this.estados = estados );
   }
@@ -79,9 +87,7 @@ export class InfoDistritosComponent implements OnInit {
     this.distritoInfo.influencia = this.distritoForm.value.influencia;
     this.distritoInfo.candidato = this.distritoForm.value.candidato;
     this.distritoInfo.aceptacion = this.distritoForm.value.aceptacion;
-    console.log('82',this.distritoInfo)
     this.fileSrv.postInfoDistrito(this.nombre, this.distritoInfo).subscribe( () => {
-
 			this.loading = false;
 			this.success().finally(() => {
         this.submitted = false;

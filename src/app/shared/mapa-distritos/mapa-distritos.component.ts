@@ -47,8 +47,10 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
     colorAxis: {
       tickPixelInterval: 300,
       min: 0,
-      minColor: '#E6E7E8',
-      maxColor: '#db6904'
+      //minColor: '#E6E7E8',
+      maxColor: '#db6904',
+      //format: '1'
+
     },
     plotOptions: {
       map: {
@@ -90,7 +92,7 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
         fill: '#0000',
         //overflow: 'allow',
        // nullFormatter: true,
-        nullFormat: true,
+        //nullFormat: true,
         align: null,
         // distance: 50,
         // y: -30,
@@ -106,7 +108,8 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
           }
         }
       }
-    }]
+    }],
+    
   };
 
   constructor( private mapaSrv: MapasService, private menu: MenuService,
