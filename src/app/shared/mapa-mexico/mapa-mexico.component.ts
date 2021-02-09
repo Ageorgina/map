@@ -255,8 +255,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
           this.infoEstado = info[0];
           this.loading = false;
         }
-      }, error =>{
-        console.log('92',error)
+      }, () =>{
         this.loading = false;
         this.alert.serverError();
       });

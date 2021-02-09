@@ -37,7 +37,7 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
     chart: {
       backgroundColor: '#3F3F3F'
     },
-    title: {text: ''},
+    title: '',
     mapNavigation: {
       enabled: true,
       buttonOptions: {
@@ -58,7 +58,6 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
               /* tslint:disable:no-string-literal */
               window['angularComponentRef'].zone.run(() => {
                 if (e.point && e.point.DISTRITO_L) {
-                  console.log(this)
                   window['angularComponentRef'].component.selected(e.point.DISTRITO_L);
                 }
               });
@@ -80,18 +79,26 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
          'Salud<br>'
     },
     series: [{
-
+      //type: 'headmap',
       keys: ['DISTRITO_L', 'value'],
       joinBy: ['DISTRITO_L'],
-      
       dataLabels: {
+        z: 6,
         enabled: true,
+        inside: true,
         color: '#FFFFFF',
-        fill: '#f1f7ff',
-        distance: 20,
-        y: 0,
-        allowOverlap: true,
-        align: 'left',
+        fill: '#0000',
+        //overflow: 'allow',
+       // nullFormatter: true,
+        nullFormat: true,
+        align: null,
+        // distance: 50,
+        // y: -30,
+        // allowOverlap: true,
+        // crop: true,
+        // verticalAlign: 'middle',
+        // alingValue: 'center',
+        //position: 'center',
         format: '{point.properties.DISTRITO_L}',
         formatter() {
           if (this.point.value) {

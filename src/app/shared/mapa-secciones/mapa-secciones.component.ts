@@ -106,6 +106,7 @@ export class MapaSeccionesComponent implements OnInit, OnDestroy {
     }
     this.traerData(this.id).finally(() => {
       this.mapaSrv.getCoordenadasSecciones(this.id, this.estado).subscribe(cvsInfo => {
+        console.log(cvsInfo)
         this.construirMapa(cvsInfo).finally(() => this.loading = false);
       });
     });

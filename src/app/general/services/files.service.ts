@@ -44,7 +44,7 @@ export class FilesService {
     const file = `${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/'+estado + '_INFO.js';
     
     const path = new XMLHttpRequest(); 
-    path.open('GET', file,  this.existe(path) )
+   // path.open('GET', file,  this.existe(path) )
     path.send();
     return path.status!== 403;
 
