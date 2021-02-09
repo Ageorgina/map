@@ -5,6 +5,8 @@ import {ActivatedRoute,  Router} from '@angular/router';
 import {MenuService} from '../../general/services/menu.service';
 import {User} from "../../general/model/user";
 import { AlertsService } from '../../general/services/alerts.service';
+import { Distrito } from 'src/app/general/model';
+import { InfoDistrito } from '../../general/model/info-distrito';
 
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -26,7 +28,7 @@ var regex = /(\d+)/g;
 })
 export class MapaDistritosComponent implements OnInit, OnDestroy {
   distritoID: any;
-  info = [];
+  info = new InfoDistrito();
   distritos: any;
   distritosMapas: any;
   estado: string;
@@ -131,7 +133,6 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   inicializarVariables(){
        this.menu.getInfoDistritos(this.route.snapshot.params.id,this.estado).subscribe(info =>{ 
         if(info === null){
-          this.info =[];
           this.loading = false;
         }else{
 

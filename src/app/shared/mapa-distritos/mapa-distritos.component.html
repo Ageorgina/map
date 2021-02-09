@@ -1,19 +1,19 @@
 <div class="container-row width">
     <div class="mapMX" id="estado"></div>
     <div id="bloquear" *ngIf="info !== undefined" class="informacion infodistritos">
-        <p>Base: <br> {{info?.base}}</p>
-        <p class="distritos">{{info?.distrito}} </p>
-        <p>Indecisos <br> {{info?.indecisos}}</p>
-        <p>Arrepentidos <br> {{info?.arrependidos}} </p>
-        <p>Pro Oposición <br> {{info?.proOposicion}}</p>
-        <p>Audiencia Digital <br>{{info?.audienciaDigital}}</p>
+        <p>Base: <br> {{info.base}}</p>
+        <p class="distritos">{{info.distrito}} </p>
+        <p>Indecisos <br> {{info.indecisos}}</p>
+        <p>Arrepentidos <br> {{info.arrepentidos}} </p>
+        <p>Pro Oposición <br> {{info.proOposicion}}</p>
+        <p>Audiencia Digital <br>{{info.audienciaDigital}}</p>
         <p> Mejor Horario:
-            <br> {{info?.hombres}}
-            <br> {{info?.mujeres}} </p>
-        <p class="competenciasdistritos">Competencia: <br>{{info?.competencia}}</p>
-        <p class="competenciasdistritos">Afiliados: <br>{{info?.afiliados}}</p>
-        <p class="competenciasdistritos">ActivosDigitales: <br>{{info?.activosDigitales}}</p>
-        <p class="competenciasdistritos">Tracking: <br>{{info?.tracking}}</p>
+            <br> {{info.hombres}}
+            <br> {{info.mujeres}} </p>
+        <p class="competenciasdistritos">Competencia: <br>{{info.competencia}}</p>
+        <p class="competenciasdistritos">Afiliados: <br>{{info.afiliados}}</p>
+        <p class="competenciasdistritos">ActivosDigitales: <br>{{info.activosDigitales}}</p>
+        <p class="competenciasdistritos">Tracking: <br>{{info.tracking}}</p>
     </div>
 </div>
 <div class="loading" *ngIf="loading">
