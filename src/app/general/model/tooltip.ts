@@ -4,4 +4,6 @@ export class Tool {
         nominal: string;
         preocupaciones: Array<string>;
         footer: string;
+        base: string;
+        distrito: string;
 }

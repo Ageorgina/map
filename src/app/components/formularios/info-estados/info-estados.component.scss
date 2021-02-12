@@ -1,6 +1,10 @@
 .input {
     margin-bottom: 5px !important;
-    min-width: 40% !important;
+    min-width: 45% !important;
+}
+
+label {
+    font-weight: bold !important;
 }
 
 .fondo {
@@ -12,6 +16,13 @@
     color: #F0F0F0;
     padding-left: 2%;
     padding-right: 2%;
+}
+
+.between-row {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }
 
 input,

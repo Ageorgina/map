@@ -1,14 +1,11 @@
 <div class="container-row seccionesinfo">
-    <div class="loading" *ngIf="loading">
-        <div class="lds-ripple" *ngIf="loading">
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+
     <div class="seccion">
         <div class="left">
             <div class="representante">
                 <img [src]="logo">
+                <br>
+                <i class="fas fa-arrow-alt-circle-left fa-2x " routerLink="/distritos/{{dis}}"></i>
             </div>
         </div>
         <div class="mapMX right" id="secciones" (click)="seccionClicked($event?.point?.seccion)"></div>
@@ -38,5 +35,11 @@
             </p>
         </div>
 
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="lds-ripple" *ngIf="loading">
+        <div></div>
+        <div></div>
     </div>
 </div>

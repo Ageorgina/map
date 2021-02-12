@@ -7,6 +7,7 @@ import { AlertsService } from '../../../general/services/alerts.service';
 import { InfoEstado } from 'src/app/general/model/info-estado';
 import { InfoDistrito } from '../../../general/model/info-distrito';
 import { FilesService } from '../../../general/services/files.service';
+import { Tool } from '../../../general/model/tooltip';
 
 @Component({
   selector: 'app-info-distritos',
@@ -21,14 +22,18 @@ export class InfoDistritosComponent implements OnInit {
   distritoForm: FormGroup;
   submitted = false;
   error = 'Campo Obligatorio';
+  errorCd = false;
+  errorText = '';
   loading = true;
   disabledDist = false;
-  estado: string;
+  clave_entidad: string;
   numDistrito: string;
   nombre: string;
   distritoInfo = new InfoDistrito();
   gentilicio: string;
-  toolForm: FormGroup;
+  tooltip = new Tool;
+  toolName: string;
+
   preocupaciones = [];
   constructor( private mapaSrv: MapasService, private menu: MenuService, private formBuilder: FormBuilder, private fileSrv: FilesService,
                public utils: Utils, private alert: AlertsService ) {
@@ -52,13 +57,8 @@ export class InfoDistritosComponent implements OnInit {
       fhorafin: ['', Validators.required],
       candidato: ['', Validators.required],
       aceptacion: ['', Validators.required],
+      preocupaciones: ['']
     });
-    this.toolForm = this.formBuilder.group({
-      padron: ['', Validators.required],
-      nominal: ['', Validators.required],
-      preocupaciones: [''],
-      footer: ['', Validators.required]
-    })
     // this.mapaSrv.getCoordenadasDistritos().subscribe(distritos => this.distritos = distritos);
     this.menu.getinfoMx().subscribe(estados =>  this.estados = estados );
   }
@@ -87,7 +87,11 @@ export class InfoDistritosComponent implements OnInit {
     this.distritoInfo.influencia = this.distritoForm.value.influencia;
     this.distritoInfo.candidato = this.distritoForm.value.candidato;
     this.distritoInfo.aceptacion = this.distritoForm.value.aceptacion;
-    this.fileSrv.postInfoDistrito(this.nombre, this.distritoInfo).subscribe( () => {
+    this.tooltip.base  = this.distritoForm.value.base + '\xa0' + this.gentilicio;
+    this.tooltip.distrito = this.distritoForm.value.distrito;
+    this.tooltip.preocupaciones = this.preocupaciones;
+    console.log(this.toolName)
+    this.fileSrv.postInfoDistrito( this.clave_entidad,this.nombre, this.distritoInfo).subscribe( () => {
 			this.loading = false;
 			this.success().finally(() => {
         this.submitted = false;
@@ -96,7 +100,13 @@ export class InfoDistritosComponent implements OnInit {
 			});
 		}, () => {
 			this.loading = false;
-			this.errorOperacion().finally(() => {});
+			//this.errorOperacion().finally(() => {});
+      this.success().finally(() => {
+        this.submitted = false;
+        this.disabledDist = false;
+        this.preocupaciones = [];
+        this.distritoForm.reset();
+			});
 		});
 
   }
@@ -108,7 +118,8 @@ export class InfoDistritosComponent implements OnInit {
 	 	} else {
 	 		this.numDistrito = '00' + dist;
 	 	}
-     this.nombre = this.estado + '_DIS' + this.numDistrito + '_INFO.js';
+     this.nombre = 'INFO_DIS' + this.numDistrito + '.js';
+     this.toolName = 'TOOLTIP_DIS' + this.numDistrito + '.js';
 
 	}
 
@@ -116,7 +127,7 @@ export class InfoDistritosComponent implements OnInit {
   checkPorcentaje($event: KeyboardEvent) { this.utils.porcentaje($event); }
 
   selected(event) {
-    this.estado = event.srcElement.value;
+    this.clave_entidad = event.srcElement.value;
     this.disabledDist = true;
     this.estados.filter( estado => {
       if (estado.clave_entidad === event.srcElement.value ) {
@@ -124,6 +135,22 @@ export class InfoDistritosComponent implements OnInit {
         this.distritos = estado.distritos;
       }
     });
+  }
+  addPreocupaciones(preocupacion) {
+    if (preocupacion === '' ||  preocupacion=== null) {
+      return ;
+    }
+    if (this.preocupaciones.includes(preocupacion)) {
+      this.errorCd = true;
+      this.errorText = 'Ya esta registrada';
+    } else {
+      this.errorCd = false;
+      this.preocupaciones.push(preocupacion);
+    }
+  }
+  borrarP(arr, value) {
+    const x = arr.indexOf( value );
+    this.preocupaciones.splice( x, 1 );
   }
 
 

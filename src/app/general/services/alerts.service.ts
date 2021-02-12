@@ -12,7 +12,8 @@ export class AlertsService {
   textWarningSuccess = 'Alerta!';
   textInfo = 'Alerta!';
   tittleS = 'Se realizó con éxito la operación';
-  textSave = 'Se guardo el archivo exitosamente';
+  textSave = 'Se guardó el archivo exitosamente';
+  textSum = 'La sumatoria de los porcentajes no es 100%';
   timer = 1500;
   seguro = true;
 
@@ -72,6 +73,15 @@ export class AlertsService {
       icon: 'error',
       title: '¡Error en el servidor!',
       text: 'Inténtalo más tarde',
+      showConfirmButton: false,
+      timer: this.timer
+  });
+  }
+  sumError() {
+    Swal.fire({
+      icon: 'error',
+      title: '¡Error en la sumatoria!',
+      text: this.textSum,
       showConfirmButton: false,
       timer: this.timer
   });

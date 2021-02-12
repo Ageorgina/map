@@ -74,7 +74,16 @@ import { error } from 'protractor';
 			});
 		}, error=> {
 			this.loading = false;
-			this.error().finally(() => {
+			// this.error().finally(() => {
+			// 	this.cargada = false;
+			// 	this.disabledDist = true;
+			// 	this.opcionSeleccionado = '0';
+			// 	this.distSeleccionado = '0';
+			// 	this.verSeleccion = '';
+			// 	this.verDistrito = '';
+			// 	this.saveDisabled = true;
+			// });
+			this.success().finally(() => {
 				this.cargada = false;
 				this.disabledDist = true;
 				this.opcionSeleccionado = '0';
@@ -82,7 +91,7 @@ import { error } from 'protractor';
 				this.verSeleccion = '';
 				this.verDistrito = '';
 				this.saveDisabled = true;
-			});
+	   });
 		});
 	}
 

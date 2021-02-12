@@ -1,11 +1,10 @@
-import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit, EventEmitter, Output } from '@angular/core';
 import * as Highcharts from 'highcharts/highmaps';
 import { MapasService } from '../../general/services/mapas.service';
 import {ActivatedRoute,  Router} from '@angular/router';
 import {MenuService} from '../../general/services/menu.service';
 import {User} from "../../general/model/user";
 import { AlertsService } from '../../general/services/alerts.service';
-import { Distrito } from 'src/app/general/model';
 import { InfoDistrito } from '../../general/model/info-distrito';
 
 declare var require: any;
@@ -18,8 +17,6 @@ noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
 highchartsCustomEvents(Highcharts);
-let $;
-var regex = /(\d+)/g;
 
 @Component({
   selector: 'app-mapa-distritos',
@@ -35,11 +32,14 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   distValue: string;
   loading = true;
   usuario: User;
+  color = sessionStorage.getItem('color');
+  @Output()  dis: EventEmitter<string> = new EventEmitter<string>();
+  mapOpts: any = {};
   mapa: any = {
     chart: {
       backgroundColor: '#3F3F3F'
     },
-    title: '',
+    title: {text: ''},
     mapNavigation: {
       enabled: true,
       buttonOptions: {
@@ -47,12 +47,11 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
       }
     },
     colorAxis: {
-      tickPixelInterval: 300,
-      min: 0,
-      //minColor: '#E6E7E8',
-      maxColor: '#db6904',
-      //format: '1'
-
+      showInLegend: false,
+      //tickPixelInterval: 300,
+      //min: 0,
+      // minColor: '#E6E7E8',
+      maxColor: this.color
     },
     plotOptions: {
       map: {
@@ -72,6 +71,89 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
       }
     },
     tooltip: {
+      pointFormat: '<br>' +
+        '<b><b><br>' +
+        '<b>Preocupaciones:<b><br>' +
+        'Recuperación Económica<br>' +
+        'Corrupción<br>' +
+        'Brutalidad Policiaca<br>' +
+        'Feminicidios<br>' +
+        'Salud<br>'
+    },
+    series: [{
+
+      keys: ['DISTRITO_L', 'value'],
+      joinBy: ['DISTRITO_L'],
+      dataLabels: {
+        enabled: true,
+        color: '#FFFFFF',
+        fill: '#f1f7ff',
+        format: '{point.properties.DISTRITO_L}',
+        formatter() {
+          if (this.point.value) {
+            return this.point.name;
+          }
+        }
+      },
+    }]
+  };
+ /* mapa: any = {
+    chart: {
+      backgroundColor: '#3F3F3F',
+      events: {
+        load: function() {
+        this.series[0].data.forEach(function(point) {
+            console.log(point)
+            point.update({
+              properties:{
+                "hc-middle-x":point.dataLabel.bBox.x,
+                "hc-middle-y":point.dataLabel.bBox.y
+              },
+              dataLabels: {
+                x: point.dataLabel.bBox.x,
+                y: point.dataLabel.bBox.y,
+                align: 'left',
+                verticalAlign: 'top',
+                options:{
+                  align: 'left',
+                  verticalAlign: 'top'
+                },
+
+              }
+            })
+          })
+        }
+      }
+    },
+    
+    title: '',
+    mapNavigation: {
+      enabled: true,
+      buttonOptions: {
+        verticalAlign: 'bottom'
+      }
+    },
+    colorAxis: {
+      min: 0,
+      maxColor: '#db6904',
+    },
+    plotOptions: {
+      map: {
+        point: {
+          events: {
+            click: (e) => {
+              window['angularComponentRef'].zone.run(() => {
+                if (e.point && e.point.DISTRITO_L) {
+                  window['angularComponentRef'].component.selected(e.point.DISTRITO_L);
+                }
+              });
+            }
+          }
+        },
+        
+      },
+    },
+    tooltip: {
       enabled: true,
        pointFormat: '<br>' +
          '<b><b><br>' +
@@ -82,42 +164,42 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
          'Feminicidios<br>' +
          'Salud<br>'
     },
+    // series: [{
+    //   // keys: ['DISTRITO_L', 'value'],
+    //   joinBy: ['DISTRITO_L'],
+    //   dataLabels: {
+    //     enabled: true,
+    //     format: '{point.properties.DISTRITO_L}',
+    //     // formatter() {
+    //     //   if (this.point.value) {
+    //     //     return this.point.name;
+    //     //   }
+    //    // }
+    //   }
+    // }]
     series: [{
-      //type: 'headmap',
       keys: ['DISTRITO_L', 'value'],
       joinBy: ['DISTRITO_L'],
+      color: '#ed6706',
       dataLabels: {
-        z: 6,
         enabled: true,
-        inside: true,
-        color: '#FFFFFF',
-        fill: '#0000',
-        //overflow: 'allow',
-       // nullFormatter: true,
-        //nullFormat: true,
-        align: null,
-        // distance: 50,
-        // y: -30,
-        // allowOverlap: true,
-        // crop: true,
-        // verticalAlign: 'middle',
-        // alingValue: 'center',
-        //position: 'center',
         format: '{point.properties.DISTRITO_L}',
-        formatter() {
-          if (this.point.value) {
-            return this.point.name;
-          }
+         formatter() {
+              if (this.point.value) {
+                return this.point.name;
+           }
         }
       }
-    }],
+    }]
     
-  };
+  };*/
 
   constructor( private mapaSrv: MapasService, private menu: MenuService,
                private router: Router, private ngZone: NgZone, private route: ActivatedRoute, 
                private alert: AlertsService) {
-      this.estado = localStorage.getItem('estado');
+                 
+      this.estado = sessionStorage.getItem('estado');
+      sessionStorage.setItem('dis', this.route.snapshot.params.id)
       this.usuario = JSON.parse(localStorage.getItem('user'));
       this.inicializarVariables();
       this.mapaSrv.getCoordenadasDistritos(this.estado).subscribe(entidades => {
@@ -131,11 +213,11 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   }
  
   inicializarVariables(){
-       this.menu.getInfoDistritos(this.route.snapshot.params.id,this.estado).subscribe(info =>{ 
+    this.dis.emit(this.route.snapshot.params.id);
+      this.menu.getInfoDistritos(this.route.snapshot.params.id,this.estado).subscribe(info =>{ 
         if(info === null){
           this.loading = false;
         }else{
-
           this.info = info[0];
           this.loading = false;
         }
@@ -144,15 +226,7 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
         this.alert.serverError();
       } );
     
-    this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(distArr => {
-      distArr.filter(dist => {
-        this.distValue = this.route.snapshot.params.id.replace(/\b0+/g, '') ;
-        if (dist[0] === this.distValue) {
-          distArr = [dist];
-          this.distritosMapas = distArr;
-        }
-      });
-    });
+
     /* tslint:disable:no-string-literal */
     window['angularComponentRef'] = {component: this, zone: this.ngZone};
   }
@@ -162,10 +236,26 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   }
 
   async construirMapa(entidadesJSON) {
-    this.mapa.tooltip.headerFormat =  this.info['distrito'];
-    this.mapa.chart.map = entidadesJSON;
-    this.mapa.series[0].data = this.distritosMapas;
-    Highcharts.mapChart('estado', this.mapa);
+    this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(distArr => {
+      console.log(distArr)
+       this.distValue = this.route.snapshot.params.id.replace(/\b0+/g, '') ;
+       this.distValue = this.distValue.replace(/\b0+/g, '') ;
+       this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(distArr => {
+         distArr.filter(dist => {
+           if (dist[0] === this.distValue) {
+            console.log('dist',dist[0])
+             distArr = [dist];
+             this.distritosMapas = distArr;
+             this.mapa.tooltip.headerFormat = 'Distrito:'+ '\xa0'+ this.route.snapshot.params.id;
+             this.mapa.chart.map = entidadesJSON;
+             this.mapa.series[0].data = this.distritosMapas;
+             console.log(this.mapa.series[0].data)
+             Highcharts.mapChart('estado', this.mapa);
+           }
+         });
+       });
+    });
+
   }
 
   selected(id) {

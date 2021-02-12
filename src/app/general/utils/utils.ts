@@ -24,7 +24,9 @@ export class Utils {
             ($event.target as HTMLInputElement).value = value.replace(value, '');
        }
     var isValid = value.match(/^(100([.]0{2})?|[0-9]?|([0-9]?[0-9]([.]{1}[0-9]{2})\s))$/gm) == null ? false:true;
-
+    if ($event.target) {
+      ($event.target as HTMLInputElement).value = value.replace(/[^-.0-9\s]+/g, '');
+    }
     if ( Number(value) > 100  ) {
       ($event.target as HTMLInputElement).value = value.replace($event.key, '');
     }

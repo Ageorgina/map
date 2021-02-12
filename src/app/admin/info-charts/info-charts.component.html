@@ -1,0 +1,106 @@
+<div class="container col-md-12">
+
+    <app-sidebar class="sidebar"></app-sidebar>
+    <div class="formulario fondo">
+        <h1>{{titulo}}</h1>
+        <br>
+        <form [formGroup]="chartForm" (ngSubmit)="onSubmit()" class="go-bottom">
+
+            <div class="mt-2 mb-2">
+                <h5>¿La información que se llenará será para un estado?</h5>
+
+                <label class="switchBtn">
+                    <input type="checkbox" (change)="checked($event.srcElement.checked)">
+                    <div class="slide slide.round"></div>
+                </label>
+            </div>
+
+            <div class=" input-t">
+                <label for="base">Estado</label>
+                <select formControlName="clave_entidad" type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.clave_entidad.errors }" (change)="selected($event)">
+                        <option *ngFor="let estado of estados" value="{{estado.clave_entidad}}">{{estado.nombre}}</option>
+                    </select>
+                <div *ngIf="submitted && fval.clave_entidad.errors" class="invalid-feedback">
+                    <div *ngIf="fval.clave_entidad.errors.required">{{error}}</div>
+                </div>
+            </div>
+            <div class="input-t" *ngIf="disabledDist">
+                <label for="distrito">Distrito</label>
+                <select formControlName="distrito" type="text" class="form-control" (change)="capturarNombre($event)">
+                            <option *ngFor="let distrito of distritos">{{distrito}}</option>
+                        </select>
+                <div *ngIf="submitted && fval.distrito.errors" class="invalid-feedback">
+                    <div *ngIf="fval.distrito.errors.required">{{error}}</div>
+                </div>
+            </div>
+            <div class="input-t">
+                <label for="base">Base</label>
+                <input id="base" formControlName="base" type="text" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.base.errors }">
+                <div *ngIf="submitted && fval.base.errors" class="invalid-feedback">
+                    <div *ngIf="fval.base.errors.required">{{error}}</div>
+                </div>
+            </div>
+            <div class="between-row">
+                <div class="input">
+                    <label for="miedo">miedo</label>
+                    <input id="miedo" formControlName="miedo" type="text" class="form-control" (keyup)="checkPorcentaje($event)" [ngClass]="{ 'is-invalid': submitted && fval.miedo.errors }">
+                    <div *ngIf="submitted && fval.miedo.errors" class="invalid-feedback">
+                        <div *ngIf="fval.miedo.errors.required">{{error}}</div>
+                    </div>
+                </div>
+                <div class="input">
+                    <label for="introspeccion">introspeccion</label>
+                    <input id="introspeccion" formControlName="introspeccion" type="text" class="form-control" (keyup)="checkPorcentaje($event)" [ngClass]="{ 'is-invalid': submitted && fval.introspeccion.errors }">
+                    <div *ngIf="submitted && fval.introspeccion.errors" class="invalid-feedback">
+                        <div *ngIf="fval.introspeccion.errors.required">{{error}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="between-row">
+                <div class="input">
+                    <label for="orgullo">orgullo</label>
+                    <input id="orgullo" type="text" formControlName="orgullo" class="form-control" (keyup)="checkPorcentaje($event)" [ngClass]="{ 'is-invalid': submitted && fval.orgullo.errors }">
+                    <div *ngIf="submitted && fval.orgullo.errors" class="invalid-feedback">
+                        <div *ngIf="fval.orgullo.errors.required">{{error}}</div>
+                    </div>
+                </div>
+                <div class="input">
+                    <label for="asertividad">asertividad</label>
+                    <input id="asertividad" type="text" formControlName="asertividad" (keyup)="checkPorcentaje($event)" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.asertividad.errors }">
+                    <div *ngIf="submitted && fval.asertividad.errors" class="invalid-feedback">
+                        <div *ngIf="fval.tracking.errors.required">{{error}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="between-row">
+                <div class="input">
+                    <label for="incertidumbre">incertidumbre</label>
+                    <input id="incertidumbre" type="text" formControlName="incertidumbre" class="form-control" (keyup)="checkPorcentaje($event)" [ngClass]="{ 'is-invalid': submitted && fval.incertidumbre.errors }">
+                    <div *ngIf="submitted && fval.incertidumbre.errors" class="invalid-feedback">
+                        <div *ngIf="fval.incertidumbre.errors.required">{{error}}</div>
+                    </div>
+                </div>
+                <div class="input">
+                    <label for="decepcion">decepcion</label>
+                    <input id="decepcion" type="text" formControlName="decepcion" (keyup)="checkPorcentaje($event)" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.decepcion.errors }">
+                    <div *ngIf="submitted && fval.decepcion.errors" class="invalid-feedback">
+                        <div *ngIf="fval.tracking.errors.required">{{error}}</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="botones">
+                <button id="button" type="submit" class="btn btn-success">GUARDAR</button>
+                <button id="button" type="reset" [routerLink]="['/home']" class="btn btn-danger">CANCELAR</button>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="lds-ripple" *ngIf="loading">
+        <div></div>
+        <div></div>
+    </div>
+</div>

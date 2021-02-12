@@ -1,8 +1,7 @@
 <div class="container col-md-12">
     <app-sidebar class="sidebar"></app-sidebar>
-    <div class="chart">
+    <div class="chart" *ngIf="!sinInfo">
         <div id="containerEmotionsChart"></div>
     </div>
-    <app-mapa-mexico class="mapa"></app-mapa-mexico>
-
+    <app-mapa-mexico class="mapa" (edo)="recibiRespuesta($event)"></app-mapa-mexico>
 </div>

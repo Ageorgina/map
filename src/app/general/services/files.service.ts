@@ -24,8 +24,9 @@ export class FilesService {
     return this.http.get(`${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/' + estado + '_INFO.js');
   }
 
-  postInfoDistrito(nombreArchivo, contenido) {
-    return this.http.post<any[]>(`${environment.cartografiaBack}/entropia/archivoDistritosJS`, { nombreArchivo, contenido}, httpOptions);
+  postInfoDistrito(clave_entidad,nombreArchivo, contenido) {
+    console.log('srvdist', clave_entidad,nombreArchivo, contenido)
+    return this.http.post<any[]>(`${environment.cartografiaBack}/entropia/archivoDistritosJS`, { clave_entidad,nombreArchivo, contenido}, httpOptions);
   }
 
 
@@ -39,16 +40,7 @@ export class FilesService {
   getDISInfo(){
     return this.http.get<any[]>('./data/js/INFO_MAPA_MX/INFO_DIS000.js');
   }
-  existeInfoEDO(estado){
-    
-    const file = `${environment.cartografiaUrl}/` + 'data/js/INFO_MAPA_MX/'+estado + '_INFO.js';
-    
-    const path = new XMLHttpRequest(); 
-   // path.open('GET', file,  this.existe(path) )
-    path.send();
-    return path.status!== 403;
 
-}
 
 
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MenuService, UserService } from '../../general/services';
+import { MenuService, UserService, AlertsService } from '../../general/services';
 import { User, Distritos } from '../../general/model';
-import { AlertsService } from '../../general/services/alerts.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-usuarios',
@@ -29,24 +29,27 @@ export class UsuariosComponent implements OnInit {
   dist : any;
   estadoArr = new Distritos;
   new = false;
+  dropdownSettings : IDropdownSettings;
+  //distritos = [];
 
   constructor(private formBuilder: FormBuilder,private menu: MenuService, private userSrv: UserService,
                 private alert: AlertsService ) { 
 
     this.menu.getPartidos().subscribe(partidos => this.partidos = partidos );
     this.menu.getinfoMx().subscribe(estados => this.estados = estados );
+    
     this.menu.getRoles().subscribe(roles => this.roles = roles );
 
     this.userForm = this.formBuilder.group({
       username: ['', Validators.required],
       access: ['', Validators.required],
-      partido: ['', Validators.required],
+      partido: [''],
       rol: ['', Validators.required],
       clave_entidad: ['']
     });
     this.distForm = this.formBuilder.group({
       estado: ['', Validators.required],
-      distrito: ['', Validators.required],
+      distrito: [''],
       secciones: ['']
   });
   this.distForm.get(['estado']).setValue(['Estados']);
@@ -82,7 +85,17 @@ export class UsuariosComponent implements OnInit {
      this.estados.filter( estado => {
        if (estado.clave_entidad === event.srcElement.value ) {
          this.edo = estado.clave_entidad;
+         this.dropdownSettings = {
+          singleSelection: false,
+          idField: 'item_id',
+          textField: 'item_text',
+          selectAllText: 'Seleccionar Todos',
+          unSelectAllText: 'Ninguno',
+          //itemsShowLimit: 3,
+        };
          this.distritos = estado.distritos;
+         console.log('d', this.distritos
+         )
        }
      });  
   }
@@ -143,6 +156,13 @@ export class UsuariosComponent implements OnInit {
     this.userForm.reset();
     this.clear();
    }
+
+   onItemSelect(item) {
+    console.log('onItem',item);
+  }
+  onSelectAll(items) {
+    console.log('onSelect',items);
+  }
 
 
 

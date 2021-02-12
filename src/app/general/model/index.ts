@@ -9,3 +9,4 @@ export * from './user';
 export * from './distritos';
 export * from './userLogin';
 export * from './tooltip';
+export * from './chart';

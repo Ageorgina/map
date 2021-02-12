@@ -111,7 +111,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="between-row">
+            <div class="between-row">
                 <div class="input">
                     <label for="padron">Padron</label>
                     <input id="padron" type="text" formControlName="padron" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.padron.errors }">
@@ -127,12 +127,11 @@
                         <div *ngIf="fval.nominal.errors.required">{{error}}</div>
                     </div>
                 </div>
-            </div> -->
-
-            <!-- <div>
+            </div>
+            <div>
                 <div class="input">
                     <label for="footer"> Lema </label>
-                    <input id="footer" type="text" formControlName="footer" class="form-control" (keyup)="checkNumeros($event)" [ngClass]="{ 'is-invalid': submitted && fval.footer.errors }">
+                    <input id="footer" type="text" formControlName="footer" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.footer.errors }">
                     <div *ngIf="submitted && fval.footer.errors" class="invalid-feedback">
                         <div *ngIf="fval.footer.errors.required">{{error}}</div>
                     </div>
@@ -160,7 +159,7 @@
                         <div *ngIf="fval.preocupaciones.errors.required">{{error}}</div>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <br>
             <div class="botones">
                 <button id="button" type="submit" class="btn btn-success">GUARDAR</button>

@@ -1,10 +1,4 @@
 <div id="bloquear" class="container col-md-12">
-    <div class="loading" *ngIf="loading">
-        <div class="lds-ripple" *ngIf="loading">
-            <div></div>
-            <div></div>
-        </div>
-    </div>
     <app-sidebar class="sidebar"></app-sidebar>
     <div class="formulario fondo">
         <h1>{{titulo}}</h1>
@@ -161,7 +155,29 @@
                             <input id="fin" formControlName="fhorafin" type="time" min="00:00" class="form-control">
                         </div>
                     </div>
+                </div>
+                <div class="between-row ">
+                    <div class="card">
+                        <label for="base">Preocupaciones</label>
+                        <div class="betrow">
+                            <div class="in">
+                                <input id="preocupaciones" formControlName="preocupaciones" type="text" class="form-control ciudades" value="">
+                                <button class="btn btn-outline-info add" role="group" type="button" (click)="addPreocupaciones(fval.preocupaciones.value)" data-toggle="modal" data-target="#add">
+                                    Agregar
+                                </button>
+                            </div>
 
+                            <div class="menu">
+                                <p *ngFor="let item of preocupaciones; let i of index" [ngClass]="{ 'is-invalid': submitted && fval.preocupaciones.errors }"> <a (click)="borrarP(preocupaciones,i)"><i class="fas fa-trash mr-2"></i> </a> {{item}} </p>
+                                <div class="alert alert-danger" role="alert" *ngIf="errorCd !== false">
+                                    {{errorText}}
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="submitted && fval.preocupaciones.errors" class="invalid-feedback">
+                            <div *ngIf="fval.preocupaciones.errors.required">{{error}}</div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -172,5 +188,11 @@
                 <button id="button" type="reset" [routerLink]="['/home']" class="btn btn-danger">CANCELAR</button>
             </div>
         </form>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="lds-ripple" *ngIf="loading">
+        <div></div>
+        <div></div>
     </div>
 </div>

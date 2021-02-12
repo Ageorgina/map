@@ -31,8 +31,7 @@ export class MenuService {
     return this.http.get<any[]>('/assets/mock_info/distritos.js');
   }
 
-  getInfoDistritos(id, estado) {
-    /*console.log('info derecha dist-->',`${environment.cartografiaUrl}/` + 'data/js/' + estado + '/INFO_DIS' + `${id}` + '.js')*/
+  getInfoDistritos(id, estado){
     return this.http.get<any[]>(`${environment.cartografiaUrl}/` + 'data/js/' + estado + '/INFO_DIS' + `${id}` + '.js' );
   }
 

@@ -8,10 +8,13 @@
     "nombre": "Estado",
     "redirectTo": "estado"
 }, {
-    "nombre": "Alta Usuarios",
+    "nombre": "Usuarios",
     "redirectTo": "usuarios"
 }, {
-    "nombre": "Aministrar Usuarios",
+    "nombre": "Gráfica",
+    "redirectTo": "graficas"
+}, {
+    "nombre": "Admon. Usuarios",
     "redirectTo": "admon_usuarios"
 }, {
     "nombre": "Distrito",

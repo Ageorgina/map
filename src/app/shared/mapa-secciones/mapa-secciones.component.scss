@@ -11,17 +11,22 @@ a {
     color: darkgrey !important;
 }
 
+i {
+    margin-top: 5px;
+    width: 50px;
+}
+
 .left {
     width: 15% !important;
 }
 
 img {
-    width: 50px !important;
+    width: 80px !important;
 }
 
 .right {
     width: 80% !important;
-    height: 80% !important;
+    height: 100% !important;
 }
 
 p {
@@ -50,10 +55,6 @@ p {
         justify-content: space-between !important;
         height: min-content;
         width: 100%;
-    }
-    .right {
-        width: auto !important;
-        height: auto;
     }
     .left {
         width: auto !important;

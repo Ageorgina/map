@@ -1,4 +1,4 @@
-import {Component, OnInit, NgZone, OnDestroy} from '@angular/core';
+import {Component, OnInit, NgZone, OnDestroy , Output} from '@angular/core';
 import {Router} from '@angular/router';
 import * as Highcharts from 'highcharts/highmaps';
 
@@ -8,6 +8,7 @@ import {User} from "../../general/model";
 import { AlertsService } from '../../general/services/alerts.service';
 import { catchError, map } from 'rxjs/operators';
 import { error } from 'protractor';
+import { EventEmitter } from '@angular/core';
 
 declare var require: any;
 let Boost = require('highcharts/modules/boost');
@@ -36,6 +37,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   estadoValue: string;
   distValue: string;
   partidoValue: string;
+  color: any;
   estadoID: any;
   infoEstado: any;
   ciudades: any;
@@ -44,46 +46,61 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   mapData: any[];
   usuario: User;
   options: any;
-  
+  @Output()  edo: EventEmitter<string> = new EventEmitter<string>();
 
-  llavesEstado: any[] = [{"value":"BCN","id": "mx-bc"},
-    {"value":"BCS","id": "mx-bs"},
-    {"value":"SON","id": "mx-so"},
-    {"value":"COL","id": "mx-cl"},
-    {"value":"NAY","id": "mx-na"},
-    {"value":"CAM","id": "mx-cm"},
-    {"value":"QOO","id": "mx-qr"},
-    {"value":"MEX","id": "mx-mx"},
-    {"value":"MOR","id": "mx-mo"},
-    {"value":"CMX","id": "mx-df"},
-    {"value":"QRO","id": "mx-qt"},
-    {"value":"TAB","id": "mx-tb"},
-    {"value":"CHS","id": "mx-cs"},
-    {"value":"NVL","id": "mx-nl"},
-    {"value":"SIN","id": "mx-si"},
-    {"value":"CHI","id": "mx-ch"},
-    {"value":"VER","id": "mx-ve"},
-    {"value":"ZAC","id": "mx-za"},
+  llavesEstado: any[] = [
     {"value":"AGS","id": "mx-ag"},
-    {"value":"JAL","id": "mx-ja"},
-    {"value":"MIC","id": "mx-mi"},
-    {"value":"OAX","id": "mx-oa"},
-    {"value":"PUE","id": "mx-pu"},
-    {"value":"GRO","id": "mx-gr"},
-    {"value":"TLX","id": "mx-tl"},
-    {"value":"TAM","id": "mx-tm"},
+    {"value":"BCN","id": "mx-bc"},
+    {"value":"BCS","id": "mx-bs"},
+    {"value":"CAM","id": "mx-cm"},
     {"value":"COA","id": "mx-co"},
-    {"value":"YUC","id": "mx-yu"},
+    {"value":"COL","id": "mx-cl"},
+    {"value":"CHS","id": "mx-cs"},
+    {"value":"CHI","id": "mx-ch"},
+    {"value":"CMX","id": "mx-df"},
     {"value":"DUR","id": "mx-dg"},
     {"value":"GTO","id": "mx-gj"},
+    {"value":"GRO","id": "mx-gr"},
+    {"value":"HGO","id": "mx-hg"},
+    {"value":"JAL","id": "mx-ja"},
+    {"value":"MEX","id": "mx-mx"},
+    {"value":"MIC","id": "mx-mi"},
+    {"value":"MOR","id": "mx-mo"},
+    {"value":"NAY","id": "mx-na"},
+    {"value":"NVL","id": "mx-nl"},
+    {"value":"OAX","id": "mx-oa"},
+    {"value":"PUE","id": "mx-pu"},
+    {"value":"QRO","id": "mx-qt"},
+    {"value":"QOO","id": "mx-qr"},
     {"value":"SLP","id": "mx-sl"},
-    {"value":"HGO","id": "mx-hg"}]
+    {"value":"SIN","id": "mx-si"},
+    {"value":"SON","id": "mx-so"},
+    {"value":"TAB","id": "mx-tb"},
+    {"value":"TAM","id": "mx-tm"},
+    {"value":"VER","id": "mx-ve"},
+    {"value":"TLX","id": "mx-tl"},
+    {"value":"YUC","id": "mx-yu"},
+    {"value":"ZAC","id": "mx-za"}
+]
 
 
 
   constructor(private router: Router, private ngZone: NgZone, 
     private fileSrv: FilesService, private alert : AlertsService) {
     this.usuario = JSON.parse(localStorage.getItem('user'));
+    if (this.usuario['partido'] === 'PAN') {
+      this.color = '#4c6a9b';
+    } else if (this.usuario['partido'] === 'MOR') {
+      this.color = '#af0d0d';
+    } else if (this.usuario['partido'] === 'PRI') {
+      this.color = '#5b9a52';
+    } else if (this.usuario['partido'] === 'MOC') {
+      this.color =  '#fc7f25';
+    } else{
+      this.color =  '#bf429b';
+    }
+    sessionStorage.setItem('color', this.color)
+   // console.log(this.color)
     const data = []
      this.usuario.distritos.filter(es =>{
        const dt = this.llavesEstado.find( t => t.value === es['estado']);
@@ -114,7 +131,6 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
     this.options = {
         chart: {
           backgroundColor: 'transparent',
-        
         },
         title:'',
         mapNavigation: {
@@ -128,7 +144,8 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
           map: {
             states: {
               hover: {
-                color: '#dba604'
+                brightness: -0.15,
+                borderColor: 'gray'
               }
             },
             point: {
@@ -192,7 +209,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
         },
         series: [{
           name: 'MX',
-          color: '#ed6706',
+
           data: [...this.mapData],
           mapData: usaMap,
           showInLegend: false,
@@ -240,11 +257,14 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
     //    'Sequía<br>' +
     //    'Corrupción<br>' +
     //    'Ley Protección Animal<br>';
+    console.log(this.usuario['partido'],this.color)
+    this.options.series[0].color = this.color;
   Highcharts.mapChart('mexico', this.options);
   }
 
   selected(id) {
-    localStorage.setItem('estado',id); 
+    this.edo.emit(id);
+    sessionStorage.setItem('estado',id); 
 
       this.fileSrv.getInfoEstado(id).subscribe(info => {
         if(info === null){

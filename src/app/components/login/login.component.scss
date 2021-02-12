@@ -3,8 +3,8 @@ img {
 }
 
 .card {
-    min-width: 350px;
-    min-height: 420px;
+    min-width: 250px;
+    min-height: 200px;
     display: flex;
     justify-content: space-between;
     flex-flow: column nowrap;
@@ -54,13 +54,9 @@ h4 {
 }
 
 @media only screen and (max-width: 600px) {
-    img {
-        width: 80px;
-    }
     .card {
-        min-width: 180px !important;
-        max-width: 280px !important;
-        max-height: 250px;
+        width: 180px !important;
+        height: 350px;
         display: flex;
         justify-content: space-between;
         flex-flow: column nowrap;

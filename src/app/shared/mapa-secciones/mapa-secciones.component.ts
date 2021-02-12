@@ -42,7 +42,8 @@ export class MapaSeccionesComponent implements OnInit, OnDestroy {
   estadoValue: string;
   distValue: string;
   partidoValue: string;
-  estado = localStorage.getItem('estado');
+  estado = sessionStorage.getItem('estado');
+  dis = sessionStorage.getItem('dis');
   logo: string;
   mapa: any = {
     chart: {

@@ -6,11 +6,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TagInputModule } from 'ngx-chips';
 import { AdmonUsersComponent } from './admon-users/admon-users.component';
-
+import { InfoChartsComponent } from './info-charts/info-charts.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
-  declarations: [UsuariosComponent, AdmonUsersComponent],
+  declarations: [UsuariosComponent, AdmonUsersComponent, InfoChartsComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -18,7 +19,8 @@ import { AdmonUsersComponent } from './admon-users/admon-users.component';
     FormsModule,
     RouterModule,
     TagInputModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
-  exports:[UsuariosComponent, AdmonUsersComponent]
+  exports:[UsuariosComponent, AdmonUsersComponent, InfoChartsComponent]
 })
 export class AdminModule { }

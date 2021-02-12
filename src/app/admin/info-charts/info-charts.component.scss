@@ -1,6 +1,10 @@
-input {
+.input {
     margin-bottom: 5px !important;
     min-width: 40% !important;
+}
+
+label {
+    font-weight: bold !important;
 }
 
 .fondo {
@@ -14,19 +18,26 @@ input {
     padding-right: 2%;
 }
 
-.multiselect-item-checkbox[_ngcontent-fju-c3] input[type="checkbox"][_ngcontent-fju-c3]+div[_ngcontent-fju-c3] {
-    color: violet !important;
-    background-color: #3F3F3F !important;
-    background: #3F3F3F !important;
-}
-
-ng-multiselect-dropdown {
-    background-color: #3F3F3F !important;
-    background: #3F3F3F !important;
-}
-
 input,
 select {
+    border-color: gray;
+    color: #FFFFFF;
+    background-color: #3F3F3F !important;
+}
+
+.ng-tns-c3-0 {
+    border-color: gray !important;
+    color: #FFFFFF !important;
+    background-color: #3F3F3F !important;
+}
+
+.ng2-tag-input__text-input[_ngcontent-xpf-c5] {
+    border-color: gray !important;
+    color: #FFFFFF !important;
+    background-color: #3F3F3F !important;
+}
+
+tag-input-dropdown {
     border-color: gray;
     color: #FFFFFF;
     background-color: #3F3F3F !important;
@@ -40,6 +51,8 @@ select:focus {
 }
 
 option {
+    background: #3F3F3F !important;
+    background-color: #3F3F3F !important;
     color: #FFFFFF;
 }
 
@@ -70,10 +83,6 @@ h1 {
     justify-content: space-around !important;
     margin-bottom: 10px;
     padding-bottom: 10px !important;
-}
-
-.input-t {
-    width: 4;
 }
 
 .botones {
@@ -117,6 +126,10 @@ button#button {
     max-height: min-content !important;
 }
 
+h5 {
+    font-weight: bold;
+}
+
 .betrow {
     width: 100% !important;
     display: flex;
@@ -134,4 +147,60 @@ button#button {
 
 p {
     margin: 2px;
+}
+
+///////////////
+.switchBtn {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+.switchBtn input {
+    display: none;
+}
+
+.slide {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #8CE196;
+    -webkit-transition: .4s;
+    transition: .4s;
+    padding: 2px;
+    color: #fff;
+    border-radius: 25px;
+}
+
+.slide:before {
+    position: absolute;
+    content: "";
+    height: 23px;
+    width: 23px;
+    left: 25px;
+    bottom: 1px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slide {
+    background-color: #ccc;
+    padding-left: 40px;
+}
+
+input:focus+.slide {
+    box-shadow: 0 0 1px #01aeed;
+}
+
+input:checked+.slide:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    left: -20px;
 }

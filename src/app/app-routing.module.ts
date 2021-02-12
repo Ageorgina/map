@@ -16,6 +16,7 @@ import { MapaSeccionesAdminComponent } from './shared/mapa-secciones-admin/mapa-
 import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 import { AdmonUsersComponent } from './admin/admon-users/admon-users.component';
 import { EstadisticasComponent } from './influencer/estadisticas/estadisticas.component';
+import { InfoChartsComponent } from './admin/info-charts/info-charts.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: 'home_admin', component: DistritoAdminComponent, canActivate: [LoginGuard]},
   {path: 'secciones_admin/:id', component: MapaSeccionesAdminComponent, canActivate: [LoginGuard]},
   {path: 'usuarios', component: UsuariosComponent},
+  {path: 'graficas', component: InfoChartsComponent},
   {path: 'admon_usuarios', component: AdmonUsersComponent},
   {path: 'estadisticas', component: EstadisticasComponent}
 ];

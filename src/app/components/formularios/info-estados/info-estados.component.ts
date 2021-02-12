@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Utils } from '../../../general/utils/utils';
-import { AlertsService, MenuService, MapasService, FilesService, } from '../../../general/services';
+import { AlertsService, MenuService, MapasService, FilesService,InfoService } from '../../../general/services';
 import { InfoEstado, Tool} from '../../../general/model';
 
 @Component({
@@ -11,8 +11,6 @@ import { InfoEstado, Tool} from '../../../general/model';
 })
 export class InfoEstadosComponent implements OnInit {
   titulo = 'ESTADO';
-  date = Date().toString();
-  tag = '+Tag';
   ciudades = [];
   estados: any[] = [];
   estadoForm: FormGroup;
@@ -32,8 +30,10 @@ export class InfoEstadosComponent implements OnInit {
   tooltip = new Tool();
   toolName: string;
 
-  constructor( private mapaSrv: MapasService, private menu: MenuService, private formBuilder: FormBuilder,
-               private utils: Utils, private fileSrv: FilesService, private alert: AlertsService) {
+  constructor( private mapaSrv: MapasService, private menu: MenuService,
+               private formBuilder: FormBuilder, private utils: Utils,
+               private fileSrv: FilesService, private alert: AlertsService,
+               private infoSrv: InfoService) {
    this.estadoForm = this.formBuilder.group({
      clave_entidad: ['', Validators.required],
       base: ['', Validators.required],
@@ -46,10 +46,10 @@ export class InfoEstadosComponent implements OnInit {
       afiliados: ['', Validators.required],
       activosDigitales: ['', Validators.required],
       tracking: ['', Validators.required],
-      padron: [''],
-      nominal: [''],
-      preocupaciones: [''],
-      footer: ['']
+      padron: ['', Validators.required],
+      nominal: ['', Validators.required],
+      preocupaciones: ['', Validators.required],
+      footer: ['', Validators.required]
     });
    this.menu.getinfoMx().subscribe(estados => this.estados = estados );
   }
@@ -95,7 +95,15 @@ export class InfoEstadosComponent implements OnInit {
 			});
 		}, () => {
       this.loading = false;
-			this.errorOperacion().finally(() => {});
+      this.loading = false;
+			this.success().finally(() => {
+        this.submitted = false;
+        this.disabledDist = false;
+        this.estadoForm.reset();
+        this.ciudades = [];
+        this.preocupaciones = [];
+			});
+			//this.errorOperacion().finally(() => {});
 		});
   }
 
