@@ -49,3 +49,4 @@ V2.7 Los archivos que se muestran en la pantalla de inicio se agregan en /data/j
 
 # SE CREO LA PANTALLA 404 para cuando no existe informacion de partidos
 # map
+# map
