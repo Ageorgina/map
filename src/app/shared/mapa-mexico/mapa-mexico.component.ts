@@ -3,11 +3,8 @@ import {Router} from '@angular/router';
 import * as Highcharts from 'highcharts/highmaps';
 
 import customEvents from 'highcharts-custom-events';
-import {FilesService} from '../../general/services';
-import {User} from "../../general/model";
 import { AlertsService } from '../../general/services/alerts.service';
-import { catchError, map } from 'rxjs/operators';
-import { error } from 'protractor';
+
 import { EventEmitter } from '@angular/core';
 
 declare var require: any;
@@ -44,7 +41,6 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   cookies: any;
   loading = true;
   mapData: any[];
-  usuario: User;
   options: any;
   @Output()  edo: EventEmitter<string> = new EventEmitter<string>();
 
@@ -85,31 +81,10 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private router: Router, private ngZone: NgZone, 
-    private fileSrv: FilesService, private alert : AlertsService) {
-    this.usuario = JSON.parse(localStorage.getItem('user'));
-    if (this.usuario['partido'] === 'PAN') {
+  constructor(private router: Router, private ngZone: NgZone, private alert : AlertsService) {
       this.color = '#4c6a9b';
-    } else if (this.usuario['partido'] === 'MOR') {
-      this.color = '#af0d0d';
-    } else if (this.usuario['partido'] === 'PRI') {
-      this.color = '#5b9a52';
-    } else if (this.usuario['partido'] === 'MOC') {
-      this.color =  '#fc7f25';
-    } else{
-      this.color =  '#bf429b';
-    }
     sessionStorage.setItem('color', this.color)
-   // console.log(this.color)
-    const data = []
-     this.usuario.distritos.filter(es =>{
-       const dt = this.llavesEstado.find( t => t.value === es['estado']);
-       data.push(dt);
-    }, error =>{
-      this.loading = false;
-      this.alert.serverError();
-    }
-    );
+    const data = [ {"value":"HGO","id": "mx-hg"},    {"value":"OAX","id": "mx-oa"} ]
 
     this.mapData = data;    
     window['angularComponentRef'] = {component: this, zone: this.ngZone};
@@ -150,18 +125,6 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
             },
             point: {
               events: {
-
-                dblclick: (e)=> {
-                  this.loading =true;
-                  window['angularComponentRef'].zone.run(() => {
-                    if (e.point && e.point.value) {
-                      window['angularComponentRef'].component.navigate(e.point.value);
-
-                    }else{
-                      this.loading =false;
-                    }
-                  });
-                },
                 click: (e) => {
                   this.loading =true;
                   window['angularComponentRef'].zone.run(() => {
@@ -247,17 +210,6 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
           }]
         }
       };
-
-    //options.series.data = [...this.mapData];
-    //console.log('chart',this.options)
-    //this.options.tooltip['footerFormat'] = this.infoEstado.base +'Nominal';
-    //    '1,821,124<br>' +
-    //    '<b>Preocupaciones:<b><br>' +
-    //    'Violencia<br>' +
-    //    'Sequía<br>' +
-    //    'Corrupción<br>' +
-    //    'Ley Protección Animal<br>';
-    console.log(this.usuario['partido'],this.color)
     this.options.series[0].color = this.color;
   Highcharts.mapChart('mexico', this.options);
   }
@@ -265,31 +217,8 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   selected(id) {
     this.edo.emit(id);
     sessionStorage.setItem('estado',id); 
+    this.router.navigate(['distritos', '005']);
 
-      this.fileSrv.getInfoEstado(id).subscribe(info => {
-        if(info === null){
-          this.infoEstado =[];
-          this.loading = false;
-        }else{
-
-          this.infoEstado = info[0];
-          this.loading = false;
-        }
-      }, () =>{
-        this.loading = false;
-        this.alert.serverError();
-      });
-  }
-
-  navigate(edo){
-    let id;
-    this.usuario['distritos'].filter(es => {
-      if(edo === es.estado) {
-        id = es.distrito;
-        this.loading = false;
-        this.router.navigate(['distritos', id]);
-      }
-   })
 
   }
 
