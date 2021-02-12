@@ -48,3 +48,4 @@ V2.7 Los archivos que se muestran en la pantalla de inicio se agregan en /data/j
  V2.6 SE CREO EL ARCHIVO COA_DIS<clave_distrito>_PARTIDOS.js --> Contiene la información de los partidos en la pantalla partidos.
 
 # SE CREO LA PANTALLA 404 para cuando no existe informacion de partidos
+# map
