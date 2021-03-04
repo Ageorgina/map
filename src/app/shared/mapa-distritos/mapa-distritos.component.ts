@@ -23,7 +23,7 @@ highchartsCustomEvents(Highcharts);
 })
 export class MapaDistritosComponent implements OnInit, OnDestroy {
   distritos: any;
-  distritosMapas: any;
+  distritosMapas: any = [];
   estado: string;
   distValue: string;
   loading = true;
@@ -35,7 +35,7 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
       events: {
         load: function() {
         this.series[0].data.forEach(function(point) {
-            console.log(point)
+           //console.log(point)
             point.update({
               properties:{
                 "hc-middle-x":point.dataLabel.bBox.x,
@@ -123,17 +123,16 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   }
 
   async construirMapa(entidadesJSON) {
-    this.distValue = this.route.snapshot.params.id.replace(/\b0+/g, '') ;
-    this.distValue = this.distValue.replace(/\b0+/g, '') ;
-    this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe(distArr => {
+    this.distValue = this.route.snapshot.params.id ;
+    this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe((distArr: any) => {
+
       distArr.filter(dist => {
            if (dist[0] === this.distValue) {
              distArr = [dist];
              this.distritosMapas = distArr;
-             this.mapa.tooltip.headerFormat = 'Distrito:'+ '\xa0'+ this.route.snapshot.params.id;
              this.mapa.chart.map = entidadesJSON;
              this.mapa.series[0].data = this.distritosMapas;
-             Highcharts.mapChart('estado', this.mapa);
+             Highcharts.mapChart('distrito', this.mapa);
              this.loading = false;
            }
        });

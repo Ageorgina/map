@@ -15,24 +15,11 @@ noData(Highcharts);
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  estado = 'OAX';
-  sinInfo = false;
 
-
-
-
-  constructor( ){
-
-
-
-
+  constructor( ) {
   }
 
-
   ngOnInit() {}
-
-
-
 
 }
 

@@ -84,7 +84,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private ngZone: NgZone, private alert : AlertsService) {
       this.color = '#4c6a9b';
     sessionStorage.setItem('color', this.color)
-    const data = [ {"value":"HGO","id": "mx-hg"},    {"value":"OAX","id": "mx-oa"} ]
+    const data = [ {"value":"HGO","id": "mx-hg"},    {"value":"OAX","id": "mx-oa"},     {"value":"NAY","id": "mx-na"}, ]
 
     this.mapData = data;    
     window['angularComponentRef'] = {component: this, zone: this.ngZone};
@@ -217,7 +217,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   selected(id) {
     this.edo.emit(id);
     sessionStorage.setItem('estado',id); 
-    this.router.navigate(['distritos', '005']);
+    this.router.navigate(['distritos', '5']);
 
 
   }

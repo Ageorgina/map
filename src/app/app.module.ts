@@ -11,10 +11,8 @@ import { HttpClientModule} from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ChartModule } from 'angular-highcharts';
-import { CookieService } from 'ngx-cookie-service';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -34,7 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
 
   ],
-  providers: [CookieService ],
+  providers: [ ],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
