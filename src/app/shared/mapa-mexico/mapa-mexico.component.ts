@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import * as Highcharts from 'highcharts/highmaps';
 
 import customEvents from 'highcharts-custom-events';
-import { AlertsService } from '../../general/services/alerts.service';
+
 
 import { EventEmitter } from '@angular/core';
 
@@ -21,9 +21,6 @@ Boost(Highcharts);
 noData(Highcharts);
 More(Highcharts);
 noData(Highcharts);
-
-var $;
-var regex = /(\d+)/g;
 
 @Component({
   selector: 'app-mapa-mexico',
@@ -81,7 +78,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private router: Router, private ngZone: NgZone, private alert : AlertsService) {
+  constructor(private router: Router, private ngZone: NgZone) {
       this.color = '#4c6a9b';
     sessionStorage.setItem('color', this.color)
     const data = [ {"value":"HGO","id": "mx-hg"},    {"value":"OAX","id": "mx-oa"},     {"value":"NAY","id": "mx-na"}, ]
@@ -148,27 +145,6 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
             return '<br><b>Padrón</b><br> ';
         },
 
-          /*formatter: 
-            function(e){
-              console.log(e.chart.hoverPoint.value, this)
-                  window['angularComponentRef'].component.tooltipFormatter(e.chart.hoverPoint.value);
-                 // return '<br><b>Padrón</b><br> '
-              
-            }
-          ,*/
-
-//          headerFormat: '<br><b>Padrón</b><br> ',
-/*          pointFormat: '1,827,129<br>' +
-             '<b>Nominal<b><br>' +
-             '1,821,124<br>' +
-             '<br>' +
-             '<b>__________________________________<b><br>' +
-             '<b>Preocupaciones:<b><br>' +
-             'Violencia<br>' +
-             'Sequía<br>' +
-             'Corrupción<br>' +
-             'Ley Protección Animal<br>',
-          footerFormat: 'Todos por Saltillo<br>' + 'Echado pa´delante<br>'*/
         },
         series: [{
           name: 'MX',

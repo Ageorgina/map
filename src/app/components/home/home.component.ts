@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -15,11 +15,7 @@ noData(Highcharts);
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor( ) {
-  }
-
-  ngOnInit() {}
+  ngOnInit() { console.log('entro')}
 
 }
 

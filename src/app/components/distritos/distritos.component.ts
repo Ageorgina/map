@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import * as Highcharts from 'highcharts';
 
 declare var require: any;
@@ -17,12 +17,10 @@ noData(Highcharts);
   styleUrls: ['./distritos.component.scss']
 })
 export class DistritosComponent implements OnInit {
-  constructor(  ) {
-  }
 
 
   ngOnInit() {
-
+    console.log('entro')
   }
 
 
