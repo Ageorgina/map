@@ -25,7 +25,7 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   distritos: any;
   distritosMapas: any = [];
   estado: string;
-  distValue: string;
+  distValue: any = [];
   loading = true;
   color = sessionStorage.getItem('color');
   @Output()  dis: EventEmitter<string> = new EventEmitter<string>();
@@ -123,19 +123,11 @@ export class MapaDistritosComponent implements OnInit, OnDestroy {
   }
 
   async construirMapa(entidadesJSON) {
-    this.distValue = this.route.snapshot.params.id ;
     this.mapaSrv.getInfoMapaDistritos(this.estado).subscribe((distArr: any) => {
-
-      distArr.filter(dist => {
-           if (dist[0] === this.distValue) {
-             distArr = [dist];
-             this.distritosMapas = distArr;
-             this.mapa.chart.map = entidadesJSON;
-             this.mapa.series[0].data = this.distritosMapas;
-             Highcharts.mapChart('distrito', this.mapa);
-             this.loading = false;
-           }
-       });
+      this.mapa.series[0].data = distArr;
+      this.mapa.chart.map = entidadesJSON;
+      Highcharts.mapChart('distrito', this.mapa);
+      this.loading = false;
     });
 
   }

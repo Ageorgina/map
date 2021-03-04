@@ -217,7 +217,7 @@ export class MapaMexicoComponent implements OnInit, OnDestroy {
   selected(id) {
     this.edo.emit(id);
     sessionStorage.setItem('estado',id); 
-    this.router.navigate(['distritos', '5']);
+    this.router.navigate(['distritos']);
 
 
   }
